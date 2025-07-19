@@ -1,3 +1,5 @@
+import FileUpload from "@/components/FileUpload";
+
 export default function Home() {
   return (
     <main className="min-h-screen bg-gray-50 py-8">
@@ -7,6 +9,7 @@ export default function Home() {
         </h1>
         <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6">
           {/* Контейнер за съдържанието */}
+          <FileUpload />
         </div>
       </div>
     </main>
