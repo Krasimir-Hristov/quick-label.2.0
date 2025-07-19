@@ -17,8 +17,18 @@ export default function Label({ data }: LabelProps) {
 
     return (
       <>
-        <span className="text-8xl">{integerPart}</span>
-        <span className="text-8xl">,{decimalPart}€</span>
+        <span 
+          className="font-bold text-black leading-none"
+          style={{ fontSize: '5.7rem' }}
+        >
+          {integerPart}
+        </span>
+        <span 
+          className="font-bold text-black leading-none"
+          style={{ fontSize: '5.7rem' }}
+        >
+          ,{decimalPart}€
+        </span>
       </>
     );
   };
