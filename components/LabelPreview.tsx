@@ -7,19 +7,13 @@ interface LabelPreviewProps {
 }
 
 const LabelPreview: React.FC<LabelPreviewProps> = ({ labelData }) => {
-  console.log("LabelPreview получи данни:", labelData);
-  console.log("LabelPreview - брой елементи:", labelData ? labelData.length : 'undefined');
-  
   if (!labelData || labelData.length === 0) {
-    console.log("LabelPreview показва 'няма данни' съобщение");
     return (
       <div className="text-center text-gray-500 py-8">
         <p>Няма данни за показване. Моля, качете Excel файл с продукти.</p>
       </div>
     );
   }
-  
-  console.log("LabelPreview ще рендира", labelData.length, "етикета");
 
   return (
     <div className="w-full">

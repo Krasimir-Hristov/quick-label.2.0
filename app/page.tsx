@@ -11,11 +11,7 @@ export default function Home() {
 
   // Функция за обновяване на състоянието с нови данни
   const handleDataParsed = (data: LabelData[]) => {
-    console.log("Данните пристигнаха в Home компонента:", data);
-    console.log("Брой елементи в Home:", data.length);
-    console.log("Преди setLabelData - текущо labelData.length:", labelData.length);
     setLabelData(data);
-    console.log("След setLabelData - ново labelData.length:", data.length);
   };
 
   return (
@@ -30,8 +26,11 @@ export default function Home() {
           <FileUpload onDataParsed={handleDataParsed} />
         </div>
         
-        {/* LabelPreview ще се покаже, когато labelData се промени */}
-        <div className="max-w-7xl mx-auto">
+        {/* Лист хартия с етикети - същият цвят като етикетите */}
+        <div 
+          className="max-w-7xl mx-auto p-8 rounded-lg"
+          style={{ backgroundColor: 'rgb(249, 165, 37)' }}
+        >
           <LabelPreview labelData={labelData} />
         </div>
       </div>

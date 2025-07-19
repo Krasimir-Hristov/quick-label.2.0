@@ -38,16 +38,10 @@ export default function FileUpload({ onDataParsed }: FileUploadProps) {
         // Конвертираме в JSON
         const jsonData = XLSX.utils.sheet_to_json(worksheet);
         
-        console.log("Excel данни в JSON формат:", jsonData);
-        console.log("Брой редове:", jsonData.length);
-        
         // Парсваме данните с нашата функция
         const parsedData = parseExcelData(jsonData);
-        console.log("Парсвани данни:", parsedData);
-        console.log("Брой парсвани елементи:", parsedData.length);
         
         // Предаваме данните към родителския компонент
-        console.log("Извиквам onDataParsed с данни:", parsedData);
         onDataParsed(parsedData);
         
       } catch (error) {
