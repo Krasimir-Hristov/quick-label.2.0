@@ -37,14 +37,14 @@ export default function Label({ data }: LabelProps) {
           {/* Pink Arrow */}
           <div className="flex-shrink-0 pt-1">
             <svg 
-              width="16" 
-              height="24" 
-              viewBox="0 0 20 28" 
+              width="20" 
+              height="40" 
+              viewBox="0 0 20 36" 
               fill="none" 
               xmlns="http://www.w3.org/2000/svg"
             >
               <path 
-                d="M10 28L0 14L5 14L5 0L15 0L15 14L20 14L10 28Z" 
+                d="M10 36L0 22L5 22L5 0L15 0L15 22L20 22L10 36Z" 
                 fill="rgb(237, 28, 138)"
               />
             </svg>
@@ -53,7 +53,7 @@ export default function Label({ data }: LabelProps) {
           {/* Product Name */}
           <div className="text-left">
             <h2 
-              className="text-xl font-bold leading-tight break-words"
+              className="text-xl font-bold leading-tight text-center break-words"
               style={{ color: 'rgb(146 40 143)' }}
             >
               {data.artikelbezeichnung}
