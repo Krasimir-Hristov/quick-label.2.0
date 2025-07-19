@@ -1,8 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import * as XLSX from "xlsx";
+import { LabelData } from "@/types";
+import { parseExcelData } from "@/lib/utils";
 
-export default function FileUpload() {
+interface FileUploadProps {
+  onDataParsed: (data: LabelData[]) => void;
+}
+
+export default function FileUpload({ onDataParsed }: FileUploadProps) {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,6 +40,15 @@ export default function FileUpload() {
         
         console.log("Excel данни в JSON формат:", jsonData);
         console.log("Брой редове:", jsonData.length);
+        
+        // Парсваме данните с нашата функция
+        const parsedData = parseExcelData(jsonData);
+        console.log("Парсвани данни:", parsedData);
+        console.log("Брой парсвани елементи:", parsedData.length);
+        
+        // Предаваме данните към родителския компонент
+        console.log("Извиквам onDataParsed с данни:", parsedData);
+        onDataParsed(parsedData);
         
       } catch (error) {
         console.error("Грешка при четене на файла:", error);

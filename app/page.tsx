@@ -1,13 +1,21 @@
 'use client';
 
+import { useState } from "react";
 import FileUpload from "@/components/FileUpload";
-import Label from "@/components/Label";
+import LabelPreview from "@/components/LabelPreview";
+import { LabelData } from "@/types";
 
 export default function Home() {
-  // Тестови данни за визуализация на етикета
-  const testLabelData = {
-    artikelbezeichnung: "Whiskas Adult Lachs & Thunfisch 400g",
-    verkaufspreis: 25.99
+  // State за съхраняване на парсваните данни от Excel файла
+  const [labelData, setLabelData] = useState<LabelData[]>([]);
+
+  // Функция за обновяване на състоянието с нови данни
+  const handleDataParsed = (data: LabelData[]) => {
+    console.log("Данните пристигнаха в Home компонента:", data);
+    console.log("Брой елементи в Home:", data.length);
+    console.log("Преди setLabelData - текущо labelData.length:", labelData.length);
+    setLabelData(data);
+    console.log("След setLabelData - ново labelData.length:", data.length);
   };
 
   return (
@@ -17,17 +25,14 @@ export default function Home() {
           Генератор на етикети
         </h1>
         
-        {/* Тестов етикет за визуализация */}
-        <div className="mb-8 flex justify-center">
-          <div>
-            <h2 className="text-lg font-semibold mb-4 text-center">Преглед на етикет:</h2>
-            <Label data={testLabelData} />
-          </div>
+        <div className="max-w-xl mx-auto bg-white rounded-lg shadow-md p-6 mb-8">
+          {/* Подаваме функцията на FileUpload */}
+          <FileUpload onDataParsed={handleDataParsed} />
         </div>
         
-        <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6">
-          {/* Контейнер за съдържанието */}
-          <FileUpload />
+        {/* LabelPreview ще се покаже, когато labelData се промени */}
+        <div className="max-w-7xl mx-auto">
+          <LabelPreview labelData={labelData} />
         </div>
       </div>
     </main>
