@@ -25,7 +25,7 @@ export default function Label({ data }: LabelProps) {
   
   return (
     <div 
-      className="relative w-full max-w-xs mx-auto border-4 rounded-lg overflow-hidden flex flex-col" 
+      className="relative w-full max-w-xs mx-auto border-4 rounded-none overflow-hidden flex flex-col" 
       style={{ 
         backgroundColor: 'rgb(249, 165, 37)',
         borderColor: 'rgb(128, 128, 128)',
