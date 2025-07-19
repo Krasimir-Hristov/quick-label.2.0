@@ -17,8 +17,8 @@ export default function Label({ data }: LabelProps) {
 
     return (
       <>
-        {integerPart}
-        <span className="text-7xl">,{decimalPart}€</span>
+        <span className="text-8xl">{integerPart}</span>
+        <span className="text-8xl">,{decimalPart}€</span>
       </>
     );
   };
@@ -80,10 +80,10 @@ export default function Label({ data }: LabelProps) {
         </div>
 
         {/* Price Section - Pushed to the bottom */}
-        <div className="mt-auto text-center pb-2">
+        <div className="mt-auto text-center pb-2 px-2">
           <span 
             className="font-bold text-black leading-none"
-            style={{ fontSize: '7rem', letterSpacing: '-0.07em' }}
+            style={{ fontSize: '5.5rem', letterSpacing: '-0.05em' }}
           >
             {formatPrice(data.verkaufspreis)}
           </span>
