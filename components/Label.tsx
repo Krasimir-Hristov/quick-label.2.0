@@ -39,7 +39,7 @@ export default function Label({ data }: LabelProps) {
   
   return (
     <div 
-      className="relative w-full max-w-xs mx-auto border-4 rounded-none overflow-hidden flex flex-col" 
+      className="relative w-full aspect-[4/4] border-4 rounded-none overflow-hidden flex flex-col" 
       style={{ 
         backgroundColor: 'rgb(249, 165, 37)',
         borderColor: 'rgb(128, 128, 128)',
@@ -76,32 +76,34 @@ export default function Label({ data }: LabelProps) {
         </div>
       </div>
 
-      {/* Content Container - Takes the remaining space */}
-      <div className="px-4 py-2 flex-1 flex flex-col">
-        {/* APP VORTEIL Badge */}
-        <div className="text-center mt-2">
-          <div className="bg-black text-white font-bold tracking-wider py-2 px-4 inline-block rounded-full">
-            <span className="text-4xl whitespace-nowrap">APP VORTEIL</span>
+      {/* === ГЛАВЕН КОНТЕЙНЕР ЗА СЪДЪРЖАНИЕТО === */}
+      <div className="px-2 py-1 flex-1 flex flex-col">
+
+        {/* === СРЕДЕН БЛОК === */}
+        <div className="flex-1 flex flex-col justify-center space-y-0">
+          <div className="text-center"> {/* "APP VORTEIL" бадж - залепен за горния border */}
+            <div className="bg-black text-white font-bold tracking-wider py-1 px-3 inline-block rounded-full">
+              <span className="text-3xl whitespace-nowrap">APP VORTEIL</span>
+            </div>
+          </div>
+          <div className="text-center"> {/* "DEIN PREIS" текст - залепен до горния текст */}
+            <p className="text-black text-lg font-bold leading-none mt-1">
+              DEIN PREIS MIT DER<br />
+              <span className="text-2xl font-bold">KÖLLE ZOO APP</span>
+            </p>
           </div>
         </div>
-
-        {/* Description Text */}
-        <div className="text-center mt-2">
-          <p className="text-black text-2xl font-bold leading-tight">
-            DEIN PREIS MIT DER<br />
-            <span className="text-3xl font-bold">KÖLLE ZOO APP</span>
-          </p>
-        </div>
-
-        {/* Price Section - Pushed to the bottom */}
-        <div className="mt-auto text-center pb-2 px-2">
+        
+        {/* === ДОЛЕН БЛОК (ЦЕНА) === */}
+        <div className="text-center -mt-2"> {/* Цена - залепена до горния текст */}
           <span 
             className="font-bold text-black leading-none"
-            style={{ fontSize: '5.5rem', letterSpacing: '-0.05em' }}
+            style={{ fontSize: '4rem', letterSpacing: '-0.05em' }}
           >
             {formatPrice(data.verkaufspreis)}
           </span>
         </div>
+
       </div>
     </div>
   );
