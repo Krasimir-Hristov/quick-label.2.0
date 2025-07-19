@@ -17,19 +17,20 @@ const LabelPreview: React.FC<LabelPreviewProps> = ({ labelData }) => {
 
   return (
     <div className="w-full">
-      <div className="mb-4">
+      {/* Скриваме и това заглавие при печат */}
+      <div className="mb-4 print-hide">
         <h2 className="text-2xl font-bold text-gray-800">
           Преглед на етикети ({labelData.length} продукта)
         </h2>
       </div>
       
-      {/* CSS Grid с точно 4 колони на ред - без интервали за лесно рязане */}
-      <div className="grid grid-cols-4 gap-4">
+      {/* Прилагаме класа, който ще се активира при печат */}
+      <div className="grid grid-cols-4 gap-4 print-grid-3-cols">
         {labelData.map((item, index) => (
-          <Label
-            key={`${item.artikelbezeichnung}-${index}`}
-            data={item}
-          />
+          // Прилагаме класа за избягване на "рязане"
+          <div key={`${item.artikelbezeichnung}-${index}`} className="print-item-no-break">
+            <Label data={item} />
+          </div>
         ))}
       </div>
     </div>

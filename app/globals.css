@@ -120,3 +120,59 @@
     @apply bg-background text-foreground;
   }
 }
+
+@media print {
+  /* Този клас ще скрие всичко, на което го сложим */
+  .print-hide {
+    display: none !important;
+  }
+
+  /* Този клас ще нулира стиловете на нашия "лист хартия" */
+  .print-container {
+    padding: 0 !important;
+    margin: 0 !important;
+    background: none !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  /* Този клас ще накара решетката да е с 3 колони при печат */
+  .print-grid-3-cols {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 0 !important;
+  }
+  
+  /* ПО-АГРЕСИВНИ СЕЛЕКТОРИ ЗА 3 КОЛОНИ */
+  div.grid.grid-cols-4.gap-4.print-grid-3-cols,
+  .grid.grid-cols-4.print-grid-3-cols,
+  .grid-cols-4.print-grid-3-cols,
+  .grid.print-grid-3-cols {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 0 !important;
+  }
+  
+  /* ОЩЕ ПО-АГРЕСИВНО - всички grid-cols-4 класове */
+  .grid-cols-4 {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+  
+  /* ЯДРЕНА ОПЦИЯ - всички гридове стават 3 колони */
+  html body main div div.grid,
+  body main div div.grid,
+  main div div.grid,
+  div.grid,
+  .grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 0 !important;
+  }
+  
+  /* Премахване на всички gap класове */
+  .gap-1, .gap-2, .gap-3, .gap-4, .gap-5, .gap-6 {
+    gap: 0 !important;
+  }
+
+  /* Този клас ще се опита да не "реже" етикетите по средата */
+  .print-item-no-break {
+    break-inside: avoid;
+  }
+}
