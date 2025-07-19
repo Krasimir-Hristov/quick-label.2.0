@@ -138,16 +138,20 @@
     grid-template-columns: repeat(4, 1fr) !important;
     /* ПРОМЯНА: Нулираме разстоянието */
     gap: 0 !important;
-    /* 1. Компенсираме контейнера за бъдещото дърпане */
+    /* 1. Компенсираме контейнера от всички страни за бъдещото дърпане */
     padding-top: 4px !important;
     padding-left: 4px !important;
+    padding-right: 4px !important;
+    padding-bottom: 4px !important;
   }
 
   /* 3. Предотвратяваме "рязането" на етикети между страниците */
   .print-item-no-break {
     break-inside: avoid;
-    /* 2. Дърпаме всеки етикет нагоре и наляво, за да припокрие рамката */
+    /* 2. Дърпаме всеки етикет от всички страни, за да слее всички граници */
     margin-top: -4px !important;
     margin-left: -4px !important;
+    margin-right: -4px !important;
+    margin-bottom: -4px !important;
   }
 }
