@@ -11,21 +11,25 @@ interface LabelProps {
 export default function Label({ data }: LabelProps) {
   // Функция за форматиране на цената, за да е по-чисто в JSX-а
   const formatPrice = (price: number) => {
-    // Форматираме до 2 знака и заменяме точката със запетая
+    // Форматираме до 2 знака и заменяваме точката със запетая
     const formattedPrice = price.toFixed(2).replace('.', ',');
     const [integerPart, decimalPart] = formattedPrice.split(',');
+    
+    // Проверяваме дали цялата част има 3 или повече цифри (напр. 100+)
+    const isLargePrice = integerPart.length >= 3;
+    const fontSize = isLargePrice ? '4.5rem' : '5.7rem'; // По-малък шрифт за големи цени
 
     return (
       <>
         <span 
           className="font-bold text-black leading-none"
-          style={{ fontSize: '5.7rem' }}
+          style={{ fontSize }}
         >
           {integerPart}
         </span>
         <span 
           className="font-bold text-black leading-none"
-          style={{ fontSize: '5.7rem' }}
+          style={{ fontSize }}
         >
           ,{decimalPart}€
         </span>
