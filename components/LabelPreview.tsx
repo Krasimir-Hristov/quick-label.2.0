@@ -24,7 +24,7 @@ const LabelPreview: React.FC<LabelPreviewProps> = ({ labelData }) => {
       </div>
       
       {/* CSS Grid с точно 4 колони на ред - без интервали за лесно рязане */}
-      <div className="grid grid-cols-4">
+      <div className="grid grid-cols-4 gap-4">
         {labelData.map((item, index) => (
           <Label
             key={`${item.artikelbezeichnung}-${index}`}
