@@ -17,7 +17,7 @@ export default function Label({ data }: LabelProps) {
     
     // Проверяваме дали цялата част има 3 или повече цифри (напр. 100+)
     const isLargePrice = integerPart.length >= 3;
-    const fontSize = isLargePrice ? '4.5rem' : '5.7rem'; // По-малък шрифт за големи цени
+    const fontSize = isLargePrice ? '4.7rem' : '5.5rem'; // По-малък шрифт за големи цени
 
     return (
       <>
