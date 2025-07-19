@@ -81,7 +81,7 @@ export default function Label({ data }: LabelProps) {
         {/* APP VORTEIL Badge */}
         <div className="text-center mt-2">
           <div className="bg-black text-white font-bold tracking-wider py-2 px-4 inline-block rounded-full">
-            <span className="text-4xl">APP VORTEIL</span>
+            <span className="text-4xl whitespace-nowrap">APP VORTEIL</span>
           </div>
         </div>
 
