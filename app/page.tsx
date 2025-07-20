@@ -47,12 +47,12 @@ export default function Home() {
   });
 
   return (
-    <main className="min-h-screen bg-gray-50 py-8">
+    <main className="min-h-screen bg-black py-8">
       <div className="container mx-auto px-4">
 
         {/* Обвиваме всичко ненужно в този div */}
         <div className="print-hide">
-          <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">
+          <h1 className="text-3xl font-bold text-center text-white mb-8">
             Etiketten-Generator
           </h1>
           
@@ -111,7 +111,7 @@ export default function Home() {
         <div 
           ref={printRef}
           className="max-w-7xl mx-auto p-8 rounded-lg print-container"
-          style={{ backgroundColor: 'rgb(249, 165, 37)' }}
+          style={{ backgroundColor: '#a8c706' }}
         >
           <LabelPreview labelData={labelData} />
         </div>
