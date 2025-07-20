@@ -31,7 +31,7 @@ export default function Home() {
   // Функция за принтиране на етикетите
   const handlePrint = useReactToPrint({
     contentRef: printRef,
-    documentTitle: 'Етикети за продукти',
+    documentTitle: 'Produktetiketten',
     pageStyle: `
       @page {
         size: A4;
