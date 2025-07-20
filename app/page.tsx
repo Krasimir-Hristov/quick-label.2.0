@@ -52,7 +52,7 @@ export default function Home() {
 
         {/* Обвиваме всичко ненужно в този div */}
         <div className="print-hide">
-          <h1 className="text-3xl font-bold text-center text-white mb-8">
+          <h1 className="text-3xl font-bold text-center text-[#a8c706] mb-8">
             Etiketten-Generator
           </h1>
           
