@@ -106,7 +106,7 @@ const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(({ onDataParsed, h
   };
 
   return (
-    <div className="space-y-4 ">
+    <div className="space-y-4">
       <div className="flex flex-col space-y-2">
         <label htmlFor="file-upload" className="text-xl text-center font-bold  text-black">
           Excel-Datei auswählen
