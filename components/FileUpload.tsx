@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Loader2 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect, useImperativeHandle, forwardRef, useRef } from "react";
 import * as XLSX from "xlsx";
 import { LabelData } from "@/types";
 import { parseExcelData } from "@/lib/utils";
@@ -10,10 +10,33 @@ interface FileUploadProps {
   onDataParsed: (data: LabelData[]) => void;
 }
 
-export default function FileUpload({ onDataParsed }: FileUploadProps) {
+export interface FileUploadRef {
+  clearFile: () => void;
+}
+
+const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(({ onDataParsed }, ref) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  
+  // Ref за input елемента
+  const inputRef = useRef<HTMLInputElement>(null);
+  
+  // Функция за изчистване на файла
+  const clearFile = () => {
+    setSelectedFile(null);
+    setError(null);
+    setIsLoading(false);
+    // Изчистваме и input полето
+    if (inputRef.current) {
+      inputRef.current.value = '';
+    }
+  };
+  
+  // Предоставяме clearFile функцията на родителския компонент
+  useImperativeHandle(ref, () => ({
+    clearFile
+  }));
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -88,6 +111,7 @@ export default function FileUpload({ onDataParsed }: FileUploadProps) {
           Избери Excel файл
         </label>
         <input
+          ref={inputRef}
           id="file-upload"
           type="file"
           accept=".xlsx,.xls"
@@ -117,4 +141,8 @@ export default function FileUpload({ onDataParsed }: FileUploadProps) {
       )}
     </div>
   );
-}
+});
+
+FileUpload.displayName = "FileUpload";
+
+export default FileUpload;

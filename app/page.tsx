@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import { useReactToPrint } from 'react-to-print';
-import FileUpload from "@/components/FileUpload";
+import FileUpload, { FileUploadRef } from "@/components/FileUpload";
 import LabelPreview from "@/components/LabelPreview";
 import { LabelData } from "@/types";
 
@@ -12,10 +12,20 @@ export default function Home() {
   
   // Ref за контейнера с етикетите за принтиране
   const printRef = useRef<HTMLDivElement>(null);
+  
+  // Ref за FileUpload компонента
+  const fileUploadRef = useRef<FileUploadRef>(null);
 
   // Функция за обновяване на състоянието с нови данни
   const handleDataParsed = (data: LabelData[]) => {
     setLabelData(data);
+  };
+  
+  // Функция за изчистване на всички етикети и файла
+  const handleClear = () => {
+    setLabelData([]);
+    // Изчистваме и избрания файл
+    fileUploadRef.current?.clearFile();
   };
   
   // Функция за принтиране на етикетите
@@ -47,12 +57,12 @@ export default function Home() {
           </h1>
           
           <div className="max-w-xl mx-auto bg-white rounded-lg shadow-md p-6 mb-8">
-            {/* Подаваме функцията на FileUpload */}
-            <FileUpload onDataParsed={handleDataParsed} />
+            {/* Подаваме функцията и ref на FileUpload */}
+            <FileUpload ref={fileUploadRef} onDataParsed={handleDataParsed} />
             
-            {/* Бутон за принтиране - показва се само ако има данни */}
+            {/* Бутони - показват се само ако има данни */}
             {labelData.length > 0 && (
-              <div className="mt-6 text-center">
+              <div className="mt-6 text-center space-y-3">
                 <button
                   onClick={handlePrint}
                   className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-colors duration-200 flex items-center justify-center mx-auto gap-2 cursor-pointer"
@@ -72,7 +82,26 @@ export default function Home() {
                   </svg>
                   Принтирай етикети
                 </button>
-                {/* Тук ще са и другите бутони от Фаза 3.3 и 4.3 */}
+                
+                <button
+                  onClick={handleClear}
+                  className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-colors duration-200 flex items-center justify-center mx-auto gap-2 cursor-pointer"
+                >
+                  <svg 
+                    className="w-4 h-4" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      strokeWidth={2} 
+                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" 
+                    />
+                  </svg>
+                  Изчисти всичко
+                </button>
               </div>
             )}
           </div>
