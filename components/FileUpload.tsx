@@ -60,7 +60,7 @@ const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(({ onDataParsed },
     // Проверка за типа на файла
     const fileExtension = selectedFile.name.toLowerCase().split('.').pop();
     if (fileExtension !== 'xlsx' && fileExtension !== 'xls') {
-      setError("Моля, изберете валиден Excel файл (.xlsx или .xls).");
+      setError("Bitte wählen Sie eine gültige Excel-Datei (.xlsx oder .xls).");
       setIsLoading(false);
       return;
     }
@@ -84,7 +84,7 @@ const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(({ onDataParsed },
         
         // Проверяваме дали има парсирани данни
         if (parsedData.length === 0) {
-          setError("Файлът не съдържа необходимите колони 'Artikelbezeichnung' и 'Verkaufspreis\r\nKölle-Zoo' или няма валидни данни.");
+          setError("Die Datei enthält nicht die erforderlichen Spalten 'Artikelbezeichnung' und 'Verkaufspreis\r\nKölle-Zoo' oder enthält keine gültigen Daten.");
           setIsLoading(false);
           return;
         }
@@ -94,7 +94,7 @@ const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(({ onDataParsed },
         
       } catch (error) {
         console.error("Грешка при четене на файла:", error);
-        setError("Възникна грешка при обработката на файла. Проверете структурата му.");
+        setError("Fehler beim Verarbeiten der Datei. Bitte überprüfen Sie die Dateistruktur.");
       } finally {
         // Спираме зареждането винаги след края на операцията
         setIsLoading(false);
@@ -108,7 +108,7 @@ const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(({ onDataParsed },
     <div className="space-y-4">
       <div className="flex flex-col space-y-2">
         <label htmlFor="file-upload" className="text-sm font-medium text-gray-700">
-          Избери Excel файл
+          Excel-Datei auswählen
         </label>
         <input
           ref={inputRef}
@@ -132,11 +132,11 @@ const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(({ onDataParsed },
         className="w-full cursor-pointer"
       >
         {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-        {isLoading ? "Обработва се..." : "Качи файл"}
+        {isLoading ? "Wird verarbeitet..." : "Datei hochladen"}
       </Button>
       {selectedFile && (
         <p className="text-sm text-gray-600">
-          Избран файл: {selectedFile.name}
+          Ausgewählte Datei: {selectedFile.name}
         </p>
       )}
     </div>

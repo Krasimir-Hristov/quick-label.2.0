@@ -53,7 +53,7 @@ export default function Home() {
         {/* Обвиваме всичко ненужно в този div */}
         <div className="print-hide">
           <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">
-            Генератор на етикети
+            Etiketten-Generator
           </h1>
           
           <div className="max-w-xl mx-auto bg-white rounded-lg shadow-md p-6 mb-8">
@@ -80,7 +80,7 @@ export default function Home() {
                       d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" 
                     />
                   </svg>
-                  Принтирай етикети
+                  Etiketten drucken
                 </button>
                 
                 <button
@@ -100,7 +100,7 @@ export default function Home() {
                       d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" 
                     />
                   </svg>
-                  Изчисти всичко
+                  Alles löschen
                 </button>
               </div>
             )}

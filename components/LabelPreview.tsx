@@ -10,7 +10,7 @@ const LabelPreview: React.FC<LabelPreviewProps> = ({ labelData }) => {
   if (!labelData || labelData.length === 0) {
     return (
       <div className="text-center text-gray-500 py-8">
-        <p>Няма данни за показване. Моля, качете Excel файл с продукти.</p>
+        <p>Keine Daten zum Anzeigen. Bitte laden Sie eine Excel-Datei mit Produkten hoch.</p>
       </div>
     );
   }
@@ -20,7 +20,7 @@ const LabelPreview: React.FC<LabelPreviewProps> = ({ labelData }) => {
       {/* Скриваме и това заглавие при печат */}
       <div className="mb-4 print-hide">
         <h2 className="text-2xl font-bold text-gray-800">
-          Преглед на етикети ({labelData.length} продукта)
+          Etikettenvorschau ({labelData.length} Produkte)
         </h2>
       </div>
       
