@@ -8,13 +8,14 @@ import { parseExcelData } from "@/lib/utils";
 
 interface FileUploadProps {
   onDataParsed: (data: LabelData[]) => void;
+  hasLabelData: boolean;
 }
 
 export interface FileUploadRef {
   clearFile: () => void;
 }
 
-const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(({ onDataParsed }, ref) => {
+const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(({ onDataParsed, hasLabelData }, ref) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -128,8 +129,8 @@ const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(({ onDataParsed },
       
       <Button 
         onClick={handleUpload}
-        disabled={!selectedFile || isLoading}
-        className="w-full cursor-pointer text-xl font-bold bg-black text-[#a8c706] hover:bg-white"
+        disabled={!selectedFile || isLoading || hasLabelData}
+        className="w-full cursor-pointer text-xl font-bold bg-black text-[#a8c706] hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
         {isLoading ? "Wird verarbeitet..." : "Datei hochladen"}

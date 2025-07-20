@@ -57,8 +57,12 @@ export default function Home() {
           </h1>
           
           <div className="max-w-xl mx-auto bg-white rounded-lg shadow-md p-6 mb-8">
-            {/* Подаваме функцията и ref на FileUpload */}
-            <FileUpload ref={fileUploadRef} onDataParsed={handleDataParsed} />
+            {/* Подаваме функцията, ref и състоянието за данните на FileUpload */}
+            <FileUpload 
+              ref={fileUploadRef} 
+              onDataParsed={handleDataParsed} 
+              hasLabelData={labelData.length > 0}
+            />
             
             {/* Бутони - показват се само ако има данни */}
             {labelData.length > 0 && (
