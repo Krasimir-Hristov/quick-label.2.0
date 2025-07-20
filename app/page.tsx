@@ -5,6 +5,7 @@ import { useReactToPrint } from 'react-to-print';
 import FileUpload, { FileUploadRef } from "@/components/FileUpload";
 import LabelPreview from "@/components/LabelPreview";
 import { LabelData } from "@/types";
+import {  Carrot, Mouse, Rabbit   } from "lucide-react";
 
 export default function Home() {
   // State за съхраняване на парсваните данни от Excel файла
@@ -52,9 +53,17 @@ export default function Home() {
 
         {/* Обвиваме всичко ненужно в този div */}
         <div className="print-hide">
-          <h1 className="text-3xl font-bold text-center text-[#a8c706] mb-8">
+          <h1 className="text-6xl font-bold text-center text-[#a8c706] mb-8">
             Etiketten-Generator
           </h1>
+         <div className="flex justify-center space-x-1">
+         <div>
+            <Rabbit size={200} className="text-[#a8c706]"  />
+          </div>
+          <div>
+            <Carrot size={100} className="text-[#a8c706]"  />
+          </div>
+         </div>
           
           <div className="max-w-xl mx-auto bg-white rounded-lg shadow-md p-6 mb-8">
             {/* Подаваме функцията, ref и състоянието за данните на FileUpload */}
@@ -63,6 +72,7 @@ export default function Home() {
               onDataParsed={handleDataParsed} 
               hasLabelData={labelData.length > 0}
             />
+            
             
             {/* Бутони - показват се само ако има данни */}
             {labelData.length > 0 && (
@@ -106,9 +116,12 @@ export default function Home() {
                   </svg>
                   Alles löschen
                 </button>
+                
               </div>
+              
             )}
           </div>
+          
         </div>
 
         {/* Тук е нашият "лист хартия" - добавяме му print-container клас */}
