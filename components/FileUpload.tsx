@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import * as XLSX from "xlsx";
 import { LabelData } from "@/types";
@@ -12,6 +13,7 @@ interface FileUploadProps {
 export default function FileUpload({ onDataParsed }: FileUploadProps) {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -23,9 +25,12 @@ export default function FileUpload({ onDataParsed }: FileUploadProps) {
   const handleUpload = () => {
     // Изчистваме старата грешка
     setError(null);
+    // Задаваме състояние на зареждане
+    setIsLoading(true);
     
     if (!selectedFile) {
       console.log("Няма избран файл");
+      setIsLoading(false);
       return;
     }
 
@@ -33,6 +38,7 @@ export default function FileUpload({ onDataParsed }: FileUploadProps) {
     const fileExtension = selectedFile.name.toLowerCase().split('.').pop();
     if (fileExtension !== 'xlsx' && fileExtension !== 'xls') {
       setError("Моля, изберете валиден Excel файл (.xlsx или .xls).");
+      setIsLoading(false);
       return;
     }
 
@@ -56,6 +62,7 @@ export default function FileUpload({ onDataParsed }: FileUploadProps) {
         // Проверяваме дали има парсирани данни
         if (parsedData.length === 0) {
           setError("Файлът не съдържа необходимите колони 'Artikelbezeichnung' и 'Verkaufspreis\r\nKölle-Zoo' или няма валидни данни.");
+          setIsLoading(false);
           return;
         }
         
@@ -65,6 +72,9 @@ export default function FileUpload({ onDataParsed }: FileUploadProps) {
       } catch (error) {
         console.error("Грешка при четене на файла:", error);
         setError("Възникна грешка при обработката на файла. Проверете структурата му.");
+      } finally {
+        // Спираме зареждането винаги след края на операцията
+        setIsLoading(false);
       }
     };
     
@@ -94,10 +104,11 @@ export default function FileUpload({ onDataParsed }: FileUploadProps) {
       
       <Button 
         onClick={handleUpload}
-        disabled={!selectedFile}
-        className="w-full"
+        disabled={!selectedFile || isLoading}
+        className="w-full cursor-pointer"
       >
-        Качи файл
+        {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+        {isLoading ? "Обработва се..." : "Качи файл"}
       </Button>
       {selectedFile && (
         <p className="text-sm text-gray-600">

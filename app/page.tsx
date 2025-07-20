@@ -55,7 +55,7 @@ export default function Home() {
               <div className="mt-6 text-center">
                 <button
                   onClick={handlePrint}
-                  className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-colors duration-200 flex items-center justify-center mx-auto gap-2"
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-colors duration-200 flex items-center justify-center mx-auto gap-2 cursor-pointer"
                 >
                   <svg 
                     className="w-5 h-5" 
