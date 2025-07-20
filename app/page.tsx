@@ -65,7 +65,7 @@ export default function Home() {
               <div className="mt-6 text-center space-y-3">
                 <button
                   onClick={handlePrint}
-                  className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-colors duration-200 flex items-center justify-center mx-auto gap-2 cursor-pointer"
+                  className="bg-black hover:bg-white text-lg text-[#a8c706] font-semibold py-3 px-6 rounded-lg shadow-md transition-colors duration-200 flex items-center justify-center mx-auto gap-2 cursor-pointer"
                 >
                   <svg 
                     className="w-5 h-5" 
@@ -85,7 +85,7 @@ export default function Home() {
                 
                 <button
                   onClick={handleClear}
-                  className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-colors duration-200 flex items-center justify-center mx-auto gap-2 cursor-pointer"
+                  className="bg-red-600 hover:bg-red-700 text-lg text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-colors duration-200 flex items-center justify-center mx-auto gap-2 cursor-pointer"
                 >
                   <svg 
                     className="w-4 h-4" 

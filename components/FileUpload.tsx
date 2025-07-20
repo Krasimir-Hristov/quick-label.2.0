@@ -105,9 +105,9 @@ const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(({ onDataParsed },
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 ">
       <div className="flex flex-col space-y-2">
-        <label htmlFor="file-upload" className="text-sm font-medium text-gray-700">
+        <label htmlFor="file-upload" className="text-xl text-center font-bold  text-black">
           Excel-Datei auswählen
         </label>
         <input
@@ -129,14 +129,14 @@ const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(({ onDataParsed },
       <Button 
         onClick={handleUpload}
         disabled={!selectedFile || isLoading}
-        className="w-full cursor-pointer"
+        className="w-full cursor-pointer text-xl font-bold bg-black text-[#a8c706] hover:bg-white"
       >
         {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
         {isLoading ? "Wird verarbeitet..." : "Datei hochladen"}
       </Button>
       {selectedFile && (
-        <p className="text-sm text-gray-600">
-          Ausgewählte Datei: {selectedFile.name}
+        <p className="text-xl font-bold text-black">
+          Ausgewählte Datei: <span className="text-black text-lg">{selectedFile.name}</span>
         </p>
       )}
     </div>

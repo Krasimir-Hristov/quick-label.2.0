@@ -9,7 +9,7 @@ interface LabelPreviewProps {
 const LabelPreview: React.FC<LabelPreviewProps> = ({ labelData }) => {
   if (!labelData || labelData.length === 0) {
     return (
-      <div className="text-center text-gray-500 py-8">
+      <div className="text-center text-2xl font-bold text-black py-8">
         <p>Keine Daten zum Anzeigen. Bitte laden Sie eine Excel-Datei mit Produkten hoch.</p>
       </div>
     );
@@ -19,7 +19,7 @@ const LabelPreview: React.FC<LabelPreviewProps> = ({ labelData }) => {
     <div className="w-full">
       {/* Скриваме и това заглавие при печат */}
       <div className="mb-4 print-hide">
-        <h2 className="text-2xl font-bold text-gray-800">
+        <h2 className="text-2xl font-bold text-black">
           Etikettenvorschau ({labelData.length} Produkte)
         </h2>
       </div>
