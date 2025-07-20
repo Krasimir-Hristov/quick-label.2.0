@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useState } from "react";
 import * as XLSX from "xlsx";
 import { LabelData } from "@/types";
@@ -10,6 +11,7 @@ interface FileUploadProps {
 
 export default function FileUpload({ onDataParsed }: FileUploadProps) {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -19,8 +21,18 @@ export default function FileUpload({ onDataParsed }: FileUploadProps) {
   };
 
   const handleUpload = () => {
+    // Изчистваме старата грешка
+    setError(null);
+    
     if (!selectedFile) {
       console.log("Няма избран файл");
+      return;
+    }
+
+    // Проверка за типа на файла
+    const fileExtension = selectedFile.name.toLowerCase().split('.').pop();
+    if (fileExtension !== 'xlsx' && fileExtension !== 'xls') {
+      setError("Моля, изберете валиден Excel файл (.xlsx или .xls).");
       return;
     }
 
@@ -41,11 +53,18 @@ export default function FileUpload({ onDataParsed }: FileUploadProps) {
         // Парсваме данните с нашата функция
         const parsedData = parseExcelData(jsonData);
         
+        // Проверяваме дали има парсирани данни
+        if (parsedData.length === 0) {
+          setError("Файлът не съдържа необходимите колони 'Artikelbezeichnung' и 'Verkaufspreis\r\nKölle-Zoo' или няма валидни данни.");
+          return;
+        }
+        
         // Предаваме данните към родителския компонент
         onDataParsed(parsedData);
         
       } catch (error) {
         console.error("Грешка при четене на файла:", error);
+        setError("Възникна грешка при обработката на файла. Проверете структурата му.");
       }
     };
     
@@ -66,6 +85,13 @@ export default function FileUpload({ onDataParsed }: FileUploadProps) {
           className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
         />
       </div>
+      
+      {error && (
+        <Alert variant="destructive">
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
+      )}
+      
       <Button 
         onClick={handleUpload}
         disabled={!selectedFile}
