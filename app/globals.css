@@ -135,3 +135,114 @@
 .font-din-engschrift-std {
   font-family: var(--font-din-engschrift-std), sans-serif;
 }
+
+/* ============================================= */
+/* PRINT-FRIENDLY СТИЛОВЕ                       */
+/* ============================================= */
+
+/* Лист хартия за печат */
+.pf-sheet {
+  display: grid;
+  grid-template-columns: repeat(4, 48mm); /* 4 колони по 48mm */
+  gap: 0; /* Няма разстояние */
+}
+
+/* Основен контейнер на етикета */
+.pf-label {
+  width: 48mm;
+  height: 38mm;
+  background-color: #f7a70a;
+  border: 0.5pt solid grey; /* Линията за рязане */
+  box-sizing: border-box; /* Супер важно! */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Горна секция с името на продукта и стрелките */
+.pf-header {
+  display: flex;
+  align-items: flex-start;
+  padding: 1.5mm 1.5mm 1mm 1.5mm;
+}
+
+/* Основно съдържание на етикета */
+.pf-content {
+  flex-grow: 1; /* Заема оставащото място */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around; /* Разпределя елементите равномерно */
+  padding: 1mm 2mm;
+}
+
+/* Контейнер за името на продукта */
+.pf-product-name {
+  text-align: center;
+  flex: 1;
+}
+
+/* Заглавие на продукта */
+.pf-product-title {
+  font-family: var(--font-lexia-std), sans-serif;
+  font-size: 7pt;
+  color: #951b81;
+  font-weight: bold;
+  line-height: 1.2;
+  word-break: break-words;
+}
+
+/* APP VORTEIL бадж */
+.pf-badge {
+  font-family: var(--font-din-engschrift-std), sans-serif;
+  font-size: 9pt;
+  background-color: black;
+  color: white;
+  font-weight: bold;
+  padding: 1mm 2mm;
+  border-radius: 100px;
+  line-height: 1;
+}
+
+/* Контейнер за текста под бейджа */
+.pf-price-text {
+  text-align: center;
+}
+
+/* Първи ред от текста за цената */
+.pf-price-text-line1 {
+  font-family: var(--font-din-engschrift-std), sans-serif;
+  font-size: 6pt;
+  color: black;
+  font-weight: bold;
+  line-height: 1.1;
+  margin-bottom: 0.5mm;
+}
+
+/* Втори ред от текста за цената */
+.pf-price-text-line2 {
+  font-family: var(--font-din-engschrift-std), sans-serif;
+  font-size: 8pt;
+  color: black;
+  font-weight: bold;
+  line-height: 1;
+}
+
+/* Цената */
+.pf-price {
+  font-family: var(--font-din-engschrift-std), sans-serif;
+  font-size: 18pt;
+  color: black;
+  font-weight: bold;
+  text-align: center;
+  line-height: 1;
+  letter-spacing: -0.5pt;
+}
+
+/* Стрелки */
+.pf-arrow-left,
+.pf-arrow-right {
+  flex-shrink: 0;
+  width: 8mm;
+  height: 14mm;
+}
