@@ -145,25 +145,31 @@
   display: grid;
   grid-template-columns: repeat(4, 48mm); /* 4 колони по 48mm */
   gap: 0; /* Няма разстояние */
+  width: 192mm; /* 4 × 48mm */
+  max-width: 100%;
+  margin: 0 auto;
+  background: white;
 }
 
 /* Основен контейнер на етикета */
 .pf-label {
   width: 48mm;
   height: 38mm;
-  background-color: #f7a70a;
+  background: linear-gradient(135deg, #ff9500 0%, #ff8c00 50%, #ff7700 100%);
   border: 0.5pt solid grey; /* Линията за рязане */
   box-sizing: border-box; /* Супер важно! */
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  position: relative;
 }
 
 /* Горна секция с името на продукта и стрелките */
 .pf-header {
   display: flex;
   align-items: flex-start;
-  padding: 2mm 2mm 1mm 2mm;
+  padding: 1.5mm 2mm 0.5mm 2mm;
+  min-height: 8mm;
 }
 
 /* Основно съдържание на етикета */
@@ -172,36 +178,46 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around; /* Разпределя елементите равномерно */
+  justify-content: center; /* Центрира съдържанието */
   padding: 1mm 2mm 2mm 2mm;
+  gap: 2mm; /* Разстояние между елементите */
 }
 
 /* Контейнер за името на продукта */
 .pf-product-name {
   text-align: center;
   flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0 1mm;
 }
 
 /* Заглавие на продукта */
 .pf-product-title {
   font-family: var(--font-lexia-std), sans-serif;
-  font-size: 8pt;
+  font-size: 7pt;
   color: #951b81;
   font-weight: bold;
-  line-height: 1.2;
+  line-height: 1.1;
   word-break: break-words;
+  text-align: center;
+  max-height: 8mm;
+  overflow: hidden;
 }
 
 /* APP VORTEIL бадж */
 .pf-badge {
   font-family: var(--font-din-engschrift-std), sans-serif;
-  font-size: 11pt;
+  font-size: 9pt;
   background-color: black;
   color: white;
   font-weight: bold;
-  padding: 1.5mm 3mm;
-  border-radius: 100px;
+  padding: 1.2mm 4mm;
+  border-radius: 15px;
   line-height: 1;
+  text-align: center;
+  letter-spacing: 0.3pt;
 }
 
 /* Контейнер за текста под бейджа */
@@ -212,17 +228,17 @@
 /* Първи ред от текста за цената */
 .pf-price-text-line1 {
   font-family: var(--font-din-engschrift-std), sans-serif;
-  font-size: 7pt;
+  font-size: 6pt;
   color: black;
   font-weight: bold;
-  line-height: 1.1;
-  margin-bottom: 0.5mm;
+  line-height: 1;
+  margin-bottom: 0.2mm;
 }
 
 /* Втори ред от текста за цената */
 .pf-price-text-line2 {
   font-family: var(--font-din-engschrift-std), sans-serif;
-  font-size: 9pt;
+  font-size: 7pt;
   color: black;
   font-weight: bold;
   line-height: 1;
@@ -231,20 +247,24 @@
 /* Цената */
 .pf-price {
   font-family: var(--font-din-engschrift-std), sans-serif;
-  font-size: 22pt;
+  font-size: 24pt;
   color: black;
-  font-weight: bold;
+  font-weight: 900;
   text-align: center;
-  line-height: 1;
-  letter-spacing: -0.5pt;
+  line-height: 0.9;
+  letter-spacing: -0.8pt;
+  margin-top: 1mm;
 }
 
 /* Стрелки */
 .pf-arrow-left,
 .pf-arrow-right {
   flex-shrink: 0;
-  width: 6mm;
-  height: 12mm;
+  width: 5mm;
+  height: 9mm;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
 }
 
 /* CSS правила за печат */
@@ -265,6 +285,7 @@
     left: 0;
     top: 0;
     background: white;
+    margin: 0;
   }
 
   /* Осигуряваме точни цветове при печат */
@@ -272,5 +293,11 @@
     -webkit-print-color-adjust: exact;
     color-adjust: exact;
     print-color-adjust: exact;
+  }
+
+  /* Премахваме margin от страницата при печат */
+  @page {
+    margin: 0;
+    size: A4;
   }
 }
