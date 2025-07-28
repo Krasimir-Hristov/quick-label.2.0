@@ -149,6 +149,8 @@
   max-width: 100%;
   margin: 0 auto;
   background: white;
+  justify-content: center;
+  place-content: center;
 }
 
 /* Основен контейнер на етикета */
@@ -282,8 +284,9 @@
   /* Позиционираме листа за печат */
   .pf-sheet {
     position: absolute;
-    left: 0;
+    left: 50%;
     top: 0;
+    transform: translateX(-50%);
     background: white;
     margin: 0;
   }
