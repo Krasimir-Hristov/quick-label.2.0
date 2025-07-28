@@ -145,12 +145,17 @@
   display: grid;
   grid-template-columns: repeat(4, 44mm); /* 4 колони по 44mm */
   gap: 0; /* Няма разстояние */
-  width: 176mm; /* 4 × 44mm */
+  width: 196mm; /* 4 × 44mm + 20mm padding (10mm × 2) */
   max-width: 100%;
-  margin: 0 auto;
+  margin: 20mm auto; /* Margin отгоре/отдолу и центриране ляво/дясно */
   background: white;
   justify-content: center;
   place-content: start;
+  padding: 10mm; /* Допълнителен padding отвътре */
+  box-sizing: border-box; /* За правилни размери */
+  border: 1px solid #e0e0e0; /* Светла граница за визуализация */
+  border-radius: 3px; /* Леко заоблени ъгли */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Сянка за 3D ефект */
 }
 
 /* Основен контейнер на етикета */
@@ -302,9 +307,20 @@
     print-color-adjust: exact;
   }
 
-  /* Премахваме margin от страницата при печат */
+  /* Настройки за печат с margin */
   @page {
-    margin: 0;
+    margin: 15mm; /* Margin на цялата страница */
     size: A4;
+  }
+
+  /* При печат запазваме margin-ите */
+  .pf-sheet {
+    margin: 10mm auto; /* По-малък margin при печат */
+    padding: 5mm; /* По-малък padding при печат */
+    width: 186mm; /* 4 × 44mm + 10mm padding (5mm × 2) */
+    box-sizing: border-box; /* За правилни размери */
+    border: none; /* Премахваме границата при печат */
+    border-radius: 0; /* Премахваме заоблените ъгли при печат */
+    box-shadow: none; /* Премахваме сянката при печат */
   }
 }
