@@ -258,13 +258,14 @@
 /* Цената */
 .pf-price {
   font-family: var(--font-din-engschrift-std), sans-serif;
-  font-size: 18pt;
+  font-size: 30pt;
   color: black;
   font-weight: 900;
   text-align: center;
   line-height: 0.9;
   letter-spacing: -0.8pt;
-  margin-top: 1mm;
+  margin-top: 0.3mm;
+  padding: 0 1mm; /* Малко padding за да не излиза от рамката */
 }
 
 /* Стрелки */
