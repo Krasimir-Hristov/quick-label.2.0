@@ -218,15 +218,18 @@
 /* APP VORTEIL бадж */
 .pf-badge {
   font-family: var(--font-din-engschrift-std), sans-serif;
-  font-size: 13pt;
+  font-size: 16pt;
   background-color: black;
   color: white;
   font-weight: bold;
-  padding: 2mm 4mm;
-  border-radius: 15px;
+  padding: 1.5mm 5mm;
+  border-radius: 20px;
   line-height: 1;
   text-align: center;
-  letter-spacing: 0.3pt;
+  letter-spacing: 1.2pt;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Контейнер за текста под бейджа */
@@ -237,7 +240,7 @@
 /* Първи ред от текста за цената */
 .pf-price-text-line1 {
   font-family: var(--font-din-engschrift-std), sans-serif;
-  font-size: 6pt;
+  font-size: 10pt !important;
   color: black;
   font-weight: bold;
   line-height: 1;
@@ -247,7 +250,7 @@
 /* Втори ред от текста за цената */
 .pf-price-text-line2 {
   font-family: var(--font-din-engschrift-std), sans-serif;
-  font-size: 9pt;
+  font-size: 14pt !important;
   color: black;
   font-weight: bold;
   line-height: 1;
@@ -290,14 +293,42 @@
   display: none;
 }
 
+/* Font definitions за print */
+@font-face {
+  font-family: 'DINEngschriftStd';
+  src: url('/fonts/DINEngschriftStd.otf') format('opentype');
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'LexiaStd';
+  src: url('/fonts/Lexia_Std.ttf') format('truetype');
+  font-display: block;
+}
+
 /* CSS правила за печат според react-to-print документация */
 @media print {
+  /* Font definitions за print */
+  @font-face {
+    font-family: 'DINEngschriftStd';
+    src: url('/fonts/DINEngschriftStd.otf') format('opentype');
+    font-display: block;
+  }
+
+  @font-face {
+    font-family: 'LexiaStd';
+    src: url('/fonts/Lexia_Std.ttf') format('truetype');
+    font-display: block;
+  }
+
   /* Критично важно за множество страници според документацията */
   html,
   body {
     height: initial !important;
     overflow: initial !important;
     -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+    print-color-adjust: exact;
   }
 
   /* За показване на всичко съдържание при печат */
@@ -338,12 +369,35 @@
     visibility: visible;
   }
 
-  /* Осигуряваме точни цветове при печат */
+  /* Осигуряваме точни цветове и fonts при печат */
   .pf-label {
     -webkit-print-color-adjust: exact;
     color-adjust: exact;
     print-color-adjust: exact;
     margin: 0 !important;
+  }
+
+  /* Форсираме fonts при печат */
+  .pf-price {
+    font-family: 'DINEngschriftStd', Arial, sans-serif !important;
+  }
+
+  .pf-badge {
+    font-family: 'DINEngschriftStd', Arial, sans-serif !important;
+  }
+
+  .pf-price-text-line1 {
+    font-family: 'DINEngschriftStd', Arial, sans-serif !important;
+    font-size: 10pt !important;
+  }
+
+  .pf-price-text-line2 {
+    font-family: 'DINEngschriftStd', Arial, sans-serif !important;
+    font-size: 14pt !important;
+  }
+
+  .pf-product-title {
+    font-family: 'LexiaStd', Arial, sans-serif !important;
   }
 
   /* Настройки за печат с margin */

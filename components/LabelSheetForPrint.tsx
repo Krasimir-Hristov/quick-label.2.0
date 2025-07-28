@@ -24,6 +24,40 @@ const LabelSheetForPrint = React.forwardRef<
           size: A4; 
           margin: 10mm; 
         }
+        
+        @font-face {
+          font-family: 'DINEngschriftStd';
+          src: url('/fonts/DINEngschriftStd.otf') format('opentype');
+          font-display: block;
+        }
+        
+        @font-face {
+          font-family: 'LexiaStd';
+          src: url('/fonts/Lexia_Std.ttf') format('truetype');
+          font-display: block;
+        }
+        
+        .pf-price {
+          font-family: 'DINEngschriftStd', Arial, sans-serif !important;
+        }
+        
+        .pf-badge {
+          font-family: 'DINEngschriftStd', Arial, sans-serif !important;
+        }
+        
+        .pf-price-text-line1 {
+          font-family: 'DINEngschriftStd', Arial, sans-serif !important;
+          font-size: 10pt !important;
+        }
+        
+        .pf-price-text-line2 {
+          font-family: 'DINEngschriftStd', Arial, sans-serif !important;
+          font-size: 14pt !important;
+        }
+        
+        .pf-product-title {
+          font-family: 'LexiaStd', Arial, sans-serif !important;
+        }
       `}</style>
 
       <div
