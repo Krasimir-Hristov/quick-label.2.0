@@ -74,8 +74,8 @@ export default function Label({ data, index }: LabelProps) {
           </div>
         )}
 
-        {/* Име на продукта */}
-        <div className='text-left flex-1'>
+        {/* Име на продукта - винаги центрирано */}
+        <div className='text-center flex-1'>
           <div
             className='font-bold leading-tight break-words font-lexia-std'
             style={{
@@ -117,9 +117,9 @@ export default function Label({ data, index }: LabelProps) {
       >
         {/* APP VORTEIL бадж */}
         <div
-          className='bg-black text-white font-bold rounded-full font-din-engschrift-std'
+          className='bg-black text-white justify-center font-bold rounded-full font-din-engschrift-std'
           style={{
-            fontSize: '24.8pt',
+            fontSize: '25pt',
             lineHeight: '1',
             padding: '0.5mm 2mm',
             borderRadius: '2mm',
@@ -131,7 +131,7 @@ export default function Label({ data, index }: LabelProps) {
         {/* Текст за цената */}
         <div className='text-center'>
           <div
-            className='font-bold text-black font-din-engschrift-std'
+            className='font-bold text-black  font-din-engschrift-std'
             style={{
               fontSize: '10pt',
               lineHeight: '1',
