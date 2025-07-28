@@ -158,7 +158,7 @@
   width: 48mm;
   height: 38mm;
   background: linear-gradient(135deg, #ff9500 0%, #ff8c00 50%, #ff7700 100%);
-  border: 0.5pt solid grey; /* Линията за рязане */
+  border: 2.5pt solid grey; /* Линията за рязане */
   box-sizing: border-box; /* Супер важно! */
   display: flex;
   flex-direction: column;
