@@ -155,8 +155,8 @@
 
 /* Основен контейнер на етикета */
 .pf-label {
-  width: 48mm;
-  height: 38mm;
+  width: 44mm;
+  height: 41mm;
   background: linear-gradient(135deg, #ff9500 0%, #ff8c00 50%, #ff7700 100%);
   border: 2.5pt solid grey; /* Линията за рязане */
   box-sizing: border-box; /* Супер важно! */
