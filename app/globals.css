@@ -143,14 +143,14 @@
 /* Лист хартия за печат */
 .pf-sheet {
   display: grid;
-  grid-template-columns: repeat(4, 48mm); /* 4 колони по 48mm */
+  grid-template-columns: repeat(4, 44mm); /* 4 колони по 44mm */
   gap: 0; /* Няма разстояние */
-  width: 192mm; /* 4 × 48mm */
+  width: 176mm; /* 4 × 44mm */
   max-width: 100%;
   margin: 0 auto;
   background: white;
   justify-content: center;
-  place-content: center;
+  place-content: start;
 }
 
 /* Основен контейнер на етикета */
@@ -158,7 +158,8 @@
   width: 44mm;
   height: 41mm;
   background: linear-gradient(135deg, #ff9500 0%, #ff8c00 50%, #ff7700 100%);
-  border: 2.5pt solid grey; /* Линията за рязане */
+  border: 0.5pt solid grey; /* Единичен бордер за всички */
+  margin: -0.25pt; /* Negative margin за обединяване на бордовете */
   box-sizing: border-box; /* Супер важно! */
   display: flex;
   flex-direction: column;
@@ -214,11 +215,11 @@
 /* APP VORTEIL бадж */
 .pf-badge {
   font-family: var(--font-din-engschrift-std), sans-serif;
-  font-size: 9pt;
+  font-size: 13pt;
   background-color: black;
   color: white;
   font-weight: bold;
-  padding: 1.2mm 4mm;
+  padding: 2mm 4mm;
   border-radius: 15px;
   line-height: 1;
   text-align: center;
@@ -252,7 +253,7 @@
 /* Цената */
 .pf-price {
   font-family: var(--font-din-engschrift-std), sans-serif;
-  font-size: 24pt;
+  font-size: 18pt;
   color: black;
   font-weight: 900;
   text-align: center;
