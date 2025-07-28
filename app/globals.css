@@ -249,7 +249,7 @@
 /* Втори ред от текста за цената */
 .pf-price-text-line2 {
   font-family: var(--font-din-engschrift-std), sans-serif;
-  font-size: 7pt;
+  font-size: 9pt;
   color: black;
   font-weight: bold;
   line-height: 1;
