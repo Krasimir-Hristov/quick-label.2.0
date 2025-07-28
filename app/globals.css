@@ -166,12 +166,15 @@
   position: relative;
 }
 
-/* Горна секция с името на продукта и стрелките */
+/* Горна секция с името на продукта и стрелките и бордера */
 .pf-header {
   display: flex;
   align-items: flex-start;
-  padding: 1.5mm 2mm 0.5mm 2mm;
+  padding: 0.7mm 2mm 0.7mm 2mm;
+  height: 8mm;
   min-height: 8mm;
+  max-height: 8mm;
+  border-bottom: 0.5pt solid grey;
 }
 
 /* Основно съдържание на етикета */
@@ -181,8 +184,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center; /* Центрира съдържанието */
-  padding: 1mm 2mm 2mm 2mm;
-  gap: 2mm; /* Разстояние между елементите */
+  padding: 2mm 2mm 2mm 2mm;
+  gap: 1.5mm; /* Разстояние между елементите */
 }
 
 /* Контейнер за името на продукта */
@@ -190,9 +193,9 @@
   text-align: center;
   flex: 1;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  padding: 0 1mm;
+  padding: 0 0.5mm;
 }
 
 /* Заглавие на продукта */
@@ -204,7 +207,7 @@
   line-height: 1.1;
   word-break: break-words;
   text-align: center;
-  max-height: 8mm;
+  max-height: 8.6mm;
   overflow: hidden;
 }
 
@@ -262,8 +265,8 @@
 .pf-arrow-left,
 .pf-arrow-right {
   flex-shrink: 0;
-  width: 5mm;
-  height: 9mm;
+  width: 4mm;
+  height: 4mm;
   display: flex;
   align-items: flex-start;
   justify-content: center;
