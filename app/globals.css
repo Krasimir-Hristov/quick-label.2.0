@@ -313,6 +313,26 @@
     size: A4;
   }
 
+  /* Поправки за множество страници */
+  html,
+  body {
+    height: 100vh !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: initial !important;
+    -webkit-print-color-adjust: exact;
+  }
+
+  /* Автоматично разделяне на страници всеки 24 етикета (6 реда × 4 колони) */
+  .pf-label:nth-child(24n) {
+    page-break-after: always;
+  }
+
+  /* Премахваме негативния margin при печат */
+  .pf-label {
+    margin: 0 !important;
+  }
+
   /* При печат запазваме margin-ите */
   .pf-sheet {
     margin: 10mm auto; /* По-малък margin при печат */
@@ -322,5 +342,8 @@
     border: none; /* Премахваме границата при печат */
     border-radius: 0; /* Премахваме заоблените ъгли при печат */
     box-shadow: none; /* Премахваме сянката при печат */
+    grid-template-rows: repeat(6, 41mm); /* Максимум 6 реда по 41mm */
+    max-height: 246mm; /* 6 × 41mm */
+    overflow: hidden; /* Скрива етикетите над 6 реда */
   }
 }
