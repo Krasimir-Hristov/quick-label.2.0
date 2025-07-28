@@ -315,7 +315,7 @@
     break-inside: avoid !important; /* Модерна CSS алтернатива */
     height: 246mm; /* 6 реда × 41mm */
     width: 176mm; /* 4 колони × 44mm */
-    margin: 0 auto 10mm auto; /* Margin между страници */
+    margin: 10mm auto 10mm auto; /* Балансиран margin отгоре, отдолу и центриране */
     display: grid;
     grid-template-columns: repeat(4, 44mm);
     grid-template-rows: repeat(6, 41mm);
