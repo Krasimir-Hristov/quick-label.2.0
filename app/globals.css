@@ -278,26 +278,42 @@
   justify-content: center;
 }
 
-/* CSS правила за печат */
+/* Print container */
+.print-container {
+  margin: 0;
+  padding: 0;
+}
+
+/* Page break клас - скрит в нормален режим */
+.page-break {
+  display: none;
+}
+
+/* CSS правила за печат според react-to-print документация */
 @media print {
+  /* Критично важно за множество страници според документацията */
+  html,
+  body {
+    height: initial !important;
+    overflow: initial !important;
+    -webkit-print-color-adjust: exact;
+  }
+
+  /* Page break елемент според документацията */
+  .page-break {
+    margin-top: 1rem;
+    display: block;
+    page-break-before: auto;
+  }
+
   /* Скриваме всичко освен print компонентите */
   body * {
     visibility: hidden;
   }
 
-  .pf-sheet,
-  .pf-sheet * {
+  .print-container,
+  .print-container * {
     visibility: visible;
-  }
-
-  /* Позиционираме листа за печат */
-  .pf-sheet {
-    position: absolute;
-    left: 50%;
-    top: 0;
-    transform: translateX(-50%);
-    background: white;
-    margin: 0;
   }
 
   /* Осигуряваме точни цветове при печат */
@@ -305,45 +321,12 @@
     -webkit-print-color-adjust: exact;
     color-adjust: exact;
     print-color-adjust: exact;
+    margin: 0 !important;
   }
 
   /* Настройки за печат с margin */
   @page {
-    margin: 15mm; /* Margin на цялата страница */
     size: A4;
-  }
-
-  /* Поправки за множество страници */
-  html,
-  body {
-    height: 100vh !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    overflow: initial !important;
-    -webkit-print-color-adjust: exact;
-  }
-
-  /* Автоматично разделяне на страници всеки 24 етикета (6 реда × 4 колони) */
-  .pf-label:nth-child(24n) {
-    page-break-after: always;
-  }
-
-  /* Премахваме негативния margin при печат */
-  .pf-label {
-    margin: 0 !important;
-  }
-
-  /* При печат запазваме margin-ите */
-  .pf-sheet {
-    margin: 10mm auto; /* По-малък margin при печат */
-    padding: 5mm; /* По-малък padding при печат */
-    width: 186mm; /* 4 × 44mm + 10mm padding (5mm × 2) */
-    box-sizing: border-box; /* За правилни размери */
-    border: none; /* Премахваме границата при печат */
-    border-radius: 0; /* Премахваме заоблените ъгли при печат */
-    box-shadow: none; /* Премахваме сянката при печат */
-    grid-template-rows: repeat(6, 41mm); /* Максимум 6 реда по 41mm */
-    max-height: 246mm; /* 6 × 41mm */
-    overflow: hidden; /* Скрива етикетите над 6 реда */
+    margin: 10mm;
   }
 }
