@@ -240,7 +240,7 @@
 /* Първи ред от текста за цената */
 .pf-price-text-line1 {
   font-family: var(--font-din-engschrift-std), sans-serif;
-  font-size: 10pt !important;
+  font-size: 9pt !important;
   color: black;
   font-weight: bold;
   line-height: 1;
@@ -250,7 +250,7 @@
 /* Втори ред от текста за цената */
 .pf-price-text-line2 {
   font-family: var(--font-din-engschrift-std), sans-serif;
-  font-size: 14pt !important;
+  font-size: 11pt !important;
   color: black;
   font-weight: bold;
   line-height: 1;
@@ -259,14 +259,14 @@
 /* Цената */
 .pf-price {
   font-family: var(--font-din-engschrift-std), sans-serif;
-  font-size: 30pt;
+  font-size: 35pt;
   color: black;
   font-weight: 900;
   text-align: center;
   line-height: 0.9;
-  letter-spacing: -0.8pt;
+  letter-spacing: 3pt;
   margin-top: 0.3mm;
-  padding: 0 1mm; /* Малко padding за да не излиза от рамката */
+  padding: 0 10mm 3mm; /* Повече хоризонтален padding за въздух отстрани */
 }
 
 /* Стрелки */
