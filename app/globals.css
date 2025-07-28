@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -8,6 +8,8 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-lexia-std: var(--font-lexia-std);
+  --font-din-engschrift-std: var(--font-din-engschrift-std);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -121,37 +123,120 @@
   }
 }
 
+/* ============================================= */
+/* CUSTOM ШРИФТОВЕ                              */
+/* ============================================= */
+
+/* Utility класове за custom шрифтовете */
+.font-lexia-std {
+  font-family: var(--font-lexia-std), sans-serif;
+}
+
+.font-din-engschrift-std {
+  font-family: var(--font-din-engschrift-std), sans-serif;
+}
+
+/* ============================================= */
+/* ЕКРАННИ И ПЕЧАТНИ СТИЛОВЕ                    */
+/* ============================================= */
+
+/* A4 контейнер */
+.a4-container {
+  /* A4 размери: 210mm x 297mm */
+  width: 210mm;
+  min-height: 297mm;
+  margin: 0 auto;
+  background: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+/* Grid за етикетите */
+.labels-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 48mm);
+  gap: 0;
+  /* Центриране на мрежата в A4 */
+  /* A4 ширина = 210mm, 4x48mm = 192mm, остават 18mm за центриране */
+  margin-left: 9mm;
+  margin-right: 9mm;
+  padding-top: 10mm;
+}
+
+/* Всеки етикет */
+.label-item {
+  width: 48mm;
+  height: 38mm;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+/* Клас за печатната версия на етикета */
+.print-label {
+  width: 48mm !important;
+  height: 38mm !important;
+}
+
+/* Скриваме заглавието при печат */
+.print-hide {
+  display: block;
+}
+
+/* ============================================= */
+/* ПЕЧАТНИ СТИЛОВЕ (@media print)                */
+/* ============================================= */
+
 @media print {
-  /* 1. Нулираме страницата и скриваме всичко ненужно */
-  body, main {
+  /* Настройки за страницата */
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  /* Скриваме всичко ненужно */
+  body,
+  main {
     margin: 0 !important;
     padding: 0 !important;
     background: none !important;
   }
+
+  /* Скриваме заглавието при печат */
   .print-hide {
     display: none !important;
   }
 
-  /* 2. Дефинираме как да изглежда решетката при печат */
-  .print-grid-container {
-    /* Това е магията: 4 колони, които заемат поравно наличното място */
-    grid-template-columns: repeat(4, 1fr) !important;
-    /* ПРОМЯНА: Нулираме разстоянието */
-    gap: 0 !important;
-    /* 1. Компенсираме контейнера от всички страни за бъдещото дърпане */
-    padding-top: 4px !important;
-    padding-left: 4px !important;
-    padding-right: 4px !important;
-    padding-bottom: 4px !important;
+  /* A4 контейнер при печат */
+  .a4-container {
+    width: 210mm !important;
+    min-height: 297mm !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    background: none !important;
   }
 
-  /* 3. Предотвратяваме "рязането" на етикети между страниците */
-  .print-item-no-break {
-    break-inside: avoid;
-    /* 2. Дърпаме всеки етикет от всички страни, за да слее всички граници */
-    margin-top: -4px !important;
-    margin-left: -4px !important;
-    margin-right: -4px !important;
-    margin-bottom: -4px !important;
+  /* Grid за етикетите при печат */
+  .labels-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, 48mm) !important;
+    gap: 0 !important;
+    margin-left: 9mm !important;
+    margin-right: 9mm !important;
+    padding-top: 0 !important;
+  }
+
+  /* Всеки етикет при печат */
+  .label-item {
+    width: 38mm !important;
+    height: 48mm !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Етикет при печат */
+  .print-label {
+    width: 38mm !important;
+    height: 48mm !important;
+    border: 0.5mm solid #000000 !important;
   }
 }
