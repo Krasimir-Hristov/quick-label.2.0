@@ -163,7 +163,7 @@
 .pf-header {
   display: flex;
   align-items: flex-start;
-  padding: 1.5mm 1.5mm 1mm 1.5mm;
+  padding: 2mm 2mm 1mm 2mm;
 }
 
 /* Основно съдържание на етикета */
@@ -173,7 +173,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-around; /* Разпределя елементите равномерно */
-  padding: 1mm 2mm;
+  padding: 1mm 2mm 2mm 2mm;
 }
 
 /* Контейнер за името на продукта */
@@ -185,7 +185,7 @@
 /* Заглавие на продукта */
 .pf-product-title {
   font-family: var(--font-lexia-std), sans-serif;
-  font-size: 7pt;
+  font-size: 8pt;
   color: #951b81;
   font-weight: bold;
   line-height: 1.2;
@@ -195,11 +195,11 @@
 /* APP VORTEIL бадж */
 .pf-badge {
   font-family: var(--font-din-engschrift-std), sans-serif;
-  font-size: 9pt;
+  font-size: 11pt;
   background-color: black;
   color: white;
   font-weight: bold;
-  padding: 1mm 2mm;
+  padding: 1.5mm 3mm;
   border-radius: 100px;
   line-height: 1;
 }
@@ -212,7 +212,7 @@
 /* Първи ред от текста за цената */
 .pf-price-text-line1 {
   font-family: var(--font-din-engschrift-std), sans-serif;
-  font-size: 6pt;
+  font-size: 7pt;
   color: black;
   font-weight: bold;
   line-height: 1.1;
@@ -222,7 +222,7 @@
 /* Втори ред от текста за цената */
 .pf-price-text-line2 {
   font-family: var(--font-din-engschrift-std), sans-serif;
-  font-size: 8pt;
+  font-size: 9pt;
   color: black;
   font-weight: bold;
   line-height: 1;
@@ -231,7 +231,7 @@
 /* Цената */
 .pf-price {
   font-family: var(--font-din-engschrift-std), sans-serif;
-  font-size: 18pt;
+  font-size: 22pt;
   color: black;
   font-weight: bold;
   text-align: center;
@@ -243,6 +243,34 @@
 .pf-arrow-left,
 .pf-arrow-right {
   flex-shrink: 0;
-  width: 8mm;
-  height: 14mm;
+  width: 6mm;
+  height: 12mm;
+}
+
+/* CSS правила за печат */
+@media print {
+  /* Скриваме всичко освен print компонентите */
+  body * {
+    visibility: hidden;
+  }
+
+  .pf-sheet,
+  .pf-sheet * {
+    visibility: visible;
+  }
+
+  /* Позиционираме листа за печат */
+  .pf-sheet {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: white;
+  }
+
+  /* Осигуряваме точни цветове при печат */
+  .pf-label {
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+    print-color-adjust: exact;
+  }
 }
