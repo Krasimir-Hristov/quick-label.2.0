@@ -282,6 +282,8 @@
 .print-container {
   margin: 0;
   padding: 0;
+  width: 100%;
+  max-width: 100%;
 }
 
 /* Page break клас - скрит в нормален режим */
@@ -299,11 +301,32 @@
     -webkit-print-color-adjust: exact;
   }
 
-  /* Page break елемент според документацията */
-  .page-break {
-    margin-top: 1rem;
-    display: block;
-    page-break-before: auto;
+  /* За показване на всичко съдържание при печат */
+  .print-container {
+    overflow: visible !important;
+    height: fit-content !important;
+  }
+
+  /* Всяка страница с етикети */
+  .print-page {
+    page-break-after: always !important;
+    break-after: page !important; /* Модерна CSS алтернатива */
+    page-break-inside: avoid !important;
+    break-inside: avoid !important; /* Модерна CSS алтернатива */
+    height: 246mm; /* 6 реда × 41mm */
+    width: 176mm; /* 4 колони × 44mm */
+    margin: 0 auto 10mm auto; /* Margin между страници */
+    display: grid;
+    grid-template-columns: repeat(4, 44mm);
+    grid-template-rows: repeat(6, 41mm);
+    gap: 0;
+  }
+
+  /* Последната страница не трябва page break */
+  .print-page:last-child {
+    page-break-after: auto !important;
+    break-after: auto !important;
+    margin-bottom: 0;
   }
 
   /* Скриваме всичко освен print компонентите */
