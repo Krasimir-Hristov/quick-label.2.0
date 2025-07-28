@@ -6,58 +6,35 @@ interface LabelProps {
 }
 
 export default function Label({ data, index }: LabelProps) {
-  // Функция за форматиране на цената, за да е по-чисто в JSX-а
+  // Функция за форматиране на цената
   const formatPrice = (price: number) => {
-    // Форматираме до 2 знака и заменяваме точката със запетая
     const formattedPrice = price.toFixed(2).replace('.', ',');
-    const [integerPart, decimalPart] = formattedPrice.split(',');
-
-    // Проверяваме дали цялата част има 3 или повече цифри (напр. 100+)
-    const isLargePrice = integerPart.length >= 3;
-    const fontSize = isLargePrice ? '4.7rem' : '5.5rem'; // По-малък шрифт за големи цени
-
-    return (
-      <>
-        <span
-          className='font-bold text-black leading-none font-din-engschrift-std'
-          style={{ fontSize }}
-        >
-          {integerPart}
-        </span>
-        <span
-          className='font-bold text-black leading-none font-din-engschrift-std'
-          style={{ fontSize }}
-        >
-          ,{decimalPart}€
-        </span>
-      </>
-    );
+    return formattedPrice + '€';
   };
 
   // Логика за стрелките
   const positionInRow = (index + 1) % 4; // 1, 2, 3, 0
   const hasLeftArrow = positionInRow === 1; // Първи в реда
   const hasRightArrow = positionInRow === 0; // Последен в реда (четвърти)
-  const hasNoArrow = positionInRow === 2 || positionInRow === 3; // Средните двама
 
   return (
     <div
-      className='relative border border-black overflow-hidden flex flex-col bg-orange-400 print-label'
+      className='relative border-2 border-black overflow-hidden flex flex-col bg-orange-400 rounded-lg shadow-lg'
       style={{
         backgroundColor: '#F7A70A',
         borderColor: '#000000',
-        width: '48mm',
-        height: '38mm',
+        width: '280px',
+        height: '220px',
         boxSizing: 'border-box',
       }}
     >
       {/* Горна секция със стрелка и име на продукта */}
-      <div className='flex items-start gap-1' style={{ padding: '1mm' }}>
-        {/* Стрелка от ляво (само за първия в реда) */}
+      <div className='flex items-start p-3 gap-2'>
+        {/* Стрелка от ляво */}
         {hasLeftArrow && (
           <div
             className='flex-shrink-0'
-            style={{ width: '2mm', height: '4mm' }}
+            style={{ width: '16px', height: '28px' }}
           >
             <svg
               width='100%'
@@ -80,19 +57,19 @@ export default function Label({ data, index }: LabelProps) {
             className='font-bold leading-tight break-words font-lexia-std'
             style={{
               color: '#951B81',
-              fontSize: '7pt',
-              lineHeight: '1.1',
+              fontSize: '14px',
+              lineHeight: '1.2',
             }}
           >
             {data.artikelbezeichnung}
           </div>
         </div>
 
-        {/* Стрелка от дясно (само за последния в реда) */}
+        {/* Стрелка от дясно */}
         {hasRightArrow && (
           <div
             className='flex-shrink-0'
-            style={{ width: '2mm', height: '4mm' }}
+            style={{ width: '16px', height: '28px' }}
           >
             <svg
               width='100%'
@@ -111,18 +88,13 @@ export default function Label({ data, index }: LabelProps) {
       </div>
 
       {/* Основно съдържание */}
-      <div
-        className='flex-1 flex flex-col justify-between items-center'
-        style={{ padding: '1mm 2mm 2mm 2mm' }}
-      >
+      <div className='flex-1 flex flex-col justify-between items-center px-4 py-2'>
         {/* APP VORTEIL бадж */}
         <div
-          className='bg-black text-white justify-center font-bold rounded-full font-din-engschrift-std'
+          className='bg-black text-white font-bold rounded-full font-din-engschrift-std px-4 py-2'
           style={{
-            fontSize: '25pt',
+            fontSize: '18px',
             lineHeight: '1',
-            padding: '0.5mm 2mm',
-            borderRadius: '2mm',
           }}
         >
           APP VORTEIL
@@ -131,11 +103,11 @@ export default function Label({ data, index }: LabelProps) {
         {/* Текст за цената */}
         <div className='text-center'>
           <div
-            className='font-bold text-black  font-din-engschrift-std'
+            className='font-bold text-black font-din-engschrift-std'
             style={{
-              fontSize: '10pt',
-              lineHeight: '1',
-              marginBottom: '1mm',
+              fontSize: '12px',
+              lineHeight: '1.1',
+              marginBottom: '4px',
             }}
           >
             DEIN PREIS MIT DER
@@ -143,7 +115,7 @@ export default function Label({ data, index }: LabelProps) {
           <div
             className='font-bold text-black font-din-engschrift-std'
             style={{
-              fontSize: '14pt',
+              fontSize: '16px',
               lineHeight: '1',
             }}
           >
@@ -155,7 +127,7 @@ export default function Label({ data, index }: LabelProps) {
         <div
           className='font-bold text-black text-center font-din-engschrift-std'
           style={{
-            fontSize: '46pt',
+            fontSize: '36px',
             lineHeight: '1',
             letterSpacing: '-1px',
           }}
