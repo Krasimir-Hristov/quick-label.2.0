@@ -154,6 +154,32 @@
   border: 1px solid #e0e0e0; /* Светла граница за визуализация */
   border-radius: 3px; /* Леко заоблени ъгли */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Сянка за 3D ефект */
+  position: relative;
+}
+
+/* Хоризонтална линия отгоре - от край до край за screen preview */
+.pf-sheet::before {
+  content: '';
+  position: absolute;
+  top: 8mm; /* На разстояние 8mm отгоре */
+  left: 0; /* От ляв край */
+  right: 0; /* До десен край */
+  height: 0.5px;
+  background: #a79881;
+  pointer-events: none;
+}
+
+/* Вертикални линии отляво и отдясно - от край до край за screen preview */
+.pf-sheet::after {
+  content: '';
+  position: absolute;
+  top: 0; /* От горен край */
+  bottom: 0; /* До долен край */
+  left: 9mm; /* На разстояние 9mm отляво */
+  width: 0.5px;
+  background: #a79881;
+  pointer-events: none;
+  box-shadow: calc(210mm - 18mm) 0 0 0 #a79881; /* Дясна линия на 9mm отдясно */
 }
 
 /* Основен контейнер на етикета */
@@ -341,6 +367,36 @@
     box-sizing: border-box !important;
     justify-content: center !important; /* Центрира grid-а в контейнера */
     align-content: start !important;
+    position: relative !important;
+  }
+
+  /* Хоризонтална линия отгоре - от край до край */
+  body .pf-sheet::before,
+  div.pf-sheet::before,
+  .pf-sheet::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 8mm !important; /* На разстояние 8mm отгоре */
+    left: 0 !important; /* От ляв край */
+    right: 0 !important; /* До десен край */
+    height: 0.5px !important;
+    background: #a79881 !important;
+    pointer-events: none !important;
+  }
+
+  /* Вертикални линии отляво и отдясно - от край до край */
+  body .pf-sheet::after,
+  div.pf-sheet::after,
+  .pf-sheet::after {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important; /* От горен край */
+    bottom: 0 !important; /* До долен край */
+    left: 9mm !important; /* На разстояние 9mm отляво */
+    width: 0.5px !important;
+    background: #a79881 !important;
+    pointer-events: none !important;
+    box-shadow: calc(210mm - 18mm) 0 0 0 #a79881 !important; /* Дясна линия на 9mm отдясно */
   }
 
   /* Стилизиране на етикетите за печат */
