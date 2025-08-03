@@ -138,82 +138,32 @@
 /* PRINT-FRIENDLY СТИЛОВЕ                       */
 /* ============================================= */
 
-/* Лист хартия за печат */
+/* Container for pages - screen preview only */
 .pf-sheet {
-  display: grid;
-  grid-template-columns: repeat(4, 48mm); /* 4 фиксирани колони */
-  gap: 0; /* Няма разстояние */
-  width: 210mm; /* Пълна ширина на листа */
   max-width: 100%;
-  margin: 20mm auto; /* Margin отгоре/отдолу и центриране ляво/дясно */
-  background: #ff9500; /* Фон на листа */
-  justify-content: center; /* Центрира grid-а */
-  align-content: start; /* Започва отгоре */
-  padding: 8mm 0; /* Само за screen preview */
-  box-sizing: border-box; /* За правилни размери */
-  border: 1px solid #e0e0e0; /* Светла граница за визуализация */
-  border-radius: 3px; /* Леко заоблени ъгли */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Сянка за 3D ефект */
-  position: relative;
+  margin: 20px auto;
 }
 
-/* Хоризонтална линия отгоре - от край до край за screen preview */
-.pf-sheet::before {
-  content: '';
-  position: absolute;
-  top: 8mm; /* На разстояние 8mm отгоре */
-  left: 0; /* От ляв край */
-  right: 0; /* До десен край */
-  height: 0.5px;
-  background: #a79881;
-  pointer-events: none;
+/* Master page class - defines a single perfect page */
+.print-page-wrapper {
+  width: 210mm;
+  height: 297mm;
+  background: #ff9500;
+  padding: 8mm 9mm;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(4, 48mm);
+  grid-template-rows: repeat(6, 45mm);
+  gap: 0;
+  margin-bottom: 20mm;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
-
-/* Основни стилове за всички линии за рязане */
-.cut-line {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 0.5px;
-  background: grey;
-  pointer-events: none;
-  z-index: 10;
-}
-
-/* Хоризонтални линии за рязане */
-.cut-line-horizontal {
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 0.5px;
-  background: grey;
-  pointer-events: none;
-  z-index: 10;
-}
-
-/* Позиции на всяка линия */
-.cut-line-1 {
-  left: 9mm;
-} /* Ляв край */
-.cut-line-2 {
-  left: 57mm;
-} /* След 1-ви етикет */
-.cut-line-3 {
-  left: 105mm;
-} /* След 2-ри етикет */
-.cut-line-4 {
-  left: 153mm;
-} /* След 3-ти етикет */
-.cut-line-5 {
-  left: 201mm;
-} /* Десен край */
 
 /* Основен контейнер на етикета */
 .pf-label {
-  width: 48mm; /* Обновена ширина според дизайна */
-  height: 45mm; /* Обновена височина според дизайна */
+  width: 48mm; /* Exact design dimensions */
+  height: 45mm; /* Exact design dimensions */
   background: #ff9500;
-  border: 0.5px solid grey; /* Единичен бордер за всички */
   margin: 0 !important; /* Никакви margin-и */
   box-sizing: border-box; /* Супер важно! */
   display: flex;
@@ -346,9 +296,9 @@
   font-display: block;
 }
 
-/* Опростен CSS за печат с CSS-driven pagination */
+/* Clean, purpose-built print CSS for separate pages architecture */
 @media print {
-  /* Font definitions за print */
+  /* Font definitions for print */
   @font-face {
     font-family: 'DINEngschriftStd';
     src: url('/fonts/DINEngschriftStd.otf') format('opentype');
@@ -361,7 +311,7 @@
     font-display: block;
   }
 
-  /* Основни настройки за html и body */
+  /* Basic html, body rules */
   html,
   body {
     height: initial !important;
@@ -371,104 +321,48 @@
     print-color-adjust: exact;
   }
 
-  /* Скриваме всичко освен print листа */
-  body > *:not(.pf-sheet) {
-    display: none !important;
+  /* 1. Hide ALL elements on the page by default (maintaining their layout space) */
+  body * {
+    visibility: hidden;
   }
 
-  /* Стилизиране на печатния лист */
-  body .pf-sheet,
-  div.pf-sheet,
-  .pf-sheet {
-    display: grid !important;
-    grid-template-columns: repeat(4, 48mm) !important; /* 4 фиксирани колони */
-    gap: 0 !important;
-    width: 210mm !important; /* Пълна ширина A4 */
-    margin: 0 auto !important; /* Центриране на страницата */
-    padding: 8mm 0 !important; /* Padding отгоре/отдолу */
-    box-shadow: none !important;
-    border: none !important;
-    border-radius: 0 !important;
-    background-color: #ff9500 !important;
-    box-sizing: border-box !important;
-    justify-content: center !important; /* Центрира grid-а в контейнера */
-    align-content: start !important;
-    position: relative !important;
+  /* 2. Explicitly make our main print container AND ALL its children visible */
+  .print-root-container,
+  .print-root-container * {
+    visibility: visible;
   }
 
-  /* Хоризонтална линия отгоре - от край до край */
-  body .pf-sheet::before,
-  div.pf-sheet::before,
-  .pf-sheet::before {
-    content: '' !important;
-    position: absolute !important;
-    top: 8mm !important; /* На разстояние 8mm отгоре */
-    left: 0 !important; /* От ляв край */
-    right: 0 !important; /* До десен край */
-    height: 0.5px !important;
-    background: #a79881 !important;
-    pointer-events: none !important;
+  /* 3. Ensure our main print container is positioned correctly for print rendering */
+  .print-root-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%; /* Ensure it spans full width */
+    height: fit-content; /* Allow height to adjust to content */
+    overflow: visible; /* Prevent content clipping */
   }
 
-  /* Print стилове за линиите за рязане */
-  .cut-line {
-    position: absolute !important;
-    top: 0 !important;
-    bottom: 0 !important;
-    width: 0.5px !important;
-    background: #a79881 !important;
-    pointer-events: none !important;
-    z-index: 10 !important;
-  }
-
-  /* Print стилове за хоризонталните линии */
-  .cut-line-horizontal {
-    position: absolute !important;
-    left: 0 !important;
-    right: 0 !important;
-    height: 0.5px !important;
-    background: #a79881 !important;
-    pointer-events: none !important;
-    z-index: 10 !important;
-  }
-
-  .cut-line-1 {
-    left: 9mm !important;
-  } /* Ляв край */
-  .cut-line-2 {
-    left: 57mm !important;
-  } /* След 1-ви етикет */
-  .cut-line-3 {
-    left: 105mm !important;
-  } /* След 2-ри етикет */
-  .cut-line-4 {
-    left: 153mm !important;
-  } /* След 3-ти етикет */
-  .cut-line-5 {
-    left: 201mm !important;
-  } /* Десен край */
-
-  /* Стилизиране на етикетите за печат */
-  .pf-label {
-    width: 48mm !important; /* ТОЧНА ширина - според дизайнерските спецификации */
-    height: 45mm !important; /* ТОЧНА височина - според дизайнерските спецификации */
-    border: 0.5px solid #a79881 !important; /* ЧЕРВЕН BORDER за проверка на margins */
-    background: transparent !important;
+  /* Print page wrapper - each page is identical and perfect */
+  .print-page-wrapper {
     margin: 0 !important;
-    padding: 0 !important;
-    vertical-align: top !important;
-    break-inside: avoid !important; /* Не се разрязват между страници */
-    page-break-inside: avoid !important; /* За по-стари браузъри */
+    box-shadow: none !important;
+    page-break-after: always !important;
+  }
+
+  /* Prevent extra blank page at the end */
+  .print-page-wrapper:last-child {
+    page-break-after: auto !important;
+  }
+
+  /* Label styling for print - no border */
+  .pf-label {
+    border: none !important;
     -webkit-print-color-adjust: exact;
     color-adjust: exact;
     print-color-adjust: exact;
-    box-sizing: border-box !important;
-    float: none !important;
-    position: static !important;
-    flex-shrink: 0 !important; /* Не се смалява във flexbox */
   }
 
-  /* Форсираме fonts при печат */
+  /* Font enforcement for print */
   .pf-price {
     font-family: 'DINEngschriftStd', Arial, sans-serif !important;
   }
@@ -491,9 +385,9 @@
     font-family: 'LexiaStd', Arial, sans-serif !important;
   }
 
-  /* Page настройки според дизайнерските спецификации */
+  /* Page settings - padding controlled by .print-page-wrapper */
   @page {
     size: A4;
-    margin: 8mm 9mm; /* Margin според дизайна */
+    margin: 0;
   }
 }
