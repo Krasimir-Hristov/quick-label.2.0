@@ -159,7 +159,7 @@
 .print-page-wrapper {
   width: 210mm;
   height: 297mm;
-  padding: 8mm 9mm; /* ЗАПАЗВАМЕ ТОВА, ЗАЩОТО ПОЗИЦИИТЕ НА ЛИНИИТЕ ЗАВИСЯТ ОТ НЕГО */
+  padding: 8mm 9mm;
   box-sizing: border-box;
   display: grid;
   grid-template-columns: repeat(4, 48mm);
@@ -167,9 +167,9 @@
   gap: 0;
   margin: 0 auto 20mm auto;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  position: relative; /* Важно за позиционирането на линиите */
+  position: relative;
 
-  /* --- ПРОМЯНА: РИСУВАНЕ НА ВЕРТИКАЛНИ ЛИНИИ С ГРАДИЕНТИ --- */
+  /* --- ПРОМЯНА: ДОБАВЯМЕ И ХОРИЗОНТАЛНИ ЛИНИИ --- */
   background-color: #ff9500;
   background-image:
     /* Вертикални линии (5 броя) */ linear-gradient(
@@ -180,22 +180,36 @@
     linear-gradient(to right, black 0.5pt, transparent 0.5pt),
     linear-gradient(to right, black 0.5pt, transparent 0.5pt),
     linear-gradient(to right, black 0.5pt, transparent 0.5pt),
-    linear-gradient(to right, black 0.5pt, transparent 0.5pt);
+    linear-gradient(to right, black 0.5pt, transparent 0.5pt),
+    /* Хоризонтални линии (12 броя) */
+      linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
+    linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
+    linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
+    linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
+    linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
+    linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
+    linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
+    linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
+    linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
+    linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
+    linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
+    linear-gradient(to bottom, black 0.5pt, transparent 0.5pt);
 
   background-repeat: no-repeat;
 
   background-size:
-    /* Размер на всяка линия: 0.5pt ширина, 100% височина */ 0.5pt
-      100%,
-    0.5pt 100%, 0.5pt 100%, 0.5pt 100%, 0.5pt 100%;
+    /* Размери на вертикалните линии */ 0.5pt 100%, 0.5pt 100%,
+    0.5pt 100%, 0.5pt 100%, 0.5pt 100%,
+    /* Размери на хоризонталните линии */ 100% 0.5pt, 100% 0.5pt, 100% 0.5pt,
+    100% 0.5pt, 100% 0.5pt, 100% 0.5pt, 100% 0.5pt, 100% 0.5pt, 100% 0.5pt,
+    100% 0.5pt, 100% 0.5pt, 100% 0.5pt;
 
   background-position:
-    /* Позиция на всяка линия, измерена от левия край на .print-page-wrapper */ 9mm
-      0,
-    /* Първа линия (левия край на грида) */ calc(9mm + 48mm) 0,
-    /* След 1-ва колона */ calc(9mm + 96mm) 0,
-    /* След 2-ра колона */ calc(9mm + 144mm) 0,
-    /* След 3-та колона */ calc(9mm + 192mm) 0; /* След 4-та колона (десния край на грида) */
+    /* Позиции на вертикалните линии */ 9mm 0,
+    calc(9mm + 48mm) 0, calc(9mm + 96mm) 0, calc(9mm + 144mm) 0,
+    calc(9mm + 192mm) 0, /* Позиции на хоризонталните линии */ 0 8mm, 0 15mm,
+    0 53mm, 0 60mm, 0 98mm, 0 105mm, 0 143mm, 0 150mm, 0 188mm, 0 195mm, 0 233mm,
+    0 240mm;
 }
 
 /* Етикетът при преглед на екрана - БЕЗ ПРОМЯНА */
@@ -352,17 +366,38 @@
     page-break-after: always;
     break-after: page;
 
-    /* ПРОМЯНА: Прилагаме фона с линиите и при печат */
+    /* ПРОМЯНА: Прилагаме фона с ВСИЧКИ линии и при печат */
     background-color: #ff9500 !important;
-    background-image: linear-gradient(to right, black 0.5pt, transparent 0.5pt),
+    background-image:
+      /* Вертикални линии */ linear-gradient(
+        to right,
+        black 0.5pt,
+        transparent 0.5pt
+      ),
       linear-gradient(to right, black 0.5pt, transparent 0.5pt),
       linear-gradient(to right, black 0.5pt, transparent 0.5pt),
       linear-gradient(to right, black 0.5pt, transparent 0.5pt),
-      linear-gradient(to right, black 0.5pt, transparent 0.5pt);
+      linear-gradient(to right, black 0.5pt, transparent 0.5pt),
+      /* Хоризонтални линии */
+        linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
+      linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
+      linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
+      linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
+      linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
+      linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
+      linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
+      linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
+      linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
+      linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
+      linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
+      linear-gradient(to bottom, black 0.5pt, transparent 0.5pt);
     background-repeat: no-repeat;
-    background-size: 0.5pt 100%, 0.5pt 100%, 0.5pt 100%, 0.5pt 100%, 0.5pt 100%;
+    background-size: 0.5pt 100%, 0.5pt 100%, 0.5pt 100%, 0.5pt 100%, 0.5pt 100%,
+      100% 0.5pt, 100% 0.5pt, 100% 0.5pt, 100% 0.5pt, 100% 0.5pt, 100% 0.5pt,
+      100% 0.5pt, 100% 0.5pt, 100% 0.5pt, 100% 0.5pt, 100% 0.5pt, 100% 0.5pt;
     background-position: 9mm 0, calc(9mm + 48mm) 0, calc(9mm + 96mm) 0,
-      calc(9mm + 144mm) 0, calc(9mm + 192mm) 0;
+      calc(9mm + 144mm) 0, calc(9mm + 192mm) 0, 0 8mm, 0 15mm, 0 53mm, 0 60mm,
+      0 98mm, 0 105mm, 0 143mm, 0 150mm, 0 188mm, 0 195mm, 0 233mm, 0 240mm;
 
     margin: 0 !important;
     box-shadow: none !important;
