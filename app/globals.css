@@ -148,7 +148,6 @@
 /*     СТИЛОВЕ ЗА ЕКРАНЕН ПРЕГЛЕД (ОПРОСТЕНИ)    */
 /* ============================================= */
 
-/* Този клас е само за преглед на екран, за да има скрол */
 .print-root-container {
   margin: 20px auto;
   padding: 10px;
@@ -169,54 +168,49 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   position: relative;
 
-  /* --- ПРОМЯНА: ДОБАВЯМЕ И ХОРИЗОНТАЛНИ ЛИНИИ --- */
+  /* --- ПРОМЯНА: ЦВЯТ И ДЕБЕЛИНА НА ВЪНШНИТЕ ЛИНИИ --- */
   background-color: #ff9500;
   background-image:
-    /* Вертикални линии (5 броя) */ linear-gradient(
+    /* Вертикални линии */ linear-gradient(
       to right,
-      black 0.5pt,
+      #9f968a 0.5pt,
       transparent 0.5pt
     ),
-    linear-gradient(to right, black 0.5pt, transparent 0.5pt),
-    linear-gradient(to right, black 0.5pt, transparent 0.5pt),
-    linear-gradient(to right, black 0.5pt, transparent 0.5pt),
-    linear-gradient(to right, black 0.5pt, transparent 0.5pt),
-    /* Хоризонтални линии (12 броя) */
-      linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
-    linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
-    linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
-    linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
-    linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
-    linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
-    linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
-    linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
-    linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
-    linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
-    linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
-    linear-gradient(to bottom, black 0.5pt, transparent 0.5pt);
+    linear-gradient(to right, #9f968a 0.5pt, transparent 0.5pt),
+    linear-gradient(to right, #9f968a 0.5pt, transparent 0.5pt),
+    linear-gradient(to right, #9f968a 0.5pt, transparent 0.5pt),
+    linear-gradient(to right, #9f968a 0.5pt, transparent 0.5pt),
+    /* Хоризонтални линии */
+      linear-gradient(to bottom, #9f968a 0.5pt, transparent 0.5pt),
+    linear-gradient(to bottom, #9f968a 0.5pt, transparent 0.5pt),
+    linear-gradient(to bottom, #9f968a 0.5pt, transparent 0.5pt),
+    linear-gradient(to bottom, #9f968a 0.5pt, transparent 0.5pt),
+    linear-gradient(to bottom, #9f968a 0.5pt, transparent 0.5pt),
+    linear-gradient(to bottom, #9f968a 0.5pt, transparent 0.5pt),
+    linear-gradient(to bottom, #9f968a 0.5pt, transparent 0.5pt),
+    linear-gradient(to bottom, #9f968a 0.5pt, transparent 0.5pt),
+    linear-gradient(to bottom, #9f968a 0.5pt, transparent 0.5pt),
+    linear-gradient(to bottom, #9f968a 0.5pt, transparent 0.5pt),
+    linear-gradient(to bottom, #9f968a 0.5pt, transparent 0.5pt),
+    linear-gradient(to bottom, #9f968a 0.5pt, transparent 0.5pt);
 
   background-repeat: no-repeat;
 
-  background-size:
-    /* Размери на вертикалните линии */ 0.5pt 100%, 0.5pt 100%,
-    0.5pt 100%, 0.5pt 100%, 0.5pt 100%,
-    /* Размери на хоризонталните линии */ 100% 0.5pt, 100% 0.5pt, 100% 0.5pt,
+  background-size: 0.5pt 100%, 0.5pt 100%, 0.5pt 100%, 0.5pt 100%, 0.5pt 100%,
     100% 0.5pt, 100% 0.5pt, 100% 0.5pt, 100% 0.5pt, 100% 0.5pt, 100% 0.5pt,
-    100% 0.5pt, 100% 0.5pt, 100% 0.5pt;
+    100% 0.5pt, 100% 0.5pt, 100% 0.5pt, 100% 0.5pt, 100% 0.5pt, 100% 0.5pt;
 
-  background-position:
-    /* Позиции на вертикалните линии */ 9mm 0,
-    calc(9mm + 48mm) 0, calc(9mm + 96mm) 0, calc(9mm + 144mm) 0,
-    calc(9mm + 192mm) 0, /* Позиции на хоризонталните линии */ 0 8mm, 0 15mm,
-    0 53mm, 0 60mm, 0 98mm, 0 105mm, 0 143mm, 0 150mm, 0 188mm, 0 195mm, 0 233mm,
-    0 240mm;
+  background-position: 9mm 0, calc(9mm + 48mm) 0, calc(9mm + 96mm) 0,
+    calc(9mm + 144mm) 0, calc(9mm + 192mm) 0, 0 8mm, 0 15mm, 0 53mm, 0 60mm,
+    0 98mm, 0 105mm, 0 143mm, 0 150mm, 0 188mm, 0 195mm, 0 233mm, 0 240mm;
 }
 
-/* Етикетът при преглед на екрана - БЕЗ ПРОМЯНА */
+/* Етикетът при преглед на екрана */
 .pf-label {
   width: 48mm;
   height: 45mm;
-  border: 0.5pt solid grey;
+  /* --- ПРОМЯНА: ЦВЯТ И ДЕБЕЛИНА НА ВЪТРЕШНИТЕ БОРДЪРИ --- */
+  border: 0.25pt solid #9f968a;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -233,7 +227,7 @@
   height: 7mm;
   min-height: 7mm;
   max-height: 7mm;
-  border-bottom: 0.5pt solid grey;
+  border-bottom: 0.5pt solid #9f968a;
 }
 .pf-content {
   flex-grow: 1;
@@ -244,6 +238,7 @@
   padding: 2mm 2mm 2mm 2mm;
   gap: 1.5mm;
 }
+/* ... и т.н. ... */
 .pf-product-name {
   text-align: center;
   flex: 1;
@@ -316,7 +311,6 @@
   align-items: flex-start;
   justify-content: center;
 }
-
 /* ============================================= */
 /*          ФИНАЛНИ СТИЛОВЕ ЗА ПЕЧАТ             */
 /* ============================================= */
@@ -366,31 +360,31 @@
     page-break-after: always;
     break-after: page;
 
-    /* ПРОМЯНА: Прилагаме фона с ВСИЧКИ линии и при печат */
+    /* --- ПРОМЯНА: ЦВЯТ И ДЕБЕЛИНА НА ВЪНШНИТЕ ЛИНИИ ПРИ ПЕЧАТ --- */
     background-color: #ff9500 !important;
     background-image:
       /* Вертикални линии */ linear-gradient(
         to right,
-        black 0.5pt,
+        #9f968a 0.5pt,
         transparent 0.5pt
       ),
-      linear-gradient(to right, black 0.5pt, transparent 0.5pt),
-      linear-gradient(to right, black 0.5pt, transparent 0.5pt),
-      linear-gradient(to right, black 0.5pt, transparent 0.5pt),
-      linear-gradient(to right, black 0.5pt, transparent 0.5pt),
+      linear-gradient(to right, #9f968a 0.5pt, transparent 0.5pt),
+      linear-gradient(to right, #9f968a 0.5pt, transparent 0.5pt),
+      linear-gradient(to right, #9f968a 0.5pt, transparent 0.5pt),
+      linear-gradient(to right, #9f968a 0.5pt, transparent 0.5pt),
       /* Хоризонтални линии */
-        linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
-      linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
-      linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
-      linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
-      linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
-      linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
-      linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
-      linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
-      linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
-      linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
-      linear-gradient(to bottom, black 0.5pt, transparent 0.5pt),
-      linear-gradient(to bottom, black 0.5pt, transparent 0.5pt);
+        linear-gradient(to bottom, #9f968a 0.5pt, transparent 0.5pt),
+      linear-gradient(to bottom, #9f968a 0.5pt, transparent 0.5pt),
+      linear-gradient(to bottom, #9f968a 0.5pt, transparent 0.5pt),
+      linear-gradient(to bottom, #9f968a 0.5pt, transparent 0.5pt),
+      linear-gradient(to bottom, #9f968a 0.5pt, transparent 0.5pt),
+      linear-gradient(to bottom, #9f968a 0.5pt, transparent 0.5pt),
+      linear-gradient(to bottom, #9f968a 0.5pt, transparent 0.5pt),
+      linear-gradient(to bottom, #9f968a 0.5pt, transparent 0.5pt),
+      linear-gradient(to bottom, #9f968a 0.5pt, transparent 0.5pt),
+      linear-gradient(to bottom, #9f968a 0.5pt, transparent 0.5pt),
+      linear-gradient(to bottom, #9f968a 0.5pt, transparent 0.5pt),
+      linear-gradient(to bottom, #9f968a 0.5pt, transparent 0.5pt);
     background-repeat: no-repeat;
     background-size: 0.5pt 100%, 0.5pt 100%, 0.5pt 100%, 0.5pt 100%, 0.5pt 100%,
       100% 0.5pt, 100% 0.5pt, 100% 0.5pt, 100% 0.5pt, 100% 0.5pt, 100% 0.5pt,
@@ -408,9 +402,10 @@
     break-after: auto;
   }
 
-  /* Стил на етикета при печат (БЕЗ ПРОМЯНА) */
+  /* Стил на етикета при печат */
   .pf-label {
-    border: 0.5pt solid grey !important;
+    /* --- ПРОМЯНА: ЦВЯТ И ДЕБЕЛИНА НА ВЪТРЕШНИТЕ БОРДЪРИ ПРИ ПЕЧАТ --- */
+    border: 0.25pt solid #9f968a !important;
     background: transparent !important;
   }
 
