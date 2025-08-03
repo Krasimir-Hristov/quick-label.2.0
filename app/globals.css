@@ -347,7 +347,7 @@
   .pf-label {
     width: 48mm !important; /* ТОЧНА ширина - според дизайнерските спецификации */
     height: 45mm !important; /* ТОЧНА височина - според дизайнерските спецификации */
-    border: 1px solid red !important; /* ЧЕРВЕН BORDER за проверка на margins */
+    border: 0.5px solid #a79881 !important; /* ЧЕРВЕН BORDER за проверка на margins */
     background: transparent !important;
     margin: 0 !important;
     padding: 0 !important;
