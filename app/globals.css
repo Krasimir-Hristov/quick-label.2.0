@@ -149,7 +149,7 @@
   background: #ff9500; /* Фон на листа */
   justify-content: center; /* Центрира grid-а */
   align-content: start; /* Започва отгоре */
-  padding: 8mm 0; /* Само top padding */
+  padding: 8mm 0; /* Само за screen preview */
   box-sizing: border-box; /* За правилни размери */
   border: 1px solid #e0e0e0; /* Светла граница за визуализация */
   border-radius: 3px; /* Леко заоблени ъгли */
@@ -175,6 +175,17 @@
   top: 0;
   bottom: 0;
   width: 0.5px;
+  background: grey;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Хоризонтални линии за рязане */
+.cut-line-horizontal {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 0.5px;
   background: grey;
   pointer-events: none;
   z-index: 10;
@@ -374,7 +385,7 @@
     gap: 0 !important;
     width: 210mm !important; /* Пълна ширина A4 */
     margin: 0 auto !important; /* Центриране на страницата */
-    padding: 8mm 0 !important; /* Само top padding */
+    padding: 8mm 0 !important; /* Padding отгоре/отдолу */
     box-shadow: none !important;
     border: none !important;
     border-radius: 0 !important;
@@ -410,6 +421,17 @@
     z-index: 10 !important;
   }
 
+  /* Print стилове за хоризонталните линии */
+  .cut-line-horizontal {
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 0.5px !important;
+    background: #a79881 !important;
+    pointer-events: none !important;
+    z-index: 10 !important;
+  }
+
   .cut-line-1 {
     left: 9mm !important;
   } /* Ляв край */
@@ -436,6 +458,7 @@
     padding: 0 !important;
     vertical-align: top !important;
     break-inside: avoid !important; /* Не се разрязват между страници */
+    page-break-inside: avoid !important; /* За по-стари браузъри */
     -webkit-print-color-adjust: exact;
     color-adjust: exact;
     print-color-adjust: exact;
