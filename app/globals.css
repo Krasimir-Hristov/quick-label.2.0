@@ -266,27 +266,35 @@
   max-height: 8.6mm;
   overflow: hidden;
 }
+/* APP VORTEIL бадж */
 .pf-badge {
   font-family: var(--font-din-engschrift-std), sans-serif;
-  font-size: 15pt;
   background-color: black;
   color: white;
   font-weight: bold;
-  padding: 1.5mm 5mm;
-  border-radius: 20px;
   line-height: 1;
   text-align: center;
-  letter-spacing: 1.2pt;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
+
+  /* --- Размери --- */
+  width: 43mm;
+  height: 10mm;
+  border-radius: 5mm; /* 50% от височината за перфектен овал */
+  font-size: 25pt;
+  letter-spacing: 0.5pt;
+
+  /* --- ПРОМЯНА: Добавяме това, за да смъкнем визуално текста --- */
+  padding-top: 1.6mm;
 }
 .pf-price-text {
   text-align: center;
 }
 .pf-price-text-line1 {
   font-family: var(--font-din-engschrift-std), sans-serif;
-  font-size: 9pt !important;
+  font-size: 10pt !important;
   color: black;
   font-weight: bold;
   line-height: 1;
@@ -294,14 +302,14 @@
 }
 .pf-price-text-line2 {
   font-family: var(--font-din-engschrift-std), sans-serif;
-  font-size: 11pt !important;
+  font-size: 14pt !important;
   color: black;
   font-weight: bold;
   line-height: 1;
 }
 .pf-price {
   font-family: var(--font-din-engschrift-std), sans-serif;
-  font-size: 35pt;
+  font-size: 47pt;
   color: black;
   font-weight: 900;
   text-align: center;
