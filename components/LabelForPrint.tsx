@@ -18,18 +18,7 @@ export default function LabelForPrint({ data, index }: LabelForPrintProps) {
   const hasRightArrow = positionInRow === 0; // Последен в реда (четвърти)
 
   return (
-    <div
-      className='pf-label'
-      style={{
-        width: '45mm',
-        height: '41mm',
-        minWidth: '45mm',
-        minHeight: '41mm',
-        maxWidth: '45mm',
-        maxHeight: '41mm',
-        margin: '0',
-      }}
-    >
+    <div className='pf-label'>
       {/* Горна секция със стрелка и име на продукта */}
       <div className='pf-header'>
         {/* Стрелка от ляво */}

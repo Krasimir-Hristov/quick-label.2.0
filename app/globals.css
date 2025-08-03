@@ -140,15 +140,16 @@
 
 /* Лист хартия за печат */
 .pf-sheet {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 48mm); /* 4 фиксирани колони */
+  gap: 0; /* Няма разстояние */
   width: 210mm; /* Пълна ширина на листа */
   max-width: 100%;
   margin: 20mm auto; /* Margin отгоре/отдолу и центриране ляво/дясно */
   background: #ff9500; /* Фон на листа */
-  justify-content: center; /* Центрира етикетите */
-  align-content: flex-start; /* Започва отгоре */
-  padding: 8mm 0; /* Само top/bottom padding */
+  justify-content: center; /* Центрира grid-а */
+  align-content: start; /* Започва отгоре */
+  padding: 8mm 0; /* Само top padding */
   box-sizing: border-box; /* За правилни размери */
   border: 1px solid #e0e0e0; /* Светла граница за визуализация */
   border-radius: 3px; /* Леко заоблени ъгли */
@@ -327,18 +328,19 @@
   body .pf-sheet,
   div.pf-sheet,
   .pf-sheet {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    width: 210mm !important; /* Пълна ширина на A4 */
+    display: grid !important;
+    grid-template-columns: repeat(4, 48mm) !important; /* 4 фиксирани колони */
+    gap: 0 !important;
+    width: 210mm !important; /* Пълна ширина A4 */
     margin: 0 auto !important; /* Центриране на страницата */
-    padding: 8mm 0 !important; /* Само top padding, без left/right */
+    padding: 8mm 0 !important; /* Само top padding */
     box-shadow: none !important;
     border: none !important;
     border-radius: 0 !important;
     background-color: #ff9500 !important;
     box-sizing: border-box !important;
-    align-content: flex-start !important;
-    justify-content: center !important; /* ЦЕНТРИРА етикетите автоматично */
+    justify-content: center !important; /* Центрира grid-а в контейнера */
+    align-content: start !important;
   }
 
   /* Стилизиране на етикетите за печат */
