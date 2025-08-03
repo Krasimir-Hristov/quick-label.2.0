@@ -141,15 +141,15 @@
 /* Лист хартия за печат */
 .pf-sheet {
   display: grid;
-  grid-template-columns: repeat(4, 44mm); /* 4 колони по 44mm */
+  grid-template-columns: repeat(4, 45mm); /* 4 колони по 44mm */
   gap: 0; /* Няма разстояние */
-  width: 196mm; /* 4 × 44mm + 20mm padding (10mm × 2) */
+  width: 210mm; /* Ширина на листа */
   max-width: 100%;
   margin: 20mm auto; /* Margin отгоре/отдолу и центриране ляво/дясно */
-  background: white;
+  background: #ff9500; /* Фон на листа */
   justify-content: center;
   place-content: start;
-  padding: 10mm; /* Допълнителен padding отвътре */
+  padding: 8mm 9mm; /* Top 8mm, left/right 9mm */
   box-sizing: border-box; /* За правилни размери */
   border: 1px solid #e0e0e0; /* Светла граница за визуализация */
   border-radius: 3px; /* Леко заоблени ъгли */
@@ -158,9 +158,9 @@
 
 /* Основен контейнер на етикета */
 .pf-label {
-  width: 44mm;
+  width: 45mm;
   height: 41mm;
-  background: linear-gradient(135deg, #ff9500 0%, #ff8c00 50%, #ff7700 100%);
+  background: #ff9500;
   border: 0.5pt solid grey; /* Единичен бордер за всички */
   margin: -0.25pt; /* Negative margin за обединяване на бордовете */
   box-sizing: border-box; /* Супер важно! */
@@ -175,9 +175,9 @@
   display: flex;
   align-items: flex-start;
   padding: 0.7mm 2mm 0.7mm 2mm;
-  height: 8mm;
-  min-height: 8mm;
-  max-height: 8mm;
+  height: 7mm;
+  min-height: 7mm;
+  max-height: 7mm;
   border-bottom: 0.5pt solid grey;
 }
 
@@ -218,7 +218,7 @@
 /* APP VORTEIL бадж */
 .pf-badge {
   font-family: var(--font-din-engschrift-std), sans-serif;
-  font-size: 16pt;
+  font-size: 25pt;
   background-color: black;
   color: white;
   font-weight: bold;
