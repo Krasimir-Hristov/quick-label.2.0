@@ -4,7 +4,7 @@
 /* ============================================= */
 /*          ВАШИТЕ ТЕМИ И ПРОМЕНЛИВИ             */
 /* ============================================= */
-/* (БЕЗ ПРОМЯНА - Всичко е запазено) */
+/* (БЕЗ ПРОМЯНА) */
 @custom-variant dark (&:is(.dark *));
 @theme inline {
   --color-background: var(--background);
@@ -159,22 +159,49 @@
 .print-page-wrapper {
   width: 210mm;
   height: 297mm;
-  background: #ff9500;
-  padding: 8mm 9mm;
+  padding: 8mm 9mm; /* ЗАПАЗВАМЕ ТОВА, ЗАЩОТО ПОЗИЦИИТЕ НА ЛИНИИТЕ ЗАВИСЯТ ОТ НЕГО */
   box-sizing: border-box;
   display: grid;
   grid-template-columns: repeat(4, 48mm);
   grid-template-rows: repeat(6, 45mm);
   gap: 0;
-  margin: 0 auto 20mm auto; /* Разстояние между страниците на екрана */
+  margin: 0 auto 20mm auto;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  position: relative; /* Важно за позиционирането на линиите */
+
+  /* --- ПРОМЯНА: РИСУВАНЕ НА ВЕРТИКАЛНИ ЛИНИИ С ГРАДИЕНТИ --- */
+  background-color: #ff9500;
+  background-image:
+    /* Вертикални линии (5 броя) */ linear-gradient(
+      to right,
+      black 0.5pt,
+      transparent 0.5pt
+    ),
+    linear-gradient(to right, black 0.5pt, transparent 0.5pt),
+    linear-gradient(to right, black 0.5pt, transparent 0.5pt),
+    linear-gradient(to right, black 0.5pt, transparent 0.5pt),
+    linear-gradient(to right, black 0.5pt, transparent 0.5pt);
+
+  background-repeat: no-repeat;
+
+  background-size:
+    /* Размер на всяка линия: 0.5pt ширина, 100% височина */ 0.5pt
+      100%,
+    0.5pt 100%, 0.5pt 100%, 0.5pt 100%, 0.5pt 100%;
+
+  background-position:
+    /* Позиция на всяка линия, измерена от левия край на .print-page-wrapper */ 9mm
+      0,
+    /* Първа линия (левия край на грида) */ calc(9mm + 48mm) 0,
+    /* След 1-ва колона */ calc(9mm + 96mm) 0,
+    /* След 2-ра колона */ calc(9mm + 144mm) 0,
+    /* След 3-та колона */ calc(9mm + 192mm) 0; /* След 4-та колона (десния край на грида) */
 }
 
-/* Етикетът при преглед на екрана */
+/* Етикетът при преглед на екрана - БЕЗ ПРОМЯНА */
 .pf-label {
   width: 48mm;
   height: 45mm;
-  /* ПРОМЯНА: Добавяме видима граница и за екран, за да е точен прегледът */
   border: 0.5pt solid grey;
   box-sizing: border-box;
   display: flex;
@@ -184,7 +211,7 @@
   background: transparent;
 }
 
-/* ... (всичките ви вътрешни стилове за .pf-header, .pf-content, .pf-price и т.н. остават същите) ... */
+/* ... (Всички стилове от .pf-header до .pf-arrow-right ОСТАВАТ БЕЗ ПРОМЯНА) ... */
 .pf-header {
   display: flex;
   align-items: flex-start;
@@ -314,8 +341,6 @@
     top: 0;
     width: 100%;
   }
-
-  /* Нулираме стиловете на контейнера за преглед */
   .print-root-container {
     margin: 0 !important;
     padding: 0 !important;
@@ -327,16 +352,17 @@
     page-break-after: always;
     break-after: page;
 
-    width: 210mm;
-    height: 297mm;
-    background: #ff9500 !important;
-    padding: 8mm 9mm;
-    box-sizing: border-box;
-
-    display: grid;
-    grid-template-columns: repeat(4, 48mm);
-    grid-template-rows: repeat(6, 45mm);
-    gap: 0;
+    /* ПРОМЯНА: Прилагаме фона с линиите и при печат */
+    background-color: #ff9500 !important;
+    background-image: linear-gradient(to right, black 0.5pt, transparent 0.5pt),
+      linear-gradient(to right, black 0.5pt, transparent 0.5pt),
+      linear-gradient(to right, black 0.5pt, transparent 0.5pt),
+      linear-gradient(to right, black 0.5pt, transparent 0.5pt),
+      linear-gradient(to right, black 0.5pt, transparent 0.5pt);
+    background-repeat: no-repeat;
+    background-size: 0.5pt 100%, 0.5pt 100%, 0.5pt 100%, 0.5pt 100%, 0.5pt 100%;
+    background-position: 9mm 0, calc(9mm + 48mm) 0, calc(9mm + 96mm) 0,
+      calc(9mm + 144mm) 0, calc(9mm + 192mm) 0;
 
     margin: 0 !important;
     box-shadow: none !important;
@@ -347,17 +373,15 @@
     break-after: auto;
   }
 
-  /* Стил на етикета при печат */
+  /* Стил на етикета при печат (БЕЗ ПРОМЯНА) */
   .pf-label {
-    /* ПРОМЯНА: Указваме на принтера ИЗРИЧНО да начертае границата */
     border: 0.5pt solid grey !important;
     background: transparent !important;
   }
 
-  /* ОСНОВНАТА НАСТРОЙКА ЗА ХАРТИЯТА */
   @page {
     size: A4;
-    margin: 0; /* Управлява се от .print-page-wrapper */
+    margin: 0;
   }
 
   /* ... (Вашите правила за форсиране на шрифтове остават същите) ... */
