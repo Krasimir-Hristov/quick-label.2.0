@@ -12,6 +12,14 @@ const LabelSheetForPrint = React.forwardRef<
 >(({ labelData }, ref) => {
   return (
     <div className='pf-sheet' ref={ref}>
+      {/* Вертикални линии за рязане */}
+      <div className='cut-line cut-line-1'></div>
+      <div className='cut-line cut-line-2'></div>
+      <div className='cut-line cut-line-3'></div>
+      <div className='cut-line cut-line-4'></div>
+      <div className='cut-line cut-line-5'></div>
+
+      {/* Всички етикети */}
       {labelData.map((data, index) => (
         <LabelForPrint key={index} data={data} index={index} />
       ))}
