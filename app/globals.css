@@ -280,7 +280,7 @@
   box-sizing: border-box;
 
   /* --- Размери --- */
-  width: 43mm;
+  width: 41mm;
   height: 10mm;
   border-radius: 5mm; /* 50% от височината за перфектен овал */
   font-size: 25pt;
