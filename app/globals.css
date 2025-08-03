@@ -140,18 +140,15 @@
 
 /* Лист хартия за печат */
 .pf-sheet {
-  display: grid;
-  grid-template-columns: repeat(4, 45mm); /* 4 колони по 45mm */
-  gap: 0; /* Няма разстояние */
-  width: 210mm; /* Ширина на листа */
-  height: 268mm; /* Височина на листа */
+  display: flex;
+  flex-wrap: wrap;
+  width: 210mm; /* Пълна ширина на листа */
   max-width: 100%;
-  max-height: 100%;
   margin: 20mm auto; /* Margin отгоре/отдолу и центриране ляво/дясно */
   background: #ff9500; /* Фон на листа */
-  justify-content: center;
-  place-content: start;
-  padding: 8mm 9mm; /* Top 8mm, left/right 9mm */
+  justify-content: center; /* Центрира етикетите */
+  align-content: flex-start; /* Започва отгоре */
+  padding: 8mm 0; /* Само top/bottom padding */
   box-sizing: border-box; /* За правилни размери */
   border: 1px solid #e0e0e0; /* Светла граница за визуализация */
   border-radius: 3px; /* Леко заоблени ъгли */
@@ -160,8 +157,8 @@
 
 /* Основен контейнер на етикета */
 .pf-label {
-  width: 45mm;
-  height: 41mm;
+  width: 48mm; /* Обновена ширина според дизайна */
+  height: 45mm; /* Обновена височина според дизайна */
   background: #ff9500;
   border: 0.5pt solid grey; /* Единичен бордер за всички */
   margin: 0 !important; /* Никакви margin-и */
@@ -170,6 +167,7 @@
   flex-direction: column;
   overflow: hidden;
   position: relative;
+  break-inside: avoid; /* Предотвратява разрязване на етикети между страници */
 }
 
 /* Горна секция с името на продукта и стрелките и бордера */
@@ -220,7 +218,7 @@
 /* APP VORTEIL бадж */
 .pf-badge {
   font-family: var(--font-din-engschrift-std), sans-serif;
-  font-size: 25pt;
+  font-size: 15pt;
   background-color: black;
   color: white;
   font-weight: bold;
@@ -282,19 +280,6 @@
   justify-content: center;
 }
 
-/* Print container */
-.print-container {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  max-width: 100%;
-}
-
-/* Page break клас - скрит в нормален режим */
-.page-break {
-  display: none;
-}
-
 /* Font definitions за print */
 @font-face {
   font-family: 'DINEngschriftStd';
@@ -308,7 +293,7 @@
   font-display: block;
 }
 
-/* CSS правила за печат според react-to-print документация */
+/* Опростен CSS за печат с CSS-driven pagination */
 @media print {
   /* Font definitions за print */
   @font-face {
@@ -323,7 +308,7 @@
     font-display: block;
   }
 
-  /* Критично важно за множество страници според документацията */
+  /* Основни настройки за html и body */
   html,
   body {
     height: initial !important;
@@ -333,55 +318,46 @@
     print-color-adjust: exact;
   }
 
-  /* За показване на всичко съдържание при печат */
-  .print-container {
-    overflow: visible !important;
-    height: fit-content !important;
+  /* Скриваме всичко освен print листа */
+  body > *:not(.pf-sheet) {
+    display: none !important;
   }
 
-  /* Всяка страница с етикети */
-  .print-page {
-    page-break-after: always !important;
-    break-after: page !important; /* Модерна CSS алтернатива */
-    page-break-inside: avoid !important;
-    break-inside: avoid !important; /* Модерна CSS алтернатива */
-    height: 268mm; /* 6 реда × 41mm + padding */
-    width: 210mm; /* Пълна ширина на листа */
-    background: #ff9500; /* Оранжев background */
-    margin: 10mm auto 10mm auto; /* Балансиран margin отгоре, отдолу и центриране */
-    padding: 8mm 9mm 8mm 9mm; /* Top 8mm, right 9mm, bottom 8mm, left 9mm */
-    box-sizing: border-box;
-    display: grid;
-    grid-template-columns: repeat(4, 45mm); /* 4 колони по 45mm */
-    grid-template-rows: repeat(6, 41mm);
-    gap: 0 !important; /* Няма разстояние между етикетите */
-    justify-content: center; /* Центриране на grid-а */
-    align-content: start; /* Започва отгоре */
+  /* Стилизиране на печатния лист */
+  body .pf-sheet,
+  div.pf-sheet,
+  .pf-sheet {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    width: 210mm !important; /* Пълна ширина на A4 */
+    margin: 0 auto !important; /* Центриране на страницата */
+    padding: 8mm 0 !important; /* Само top padding, без left/right */
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    background-color: #ff9500 !important;
+    box-sizing: border-box !important;
+    align-content: flex-start !important;
+    justify-content: center !important; /* ЦЕНТРИРА етикетите автоматично */
   }
 
-  /* Последната страница не трябва page break */
-  .print-page:last-child {
-    page-break-after: auto !important;
-    break-after: auto !important;
-    margin-bottom: 0;
-  }
-
-  /* Скриваме всичко освен print компонентите */
-  body * {
-    visibility: hidden;
-  }
-
-  .print-container,
-  .print-container * {
-    visibility: visible;
-  }
-
-  /* Осигуряваме точни цветове и fonts при печат */
+  /* Стилизиране на етикетите за печат */
   .pf-label {
+    width: 48mm !important; /* ТОЧНА ширина - според дизайнерските спецификации */
+    height: 45mm !important; /* ТОЧНА височина - според дизайнерските спецификации */
+    border: 1px solid red !important; /* ЧЕРВЕН BORDER за проверка на margins */
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    vertical-align: top !important;
+    break-inside: avoid !important; /* Не се разрязват между страници */
     -webkit-print-color-adjust: exact;
     color-adjust: exact;
     print-color-adjust: exact;
-    margin: 0 !important;
+    box-sizing: border-box !important;
+    float: none !important;
+    position: static !important;
+    flex-shrink: 0 !important; /* Не се смалява във flexbox */
   }
 
   /* Форсираме fonts при печат */
@@ -407,9 +383,9 @@
     font-family: 'LexiaStd', Arial, sans-serif !important;
   }
 
-  /* Настройки за печат с margin */
+  /* Page настройки според дизайнерските спецификации */
   @page {
     size: A4;
-    margin: 10mm;
+    margin: 8mm 9mm; /* Margin според дизайна */
   }
 }
