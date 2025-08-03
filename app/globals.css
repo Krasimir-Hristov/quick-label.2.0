@@ -1,8 +1,11 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
+/* ============================================= */
+/*          ВАШИТЕ ТЕМИ И ПРОМЕНЛИВИ             */
+/* ============================================= */
+/* (БЕЗ ПРОМЯНА - Всичко е запазено) */
 @custom-variant dark (&:is(.dark *));
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -122,29 +125,37 @@
 }
 
 /* ============================================= */
-/* CUSTOM ШРИФТОВЕ                              */
+/*           CUSTOM ШРИФТОВЕ (ЗАПАЗЕНИ)          */
 /* ============================================= */
-
-/* Utility класове за custom шрифтовете */
+@font-face {
+  font-family: 'DINEngschriftStd';
+  src: url('/fonts/DINEngschriftStd.otf') format('opentype');
+  font-display: block;
+}
+@font-face {
+  font-family: 'LexiaStd';
+  src: url('/fonts/Lexia_Std.ttf') format('truetype');
+  font-display: block;
+}
 .font-lexia-std {
   font-family: var(--font-lexia-std), sans-serif;
 }
-
 .font-din-engschrift-std {
   font-family: var(--font-din-engschrift-std), sans-serif;
 }
 
 /* ============================================= */
-/* PRINT-FRIENDLY СТИЛОВЕ                       */
+/*     СТИЛОВЕ ЗА ЕКРАНЕН ПРЕГЛЕД (ОПРОСТЕНИ)    */
 /* ============================================= */
 
-/* Container for pages - screen preview only */
-.pf-sheet {
-  max-width: 100%;
+/* Този клас е само за преглед на екран, за да има скрол */
+.print-root-container {
   margin: 20px auto;
+  padding: 10px;
+  background-color: #f0f0f0;
 }
 
-/* Master page class - defines a single perfect page */
+/* Стил за една страница при преглед на екрана */
 .print-page-wrapper {
   width: 210mm;
   height: 297mm;
@@ -155,25 +166,25 @@
   grid-template-columns: repeat(4, 48mm);
   grid-template-rows: repeat(6, 45mm);
   gap: 0;
-  margin-bottom: 20mm;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin: 0 auto 20mm auto; /* Разстояние между страниците на екрана */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Основен контейнер на етикета */
+/* Етикетът при преглед на екрана */
 .pf-label {
-  width: 48mm; /* Exact design dimensions */
-  height: 45mm; /* Exact design dimensions */
-  background: #ff9500;
-  margin: 0 !important; /* Никакви margin-и */
-  box-sizing: border-box; /* Супер важно! */
+  width: 48mm;
+  height: 45mm;
+  /* ПРОМЯНА: Добавяме видима граница и за екран, за да е точен прегледът */
+  border: 0.5pt solid grey;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   position: relative;
-  break-inside: avoid; /* Предотвратява разрязване на етикети между страници */
+  background: transparent;
 }
 
-/* Горна секция с името на продукта и стрелките и бордера */
+/* ... (всичките ви вътрешни стилове за .pf-header, .pf-content, .pf-price и т.н. остават същите) ... */
 .pf-header {
   display: flex;
   align-items: flex-start;
@@ -183,19 +194,15 @@
   max-height: 7mm;
   border-bottom: 0.5pt solid grey;
 }
-
-/* Основно съдържание на етикета */
 .pf-content {
-  flex-grow: 1; /* Заема оставащото място */
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center; /* Центрира съдържанието */
+  justify-content: center;
   padding: 2mm 2mm 2mm 2mm;
-  gap: 1.5mm; /* Разстояние между елементите */
+  gap: 1.5mm;
 }
-
-/* Контейнер за името на продукта */
 .pf-product-name {
   text-align: center;
   flex: 1;
@@ -204,8 +211,6 @@
   justify-content: center;
   padding: 0 0.5mm;
 }
-
-/* Заглавие на продукта */
 .pf-product-title {
   font-family: var(--font-lexia-std), sans-serif;
   font-size: 7pt;
@@ -217,8 +222,6 @@
   max-height: 8.6mm;
   overflow: hidden;
 }
-
-/* APP VORTEIL бадж */
 .pf-badge {
   font-family: var(--font-din-engschrift-std), sans-serif;
   font-size: 15pt;
@@ -234,13 +237,9 @@
   align-items: center;
   justify-content: center;
 }
-
-/* Контейнер за текста под бейджа */
 .pf-price-text {
   text-align: center;
 }
-
-/* Първи ред от текста за цената */
 .pf-price-text-line1 {
   font-family: var(--font-din-engschrift-std), sans-serif;
   font-size: 9pt !important;
@@ -249,8 +248,6 @@
   line-height: 1;
   margin-bottom: 0.2mm;
 }
-
-/* Втори ред от текста за цената */
 .pf-price-text-line2 {
   font-family: var(--font-din-engschrift-std), sans-serif;
   font-size: 11pt !important;
@@ -258,8 +255,6 @@
   font-weight: bold;
   line-height: 1;
 }
-
-/* Цената */
 .pf-price {
   font-family: var(--font-din-engschrift-std), sans-serif;
   font-size: 35pt;
@@ -269,10 +264,8 @@
   line-height: 0.9;
   letter-spacing: 3pt;
   margin-top: 0.3mm;
-  padding: 0 10mm 3mm; /* Повече хоризонтален padding за въздух отстрани */
+  padding: 0 10mm 3mm;
 }
-
-/* Стрелки */
 .pf-arrow-left,
 .pf-arrow-right {
   flex-shrink: 0;
@@ -283,111 +276,98 @@
   justify-content: center;
 }
 
-/* Font definitions за print */
-@font-face {
-  font-family: 'DINEngschriftStd';
-  src: url('/fonts/DINEngschriftStd.otf') format('opentype');
-  font-display: block;
-}
-
-@font-face {
-  font-family: 'LexiaStd';
-  src: url('/fonts/Lexia_Std.ttf') format('truetype');
-  font-display: block;
-}
-
-/* Clean, purpose-built print CSS for separate pages architecture */
+/* ============================================= */
+/*          ФИНАЛНИ СТИЛОВЕ ЗА ПЕЧАТ             */
+/* ============================================= */
 @media print {
-  /* Font definitions for print */
   @font-face {
     font-family: 'DINEngschriftStd';
     src: url('/fonts/DINEngschriftStd.otf') format('opentype');
     font-display: block;
   }
-
   @font-face {
     font-family: 'LexiaStd';
     src: url('/fonts/Lexia_Std.ttf') format('truetype');
     font-display: block;
   }
 
-  /* Basic html, body rules */
   html,
   body {
     height: initial !important;
     overflow: initial !important;
+    background: white;
     -webkit-print-color-adjust: exact;
     color-adjust: exact;
-    print-color-adjust: exact;
   }
 
-  /* 1. Hide ALL elements on the page by default (maintaining their layout space) */
+  /* --- Надежден метод за видимост --- */
   body * {
     visibility: hidden;
   }
-
-  /* 2. Explicitly make our main print container AND ALL its children visible */
   .print-root-container,
   .print-root-container * {
     visibility: visible;
   }
-
-  /* 3. Ensure our main print container is positioned correctly for print rendering */
   .print-root-container {
     position: absolute;
     left: 0;
     top: 0;
-    width: 100%; /* Ensure it spans full width */
-    height: fit-content; /* Allow height to adjust to content */
-    overflow: visible; /* Prevent content clipping */
+    width: 100%;
   }
 
-  /* Print page wrapper - each page is identical and perfect */
+  /* Нулираме стиловете на контейнера за преглед */
+  .print-root-container {
+    margin: 0 !important;
+    padding: 0 !important;
+    background-color: transparent !important;
+  }
+
+  /* НАСТРОЙКИ ЗА ЕДНА, ПЕРФЕКТНА СТРАНИЦА */
   .print-page-wrapper {
+    page-break-after: always;
+    break-after: page;
+
+    width: 210mm;
+    height: 297mm;
+    background: #ff9500 !important;
+    padding: 8mm 9mm;
+    box-sizing: border-box;
+
+    display: grid;
+    grid-template-columns: repeat(4, 48mm);
+    grid-template-rows: repeat(6, 45mm);
+    gap: 0;
+
     margin: 0 !important;
     box-shadow: none !important;
-    page-break-after: always !important;
   }
 
-  /* Prevent extra blank page at the end */
   .print-page-wrapper:last-child {
-    page-break-after: auto !important;
+    page-break-after: auto;
+    break-after: auto;
   }
 
-  /* Label styling for print - no border */
+  /* Стил на етикета при печат */
   .pf-label {
-    border: none !important;
-    -webkit-print-color-adjust: exact;
-    color-adjust: exact;
-    print-color-adjust: exact;
+    /* ПРОМЯНА: Указваме на принтера ИЗРИЧНО да начертае границата */
+    border: 0.5pt solid grey !important;
+    background: transparent !important;
   }
 
-  /* Font enforcement for print */
-  .pf-price {
-    font-family: 'DINEngschriftStd', Arial, sans-serif !important;
-  }
-
-  .pf-badge {
-    font-family: 'DINEngschriftStd', Arial, sans-serif !important;
-  }
-
-  .pf-price-text-line1 {
-    font-family: 'DINEngschriftStd', Arial, sans-serif !important;
-    font-size: 10pt !important;
-  }
-
-  .pf-price-text-line2 {
-    font-family: 'DINEngschriftStd', Arial, sans-serif !important;
-    font-size: 14pt !important;
-  }
-
-  .pf-product-title {
-    font-family: 'LexiaStd', Arial, sans-serif !important;
-  }
-
-  /* Page settings - padding controlled by .print-page-wrapper */
+  /* ОСНОВНАТА НАСТРОЙКА ЗА ХАРТИЯТА */
   @page {
     size: A4;
-    margin: 0;
+    margin: 0; /* Управлява се от .print-page-wrapper */
+  }
+
+  /* ... (Вашите правила за форсиране на шрифтове остават същите) ... */
+  .pf-price,
+  .pf-badge,
+  .pf-price-text-line1,
+  .pf-price-text-line2 {
+    font-family: 'DINEngschriftStd', Arial, sans-serif !important;
+  }
+  .pf-product-title {
+    font-family: 'LexiaStd', Arial, sans-serif !important;
   }
 }
