@@ -168,10 +168,10 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   position: relative;
 
-  /* --- ПРОМЯНА: ЦВЯТ И ДЕБЕЛИНА НА ВЪНШНИТЕ ЛИНИИ --- */
+  /* --- ПРОМЯНА: РИСУВАНЕ НА ПЪЛНА МРЕЖА С ПРАВИЛНИЯ ХОРИЗОНТАЛЕН ШАБЛОН --- */
   background-color: #ff9500;
   background-image:
-    /* Вертикални линии */ linear-gradient(
+    /* Вертикални линии (5 броя) */ linear-gradient(
       to right,
       #9f968a 0.5pt,
       transparent 0.5pt
@@ -180,8 +180,9 @@
     linear-gradient(to right, #9f968a 0.5pt, transparent 0.5pt),
     linear-gradient(to right, #9f968a 0.5pt, transparent 0.5pt),
     linear-gradient(to right, #9f968a 0.5pt, transparent 0.5pt),
-    /* Хоризонтални линии */
+    /* Хоризонтални линии (13 броя) */
       linear-gradient(to bottom, #9f968a 0.5pt, transparent 0.5pt),
+    linear-gradient(to bottom, #9f968a 0.5pt, transparent 0.5pt),
     linear-gradient(to bottom, #9f968a 0.5pt, transparent 0.5pt),
     linear-gradient(to bottom, #9f968a 0.5pt, transparent 0.5pt),
     linear-gradient(to bottom, #9f968a 0.5pt, transparent 0.5pt),
@@ -196,21 +197,28 @@
 
   background-repeat: no-repeat;
 
-  background-size: 0.5pt 100%, 0.5pt 100%, 0.5pt 100%, 0.5pt 100%, 0.5pt 100%,
+  background-size:
+    /* Размери на вертикалните линии */ 0.5pt 100%, 0.5pt 100%,
+    0.5pt 100%, 0.5pt 100%, 0.5pt 100%,
+    /* Размери на хоризонталните линии */ 100% 0.5pt, 100% 0.5pt, 100% 0.5pt,
     100% 0.5pt, 100% 0.5pt, 100% 0.5pt, 100% 0.5pt, 100% 0.5pt, 100% 0.5pt,
-    100% 0.5pt, 100% 0.5pt, 100% 0.5pt, 100% 0.5pt, 100% 0.5pt, 100% 0.5pt;
+    100% 0.5pt, 100% 0.5pt, 100% 0.5pt, 100% 0.5pt;
 
-  background-position: 9mm 0, calc(9mm + 48mm) 0, calc(9mm + 96mm) 0,
-    calc(9mm + 144mm) 0, calc(9mm + 192mm) 0, 0 8mm, 0 15mm, 0 53mm, 0 60mm,
-    0 98mm, 0 105mm, 0 143mm, 0 150mm, 0 188mm, 0 195mm, 0 233mm, 0 240mm;
+  background-position:
+    /* Позиции на вертикалните линии */ 9mm 0,
+    calc(9mm + 48mm) 0, calc(9mm + 96mm) 0, calc(9mm + 144mm) 0,
+    calc(9mm + 192mm) 0,
+    /* Позиции на хоризонталните линии (по шаблон 8, +7, +38...) */ 0 8mm,
+    0 15mm, 0 53mm, 0 60mm, 0 98mm, 0 105mm, 0 143mm, 0 150mm, 0 188mm, 0 195mm,
+    0 233mm, 0 240mm, 0 278mm;
 }
 
 /* Етикетът при преглед на екрана */
 .pf-label {
   width: 48mm;
   height: 45mm;
-  /* --- ПРОМЯНА: ЦВЯТ И ДЕБЕЛИНА НА ВЪТРЕШНИТЕ БОРДЪРИ --- */
-  border: 0.25pt solid #9f968a;
+  /* ПРОМЯНА: ПРЕМАХВАМЕ БОРДЪРА ОТ ЕТИКЕТА */
+  border: none;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -227,7 +235,7 @@
   height: 7mm;
   min-height: 7mm;
   max-height: 7mm;
-  border-bottom: 0.5pt solid #9f968a;
+  border-bottom: 0.5pt solid grey;
 }
 .pf-content {
   flex-grow: 1;
@@ -360,7 +368,7 @@
     page-break-after: always;
     break-after: page;
 
-    /* --- ПРОМЯНА: ЦВЯТ И ДЕБЕЛИНА НА ВЪНШНИТЕ ЛИНИИ ПРИ ПЕЧАТ --- */
+    /* --- ПРОМЯНА: ПРИЛАГАМЕ ПЪЛНАТА МРЕЖА И ПРИ ПЕЧАТ --- */
     background-color: #ff9500 !important;
     background-image:
       /* Вертикални линии */ linear-gradient(
@@ -384,14 +392,17 @@
       linear-gradient(to bottom, #9f968a 0.5pt, transparent 0.5pt),
       linear-gradient(to bottom, #9f968a 0.5pt, transparent 0.5pt),
       linear-gradient(to bottom, #9f968a 0.5pt, transparent 0.5pt),
+      linear-gradient(to bottom, #9f968a 0.5pt, transparent 0.5pt),
       linear-gradient(to bottom, #9f968a 0.5pt, transparent 0.5pt);
     background-repeat: no-repeat;
     background-size: 0.5pt 100%, 0.5pt 100%, 0.5pt 100%, 0.5pt 100%, 0.5pt 100%,
       100% 0.5pt, 100% 0.5pt, 100% 0.5pt, 100% 0.5pt, 100% 0.5pt, 100% 0.5pt,
-      100% 0.5pt, 100% 0.5pt, 100% 0.5pt, 100% 0.5pt, 100% 0.5pt, 100% 0.5pt;
+      100% 0.5pt, 100% 0.5pt, 100% 0.5pt, 100% 0.5pt, 100% 0.5pt, 100% 0.5pt,
+      100% 0.5pt;
     background-position: 9mm 0, calc(9mm + 48mm) 0, calc(9mm + 96mm) 0,
       calc(9mm + 144mm) 0, calc(9mm + 192mm) 0, 0 8mm, 0 15mm, 0 53mm, 0 60mm,
-      0 98mm, 0 105mm, 0 143mm, 0 150mm, 0 188mm, 0 195mm, 0 233mm, 0 240mm;
+      0 98mm, 0 105mm, 0 143mm, 0 150mm, 0 188mm, 0 195mm, 0 233mm, 0 240mm,
+      0 278mm;
 
     margin: 0 !important;
     box-shadow: none !important;
@@ -404,8 +415,8 @@
 
   /* Стил на етикета при печат */
   .pf-label {
-    /* --- ПРОМЯНА: ЦВЯТ И ДЕБЕЛИНА НА ВЪТРЕШНИТЕ БОРДЪРИ ПРИ ПЕЧАТ --- */
-    border: 0.25pt solid #9f968a !important;
+    /* --- ПРОМЯНА: ПРЕМАХВАМЕ БОРДЪРА И ПРИ ПЕЧАТ --- */
+    border: none !important;
     background: transparent !important;
   }
 
