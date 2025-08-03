@@ -21,12 +21,13 @@ export default function LabelForPrint({ data, index }: LabelForPrintProps) {
     <div
       className='pf-label'
       style={{
-        width: '44mm',
+        width: '45mm',
         height: '41mm',
-        minWidth: '44mm',
+        minWidth: '45mm',
         minHeight: '41mm',
-        maxWidth: '44mm',
+        maxWidth: '45mm',
         maxHeight: '41mm',
+        margin: '0',
       }}
     >
       {/* Горна секция със стрелка и име на продукта */}

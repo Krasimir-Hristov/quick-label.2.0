@@ -141,10 +141,12 @@
 /* Лист хартия за печат */
 .pf-sheet {
   display: grid;
-  grid-template-columns: repeat(4, 45mm); /* 4 колони по 44mm */
+  grid-template-columns: repeat(4, 45mm); /* 4 колони по 45mm */
   gap: 0; /* Няма разстояние */
   width: 210mm; /* Ширина на листа */
+  height: 268mm; /* Височина на листа */
   max-width: 100%;
+  max-height: 100%;
   margin: 20mm auto; /* Margin отгоре/отдолу и центриране ляво/дясно */
   background: #ff9500; /* Фон на листа */
   justify-content: center;
@@ -162,7 +164,7 @@
   height: 41mm;
   background: #ff9500;
   border: 0.5pt solid grey; /* Единичен бордер за всички */
-  margin: -0.25pt; /* Negative margin за обединяване на бордовете */
+  margin: 0 !important; /* Никакви margin-и */
   box-sizing: border-box; /* Супер важно! */
   display: flex;
   flex-direction: column;
@@ -343,13 +345,18 @@
     break-after: page !important; /* Модерна CSS алтернатива */
     page-break-inside: avoid !important;
     break-inside: avoid !important; /* Модерна CSS алтернатива */
-    height: 246mm; /* 6 реда × 41mm */
-    width: 176mm; /* 4 колони × 44mm */
+    height: 268mm; /* 6 реда × 41mm + padding */
+    width: 210mm; /* Пълна ширина на листа */
+    background: #ff9500; /* Оранжев background */
     margin: 10mm auto 10mm auto; /* Балансиран margin отгоре, отдолу и центриране */
+    padding: 8mm 9mm 8mm 9mm; /* Top 8mm, right 9mm, bottom 8mm, left 9mm */
+    box-sizing: border-box;
     display: grid;
-    grid-template-columns: repeat(4, 44mm);
+    grid-template-columns: repeat(4, 45mm); /* 4 колони по 45mm */
     grid-template-rows: repeat(6, 41mm);
-    gap: 0;
+    gap: 0 !important; /* Няма разстояние между етикетите */
+    justify-content: center; /* Центриране на grid-а */
+    align-content: start; /* Започва отгоре */
   }
 
   /* Последната страница не трябва page break */
