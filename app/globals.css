@@ -276,7 +276,6 @@
   font-family: var(--font-lexia-std), sans-serif;
   font-size: 7pt;
   color: #951b81;
-  font-weight: bold;
   line-height: 1.1;
   word-break: break-words;
   text-align: center;
@@ -288,7 +287,6 @@
   font-family: var(--font-din-engschrift-std), sans-serif;
   background-color: black;
   color: white;
-  font-weight: bold;
   line-height: 1;
   text-align: center;
   display: flex;
@@ -315,7 +313,6 @@
   font-family: var(--font-din-engschrift-std), sans-serif;
   font-size: 10pt !important;
   color: black;
-  font-weight: bold;
   line-height: 1;
   margin-bottom: 0.2mm;
 }
@@ -323,7 +320,6 @@
   font-family: var(--font-din-engschrift-std), sans-serif;
   font-size: 14pt !important;
   color: black;
-  font-weight: bold;
   line-height: 1;
 }
 /* Стил за цената на етикета - използва се в LabelForPrint */

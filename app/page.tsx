@@ -10,23 +10,23 @@ import { Carrot, Mouse, Rabbit } from 'lucide-react';
 
 export default function Home() {
   // State за съхраняване на парсваните данни от Excel файла
-  const [labelData, setLabelData] = useState<LabelData[]>([]);
+  // const [labelData, setLabelData] = useState<LabelData[]>([]);
 
-  // // State за съхраняване на парсваните данни от Excel файла - с dummy данни за тестване
-  // const [labelData, setLabelData] = useState<LabelData[]>([
-  //   { artikelbezeichnung: 'Kaninchenfutter Premium', verkaufspreis: 12.99 },
-  //   { artikelbezeichnung: 'Hamsterfutter Mix', verkaufspreis: 8.5 },
-  //   { artikelbezeichnung: 'Vogelfutter Deluxe', verkaufspreis: 15.75 },
-  //   { artikelbezeichnung: 'Katzenfutter Royal', verkaufspreis: 22.3 },
-  //   { artikelbezeichnung: 'Hundefutter Premium', verkaufspreis: 18.9 },
-  //   { artikelbezeichnung: 'Fischfutter Tropical', verkaufspreis: 6.45 },
-  //   { artikelbezeichnung: 'Meerschweinchenfutter', verkaufspreis: 9.8 },
-  //   { artikelbezeichnung: 'Wellensittichfutter', verkaufspreis: 7.25 },
-  //   { artikelbezeichnung: 'Kaninchenfutter Basic', verkaufspreis: 5.99 },
-  //   { artikelbezeichnung: 'Hamsterfutter Standard', verkaufspreis: 4.75 },
-  //   { artikelbezeichnung: 'Reptilienfutter Spezial', verkaufspreis: 13.4 },
-  //   { artikelbezeichnung: 'Aquarienfutter Tropical', verkaufspreis: 11.2 },
-  // ]);
+  // State за съхраняване на парсваните данни от Excel файла - с dummy данни за тестване
+  const [labelData, setLabelData] = useState<LabelData[]>([
+    { artikelbezeichnung: 'Kaninchenfutter Premium', verkaufspreis: 12.99 },
+    { artikelbezeichnung: 'Hamsterfutter Mix', verkaufspreis: 8.5 },
+    { artikelbezeichnung: 'Vogelfutter Deluxe', verkaufspreis: 15.75 },
+    { artikelbezeichnung: 'Katzenfutter Royal', verkaufspreis: 22.3 },
+    { artikelbezeichnung: 'Hundefutter Premium', verkaufspreis: 18.9 },
+    { artikelbezeichnung: 'Fischfutter Tropical', verkaufspreis: 6.45 },
+    { artikelbezeichnung: 'Meerschweinchenfutter', verkaufspreis: 9.8 },
+    { artikelbezeichnung: 'Wellensittichfutter', verkaufspreis: 7.25 },
+    { artikelbezeichnung: 'Kaninchenfutter Basic', verkaufspreis: 5.99 },
+    { artikelbezeichnung: 'Hamsterfutter Standard', verkaufspreis: 4.75 },
+    { artikelbezeichnung: 'Reptilienfutter Spezial', verkaufspreis: 13.4 },
+    { artikelbezeichnung: 'Aquarienfutter Tropical', verkaufspreis: 11.2 },
+  ]);
 
   // Ref за контейнера с етикетите за принтиране (стар)
   const printRef = useRef<HTMLDivElement>(null);
