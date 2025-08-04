@@ -181,7 +181,7 @@
 
   /* --- ПРОМЯНА: РИСУВАНЕ НА ПЪЛНА МРЕЖА С ПРАВИЛНИЯ ХОРИЗОНТАЛЕН ШАБЛОН --- */
   /* Оранжев фон за страницата (Kölle-Zoo brand цвят) */
-  background-color: #ff9500;
+  background-color: #F7A70A;
   /* Сложен background-image с множество linear-gradient-и за създаване на мрежа от линии */
   background-image:
     /* Вертикални линии (5 броя) - разделят колоните на етикетите */ linear-gradient(
@@ -275,7 +275,7 @@
 .pf-product-title {
   font-family: var(--font-lexia-std), sans-serif;
   font-size: 7pt;
-  color: #951b81;
+  color: #951B81;
   line-height: 1.1;
   word-break: break-words;
   text-align: center;
@@ -397,7 +397,7 @@
     break-after: page;
 
     /* --- ПРОМЯНА: ПРИЛАГАМЕ ПЪЛНАТА МРЕЖА И ПРИ ПЕЧАТ --- */
-    background-color: #ff9500 !important;
+    background-color: #F7A70A !important;
     background-image:
       /* Вертикални линии */ linear-gradient(
         to right,
