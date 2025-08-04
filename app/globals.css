@@ -1,3 +1,4 @@
+/* Импортиране на Tailwind CSS и анимации */
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
@@ -5,6 +6,7 @@
 /*          ВАШИТЕ ТЕМИ И ПРОМЕНЛИВИ             */
 /* ============================================= */
 /* (БЕЗ ПРОМЯНА) */
+/* Дефиниране на custom variant за тъмна тема */
 @custom-variant dark (&:is(.dark *));
 @theme inline {
   --color-background: var(--background);
@@ -46,6 +48,7 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
+/* Основни CSS променливи за светла тема */
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
@@ -81,6 +84,7 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
+/* CSS променливи за тъмна тема */
 .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
@@ -115,6 +119,7 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+/* Основни стилове за всички елементи */
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -127,11 +132,13 @@
 /* ============================================= */
 /*           CUSTOM ШРИФТОВЕ (ЗАПАЗЕНИ)          */
 /* ============================================= */
+/* Дефиниране на DIN Engschrift шрифт за етикетите */
 @font-face {
   font-family: 'DINEngschriftStd';
   src: url('/fonts/DINEngschriftStd.otf') format('opentype');
   font-display: block;
 }
+/* Дефиниране на Lexia шрифт за етикетите */
 @font-face {
   font-family: 'LexiaStd';
   src: url('/fonts/Lexia_Std.ttf') format('truetype');
@@ -148,13 +155,17 @@
 /*     СТИЛОВЕ ЗА ЕКРАНЕН ПРЕГЛЕД (ОПРОСТЕНИ)    */
 /* ============================================= */
 
+/* Основен контейнер за печатния преглед - използва се в LabelSheetForPrint */
 .print-root-container {
+  /* Центриране с автоматични margin-и отляво и отдясно */
   margin: 20px auto;
+  /* Вътрешен отстъп от 10px */
   padding: 10px;
+  /* Светло сив фон за разграничаване от страницата */
   background-color: #f0f0f0;
 }
 
-/* Стил за една страница при преглед на екрана */
+/* Стил за една страница при преглед на екрана - използва се в LabelSheetForPrint */
 .print-page-wrapper {
   width: 210mm;
   height: 297mm;
@@ -169,9 +180,11 @@
   position: relative;
 
   /* --- ПРОМЯНА: РИСУВАНЕ НА ПЪЛНА МРЕЖА С ПРАВИЛНИЯ ХОРИЗОНТАЛЕН ШАБЛОН --- */
+  /* Оранжев фон за страницата (Kölle-Zoo brand цвят) */
   background-color: #ff9500;
+  /* Сложен background-image с множество linear-gradient-и за създаване на мрежа от линии */
   background-image:
-    /* Вертикални линии (5 броя) */ linear-gradient(
+    /* Вертикални линии (5 броя) - разделят колоните на етикетите */ linear-gradient(
       to right,
       #9f968a 0.5pt,
       transparent 0.5pt
@@ -180,7 +193,7 @@
     linear-gradient(to right, #9f968a 0.5pt, transparent 0.5pt),
     linear-gradient(to right, #9f968a 0.5pt, transparent 0.5pt),
     linear-gradient(to right, #9f968a 0.5pt, transparent 0.5pt),
-    /* Хоризонтални линии (13 броя) */
+    /* Хоризонтални линии (13 броя) - разделят редовете на етикетите */
       linear-gradient(to bottom, #9f968a 0.5pt, transparent 0.5pt),
     linear-gradient(to bottom, #9f968a 0.5pt, transparent 0.5pt),
     linear-gradient(to bottom, #9f968a 0.5pt, transparent 0.5pt),
@@ -195,8 +208,10 @@
     linear-gradient(to bottom, #9f968a 0.5pt, transparent 0.5pt),
     linear-gradient(to bottom, #9f968a 0.5pt, transparent 0.5pt);
 
+  /* Без повтаряне на background-а */
   background-repeat: no-repeat;
 
+  /* Размери на всички linear-gradient-и */
   background-size:
     /* Размери на вертикалните линии */ 0.5pt 100%, 0.5pt 100%,
     0.5pt 100%, 0.5pt 100%, 0.5pt 100%,
@@ -204,6 +219,7 @@
     100% 0.5pt, 100% 0.5pt, 100% 0.5pt, 100% 0.5pt, 100% 0.5pt, 100% 0.5pt,
     100% 0.5pt, 100% 0.5pt, 100% 0.5pt, 100% 0.5pt;
 
+  /* Позиции на всички linear-gradient-и върху страницата */
   background-position:
     /* Позиции на вертикалните линии */ 9mm 0,
     calc(9mm + 48mm) 0, calc(9mm + 96mm) 0, calc(9mm + 144mm) 0,
@@ -213,7 +229,7 @@
     0 233mm, 0 240mm, 0 278mm;
 }
 
-/* Етикетът при преглед на екрана */
+/* Етикетът при преглед на екрана - използва се в LabelForPrint */
 .pf-label {
   width: 48mm;
   height: 45mm;
@@ -227,7 +243,7 @@
   background: transparent;
 }
 
-/* ... (Всички стилове от .pf-header до .pf-arrow-right ОСТАВАТ БЕЗ ПРОМЯНА) ... */
+/* Горна секция на етикета с име на продукта и стрелки - използва се в LabelForPrint */
 .pf-header {
   display: flex;
   align-items: flex-start;
@@ -237,6 +253,7 @@
   max-height: 7mm;
   border-bottom: 0.5pt solid grey;
 }
+/* Основно съдържание на етикета - използва се в LabelForPrint */
 .pf-content {
   flex-grow: 1;
   display: flex;
@@ -246,7 +263,7 @@
   padding: 2mm 2mm 2mm 2mm;
   gap: 1.5mm;
 }
-/* ... и т.н. ... */
+/* Контейнер за името на продукта - използва се в LabelForPrint */
 .pf-product-name {
   text-align: center;
   flex: 1;
@@ -266,7 +283,7 @@
   max-height: 8.6mm;
   overflow: hidden;
 }
-/* APP VORTEIL бадж */
+/* APP VORTEIL бадж - използва се в LabelForPrint */
 .pf-badge {
   font-family: var(--font-din-engschrift-std), sans-serif;
   background-color: black;
@@ -289,9 +306,11 @@
   /* --- ПРОМЯНА: Добавяме това, за да смъкнем визуално текста --- */
   padding-top: 1.6mm;
 }
+/* Контейнер за текста над цената - използва се в LabelForPrint */
 .pf-price-text {
   text-align: center;
 }
+/* Първи ред от текста над цената - използва се в LabelForPrint */
 .pf-price-text-line1 {
   font-family: var(--font-din-engschrift-std), sans-serif;
   font-size: 10pt !important;
@@ -307,6 +326,7 @@
   font-weight: bold;
   line-height: 1;
 }
+/* Стил за цената на етикета - използва се в LabelForPrint */
 .pf-price {
   font-family: var(--font-din-engschrift-std), sans-serif;
   font-size: 47pt;
@@ -318,6 +338,7 @@
   margin-top: 0.3mm;
   padding: 0 10mm 3mm;
 }
+/* Стилове за стрелките отляво и отдясно - използват се в LabelForPrint */
 .pf-arrow-left,
 .pf-arrow-right {
   flex-shrink: 0;
@@ -330,7 +351,9 @@
 /* ============================================= */
 /*          ФИНАЛНИ СТИЛОВЕ ЗА ПЕЧАТ             */
 /* ============================================= */
+/* Специални стилове които се прилагат само при печат */
 @media print {
+  /* Повторно дефиниране на шрифтовете за печат */
   @font-face {
     font-family: 'DINEngschriftStd';
     src: url('/fonts/DINEngschriftStd.otf') format('opentype');
@@ -342,6 +365,7 @@
     font-display: block;
   }
 
+  /* Основни настройки за html и body при печат */
   html,
   body {
     height: initial !important;
@@ -351,7 +375,7 @@
     color-adjust: exact;
   }
 
-  /* --- Надежден метод за видимост --- */
+  /* --- Надежден метод за видимост - скрива всички елементи освен печатните --- */
   body * {
     visibility: hidden;
   }
@@ -371,7 +395,7 @@
     background-color: transparent !important;
   }
 
-  /* НАСТРОЙКИ ЗА ЕДНА, ПЕРФЕКТНА СТРАНИЦА */
+  /* НАСТРОЙКИ ЗА ЕДНА, ПЕРФЕКТНА СТРАНИЦА - override-ва екранните стилове */
   .print-page-wrapper {
     page-break-after: always;
     break-after: page;
@@ -421,7 +445,7 @@
     break-after: auto;
   }
 
-  /* Стил на етикета при печат */
+  /* Стил на етикета при печат - override-ва екранните стилове */
   .pf-label {
     /* --- ПРОМЯНА: ПРЕМАХВАМЕ БОРДЪРА И ПРИ ПЕЧАТ --- */
     border: none !important;
@@ -433,7 +457,7 @@
     margin: 0;
   }
 
-  /* ... (Вашите правила за форсиране на шрифтове остават същите) ... */
+  /* Форсиране на правилните шрифтове при печат */
   .pf-price,
   .pf-badge,
   .pf-price-text-line1,
