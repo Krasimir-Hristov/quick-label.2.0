@@ -6,7 +6,7 @@ import FileUpload, { FileUploadRef } from '@/components/FileUpload';
 import LabelPreview from '@/components/LabelPreview';
 import LabelSheetForPrint from '@/components/LabelSheetForPrint';
 import { LabelData } from '@/types';
-import { Carrot, Mouse, Rabbit } from 'lucide-react';
+import { Carrot, Rabbit } from 'lucide-react';
 
 export default function Home() {
   // State за съхраняване на парсваните данни от Excel файла
