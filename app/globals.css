@@ -275,6 +275,7 @@
 .pf-product-title {
   font-family: var(--font-lexia-std), sans-serif;
   font-size: 7pt;
+  font-weight: 500 !important;
   color: #951b81;
   line-height: 1.1;
   word-break: break-words;
@@ -317,12 +318,14 @@
   font-size: 10pt !important;
   color: black;
   line-height: 1;
+  font-weight: 500 !important;
   margin-bottom: 0.2mm;
 }
 .pf-price-text-line2 {
   font-family: var(--font-din-engschrift-std), sans-serif;
   font-size: 14pt !important;
   color: black;
+  font-weight: 500 !important;
   line-height: 1;
 }
 /* Стил за цената на етикета - използва се в LabelForPrint */
