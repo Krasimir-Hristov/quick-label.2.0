@@ -1,6 +1,6 @@
-import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
-import { LabelData } from "@/types";
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+import { LabelData } from '@/types';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -21,38 +21,38 @@ export function parseExcelData(data: any[]): LabelData[] {
 
   // Дефинираме имената на колоните тук, за да избегнем повторение
   const productNameColumn = 'Artikelbezeichnung';
-  const priceColumn = 'Verkaufspreis\r\nKölle-Zoo';
+  const priceColumn = 'Aktions-VK';
 
   return data
-    .filter(row => {
+    .filter((row) => {
       // Филтрираме редове, които имат и двете необходими колони
       return row[productNameColumn] && row[priceColumn];
     })
-    .map(row => {
+    .map((row) => {
       // Вземаме стойността от колона "Artikelbezeichnung"
       const artikelbezeichnung = String(row[productNameColumn]).trim();
-      
+
       // Вземаме стойността от колона "Verkaufspreis\r\nKölle-Zoo" и я преобразуваме в число
       let verkaufspreis = 0;
       const priceValue = row[priceColumn];
-      
+
       if (priceValue !== undefined && priceValue !== null) {
         // Преобразуваме в string и заменяме запетая с точка за правилно парсване
         const priceString = String(priceValue).replace(',', '.');
         const parsedPrice = parseFloat(priceString);
-        
+
         // Проверяваме дали е валидно число
         if (!isNaN(parsedPrice)) {
           verkaufspreis = parsedPrice;
         }
       }
-      
+
       return {
         artikelbezeichnung,
-        verkaufspreis
+        verkaufspreis,
       } as LabelData;
     })
-    .filter(item => {
+    .filter((item) => {
       // Допълнителна проверка - премахваме записи с празни имена или нулеви цени
       return item.artikelbezeichnung.length > 0 && item.verkaufspreis > 0;
     });
