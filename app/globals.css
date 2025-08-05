@@ -333,7 +333,7 @@
   font-weight: 400 !important;
   text-align: center;
   line-height: 0.9;
-  letter-spacing: 3pt;
+  /* letter-spacing: 3pt; */
   margin-top: 0.3mm;
   padding: 0 10mm 3mm;
 }
