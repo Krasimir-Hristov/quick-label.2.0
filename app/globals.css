@@ -181,7 +181,7 @@
 
   /* --- ПРОМЯНА: РИСУВАНЕ НА ПЪЛНА МРЕЖА С ПРАВИЛНИЯ ХОРИЗОНТАЛЕН ШАБЛОН --- */
   /* Оранжев фон за страницата (Kölle-Zoo brand цвят) */
-  background-color: #F7A70A;
+  background-color: #f7a70a;
   /* Сложен background-image с множество linear-gradient-и за създаване на мрежа от линии */
   background-image:
     /* Вертикални линии (5 броя) - разделят колоните на етикетите */ linear-gradient(
@@ -275,7 +275,7 @@
 .pf-product-title {
   font-family: var(--font-lexia-std), sans-serif;
   font-size: 7pt;
-  color: #951B81;
+  color: #951b81;
   line-height: 1.1;
   word-break: break-words;
   text-align: center;
@@ -298,11 +298,13 @@
   width: 41mm;
   height: 10mm;
   border-radius: 5mm; /* 50% от височината за перфектен овал */
-  font-size: 25pt;
+  font-size: 24.8pt;
   letter-spacing: 0.5pt;
+  line-height: 0;
 
   /* --- ПРОМЯНА: Добавяме това, за да смъкнем визуално текста --- */
-  padding-top: 1.6mm;
+  padding-top: 1.8mm;
+  padding-bottom: 0mm;
 }
 /* Контейнер за текста над цената - използва се в LabelForPrint */
 .pf-price-text {
@@ -397,7 +399,7 @@
     break-after: page;
 
     /* --- ПРОМЯНА: ПРИЛАГАМЕ ПЪЛНАТА МРЕЖА И ПРИ ПЕЧАТ --- */
-    background-color: #F7A70A !important;
+    background-color: #f7a70a !important;
     background-image:
       /* Вертикални линии */ linear-gradient(
         to right,
