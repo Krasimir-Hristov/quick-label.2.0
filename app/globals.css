@@ -301,6 +301,7 @@
   font-size: 24.8pt;
   letter-spacing: 0.5pt;
   line-height: 0;
+  font-weight: 400;
 
   /* --- ПРОМЯНА: Добавяме това, за да смъкнем визуално текста --- */
   padding-top: 1.8mm;
