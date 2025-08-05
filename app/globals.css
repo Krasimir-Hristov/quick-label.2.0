@@ -332,7 +332,7 @@
 /* Стил за цената на етикета - използва се в LabelForPrint */
 .pf-price {
   font-family: var(--font-din-engschrift-std), sans-serif;
-  font-size: 47pt;
+  font-size: 46.8pt;
   color: black;
   font-weight: 500 !important;
   text-align: center;
