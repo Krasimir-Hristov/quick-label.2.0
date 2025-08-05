@@ -277,7 +277,7 @@
   font-size: 7pt;
   /* font-weight: 200 !important; */
   font-weight: lighter !important;
-  color: #951b81;
+  color: rgba(149, 27, 129);
   line-height: 1.1;
   word-break: break-words;
   text-align: center;
