@@ -41,13 +41,6 @@ const LabelPreview: React.FC<LabelPreviewProps> = ({ labelData }) => {
           </div>
         ))}
       </div>
-
-      {/* Информация в дъното
-      <div className='mt-12 text-center text-gray-500'>
-        <p className='text-sm'>
-          Готови за печат • Оптимизирани за A4 формат • 48x38mm размер
-        </p>
-      </div> */}
     </div>
   );
 };
