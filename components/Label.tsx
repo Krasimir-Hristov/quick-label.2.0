@@ -12,122 +12,114 @@ export default function Label({ data, index }: LabelProps) {
     return formattedPrice + '€';
   };
 
-  // Логика за стрелките
+  // Логика за стрелките - показваме стрелки само на първия и последния в реда
   const positionInRow = (index + 1) % 4; // 1, 2, 3, 0
   const hasLeftArrow = positionInRow === 1; // Първи в реда
   const hasRightArrow = positionInRow === 0; // Последен в реда (четвърти)
 
   return (
     <div
-      className='relative border-2 border-black overflow-hidden flex flex-col bg-orange-400 rounded-lg shadow-lg'
+      className="relative w-full h-full border-2 border-black flex flex-col justify-between p-3"
       style={{
         backgroundColor: '#F7A70A',
-        borderColor: '#000000',
-        width: '280px',
-        height: '220px',
-        boxSizing: 'border-box',
+        minHeight: '200px'
       }}
     >
-      {/* Горна секция със стрелка и име на продукта */}
-      <div className='flex items-start p-3 gap-2'>
-        {/* Стрелка от ляво */}
-        {hasLeftArrow && (
-          <div
-            className='flex-shrink-0'
-            style={{ width: '16px', height: '28px' }}
+      {/* Стрелка от ляво - вътре в етикета */}
+      {hasLeftArrow && (
+        <div className="absolute left-2 top-2 z-10">
+          <svg
+            width="16"
+            height="28"
+            viewBox="0 0 20 36"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <svg
-              width='100%'
-              height='100%'
-              viewBox='0 0 20 36'
-              fill='none'
-              xmlns='http://www.w3.org/2000/svg'
-            >
-              <path
-                d='M10 36L0 22L5 22L5 0L15 0L15 22L20 22L10 36Z'
-                fill='#951B81'
-              />
-            </svg>
-          </div>
-        )}
-
-        {/* Име на продукта - винаги центрирано */}
-        <div className='text-center flex-1'>
-          <div
-            className='font-bold leading-tight break-words font-lexia-std'
-            style={{
-              color: '#951B81',
-              fontSize: '14px',
-              lineHeight: '1.2',
-            }}
-          >
-            {data.artikelbezeichnung}
-          </div>
+            <path
+              d="M10 36L0 22L5 22L5 0L15 0L15 22L20 22L10 36Z"
+              fill="#951B81"
+            />
+          </svg>
         </div>
+      )}
 
-        {/* Стрелка от дясно */}
-        {hasRightArrow && (
-          <div
-            className='flex-shrink-0'
-            style={{ width: '16px', height: '28px' }}
+      {/* Стрелка от дясно - вътре в етикета */}
+      {hasRightArrow && (
+        <div className="absolute right-2 top-2 z-10">
+          <svg
+            width="16"
+            height="28"
+            viewBox="0 0 20 36"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <svg
-              width='100%'
-              height='100%'
-              viewBox='0 0 20 36'
-              fill='none'
-              xmlns='http://www.w3.org/2000/svg'
-            >
-              <path
-                d='M10 36L0 22L5 22L5 0L15 0L15 22L20 22L10 36Z'
-                fill='#951B81'
-              />
-            </svg>
-          </div>
-        )}
+            <path
+              d="M10 36L0 22L5 22L5 0L15 0L15 22L20 22L10 36Z"
+              fill="#951B81"
+            />
+          </svg>
+        </div>
+      )}
+
+      {/* Име на продукта - по-голям шрифт */}
+      <div className="text-center mb-2">
+        <div
+          className="font-bold leading-tight break-words"
+          style={{
+            color: '#951B81',
+            fontSize: '18px',
+            lineHeight: '1.1',
+          }}
+        >
+          {data.artikelbezeichnung}
+        </div>
       </div>
 
-      {/* Основно съдържание */}
-      <div className='flex-1 flex flex-col justify-between items-center px-4 py-2'>
-        {/* APP VORTEIL бадж */}
+      {/* APP VORTEIL бадж - по-голям и по-широк */}
+      <div className="flex justify-center mb-3">
         <div
-          className='bg-black text-white font-bold rounded-full font-din-engschrift-std px-4 py-2'
+          className="bg-black text-white font-bold rounded-full"
           style={{
-            fontSize: '18px',
+            fontSize: '16px',
             lineHeight: '1',
+            paddingLeft: '32px',
+            paddingRight: '32px',
+            paddingTop: '10px',
+            paddingBottom: '10px',
           }}
         >
           APP VORTEIL
         </div>
+      </div>
 
-        {/* Текст за цената */}
-        <div className='text-center'>
-          <div
-            className='font-bold text-black font-din-engschrift-std'
-            style={{
-              fontSize: '12px',
-              lineHeight: '1.1',
-              marginBottom: '4px',
-            }}
-          >
-            DEIN PREIS MIT DER
-          </div>
-          <div
-            className='font-bold text-black font-din-engschrift-std'
-            style={{
-              fontSize: '16px',
-              lineHeight: '1',
-            }}
-          >
-            KÖLLE ZOO APP
-          </div>
-        </div>
-
-        {/* Цена */}
+      {/* Текст за цената */}
+      <div className="text-center mb-2">
         <div
-          className='font-bold text-black text-center font-din-engschrift-std'
+          className="font-bold text-black"
           style={{
-            fontSize: '36px',
+            fontSize: '11px',
+            lineHeight: '1',
+          }}
+        >
+          DEIN PREIS MIT DER
+        </div>
+        <div
+          className="font-bold text-black"
+          style={{
+            fontSize: '15px',
+            lineHeight: '1',
+          }}
+        >
+          KÖLLE ZOO APP
+        </div>
+      </div>
+
+      {/* Цена - по-голям шрифт */}
+      <div className="text-center">
+        <div
+          className="font-bold text-black"
+          style={{
+            fontSize: '50px',
             lineHeight: '1',
             letterSpacing: '-1px',
           }}
