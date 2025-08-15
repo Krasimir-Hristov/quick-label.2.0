@@ -10,6 +10,8 @@ interface FileUploadProps {
   hasLabelData: boolean;
   // New: notify parent about available sheets and their raw JSON rows
   onSheetsDetected?: (sheets: Record<string, any[]>) => void; // eslint-disable-line @typescript-eslint/no-explicit-any
+  // New: notify parent about formatted JSON rows (with cell formats like % and € applied)
+  onSheetsDetectedFormatted?: (sheets: Record<string, any[]>) => void; // eslint-disable-line @typescript-eslint/no-explicit-any
   // New: parent indicates that a file has been uploaded (sheets detected)
   fileUploaded?: boolean;
   // New: notify parent when user selects a new file (so parent can re-enable upload)
@@ -20,7 +22,7 @@ export interface FileUploadRef {
   clearFile: () => void;
 }
 
-const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(({ onDataParsed, hasLabelData, onSheetsDetected, fileUploaded, onNewFileSelected }, ref) => {
+const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(({ onDataParsed, hasLabelData, onSheetsDetected, onSheetsDetectedFormatted, fileUploaded, onNewFileSelected }, ref) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -80,17 +82,19 @@ const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(({ onDataParsed, h
         const data = e.target?.result;
         const workbook = XLSX.read(data, { type: "binary" });
         
-        // Събираме всички листове и им генерираме JSON
-        const sheetsMap: Record<string, any[]> = {}; // eslint-disable-line @typescript-eslint/no-explicit-any
+        // Събираме всички листове и им генерираме JSON (raw и formatted)
+        const sheetsMapRaw: Record<string, any[]> = {}; // eslint-disable-line @typescript-eslint/no-explicit-any
+        const sheetsMapFmt: Record<string, any[]> = {}; // eslint-disable-line @typescript-eslint/no-explicit-any
         for (const sheetName of workbook.SheetNames) {
           const ws = workbook.Sheets[sheetName];
-          sheetsMap[sheetName] = XLSX.utils.sheet_to_json(ws);
+          sheetsMapRaw[sheetName] = XLSX.utils.sheet_to_json(ws, { raw: true });
+          sheetsMapFmt[sheetName] = XLSX.utils.sheet_to_json(ws, { raw: false });
         }
         
-        // Уведомяваме родителя, че има открити листове
-        if (onSheetsDetected) {
-          onSheetsDetected(sheetsMap);
-        }
+        // Уведомяваме родителя, че има открити листове (raw)
+        onSheetsDetected?.(sheetsMapRaw);
+        // и форматирани (formatted)
+        onSheetsDetectedFormatted?.(sheetsMapFmt);
         // Не парсваме автоматично първия лист вече; изборът става в Home.
       } catch (error) {
         console.error("Грешка при четене на файла:", error);

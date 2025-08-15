@@ -16,6 +16,9 @@ export default function Home() {
   // Ново: всички листове от качения Excel – sheetName -> raw rows
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [sheetsMap, setSheetsMap] = useState<Record<string, any[]> | null>(null);
+  // Ново: форматирани редове (с прилагани формати от Excel като % и €)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [sheetsMapFormatted, setSheetsMapFormatted] = useState<Record<string, any[]> | null>(null);
   const [selectedSheet, setSelectedSheet] = useState<string | null>(null);
 
   // State за съхраняване на парсваните данни от Excel файла - с dummy данни за тестване
@@ -56,6 +59,12 @@ export default function Home() {
     setLabelData([]); // изчистваме евентуално стари етикети до избор
   };
 
+  // Получаваме форматираните редове (за логване с % и €)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleSheetsDetectedFormatted = (map: Record<string, any[]>) => {
+    setSheetsMapFormatted(map);
+  };
+
   // При избор на нов файл – зануляваме current state, за да се активира бутонът за качване
   const handleNewFileSelected = () => {
     setSheetsMap(null);
@@ -70,8 +79,10 @@ export default function Home() {
     console.log('[Sheet selected]:', sheetName);
     if (sheetsMap && sheetName in sheetsMap) {
       const rows = sheetsMap[sheetName];
-      // Log entire sheet data
-      console.log('[Sheet data rows]:', rows);
+      // Log only formatted rows (with % and €)
+      if (sheetsMapFormatted && sheetName in sheetsMapFormatted) {
+        console.log('[Sheet data rows]:', sheetsMapFormatted[sheetName]);
+      }
       const parsed = parseExcelData(rows);
       setLabelData(parsed);
     }
@@ -117,6 +128,7 @@ export default function Home() {
               onDataParsed={handleDataParsed}
               hasLabelData={labelData.length > 0}
               onSheetsDetected={handleSheetsDetected}
+              onSheetsDetectedFormatted={handleSheetsDetectedFormatted}
               fileUploaded={!!sheetsMap}
               onNewFileSelected={handleNewFileSelected}
             />
