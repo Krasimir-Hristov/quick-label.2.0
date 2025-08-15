@@ -1,21 +1,22 @@
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Loader2 } from "lucide-react";
-import { useState, useEffect, useImperativeHandle, forwardRef, useRef } from "react";
+import { useState, useImperativeHandle, forwardRef, useRef } from "react";
 import * as XLSX from "xlsx";
 import { LabelData } from "@/types";
-import { parseExcelData } from "@/lib/utils";
 
 interface FileUploadProps {
   onDataParsed: (data: LabelData[]) => void;
   hasLabelData: boolean;
+  // New: notify parent about available sheets and their raw JSON rows
+  onSheetsDetected?: (sheets: Record<string, any[]>) => void; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
 export interface FileUploadRef {
   clearFile: () => void;
 }
 
-const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(({ onDataParsed, hasLabelData }, ref) => {
+const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(({ onDataParsed, hasLabelData, onSheetsDetected }, ref) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -73,26 +74,18 @@ const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(({ onDataParsed, h
         const data = e.target?.result;
         const workbook = XLSX.read(data, { type: "binary" });
         
-        // Вземаме първия лист
-        const firstSheetName = workbook.SheetNames[0];
-        const worksheet = workbook.Sheets[firstSheetName];
-        
-        // Конвертираме в JSON
-        const jsonData = XLSX.utils.sheet_to_json(worksheet);
-        
-        // Парсваме данните с нашата функция
-        const parsedData = parseExcelData(jsonData);
-        
-        // Проверяваме дали има парсирани данни
-        if (parsedData.length === 0) {
-          setError("Die Datei enthält nicht die erforderlichen Spalten 'Artikelbezeichnung' und 'Verkaufspreis\r\nKölle-Zoo' oder enthält keine gültigen Daten.");
-          setIsLoading(false);
-          return;
+        // Събираме всички листове и им генерираме JSON
+        const sheetsMap: Record<string, any[]> = {}; // eslint-disable-line @typescript-eslint/no-explicit-any
+        for (const sheetName of workbook.SheetNames) {
+          const ws = workbook.Sheets[sheetName];
+          sheetsMap[sheetName] = XLSX.utils.sheet_to_json(ws);
         }
         
-        // Предаваме данните към родителския компонент
-        onDataParsed(parsedData);
-        
+        // Уведомяваме родителя, че има открити листове
+        if (onSheetsDetected) {
+          onSheetsDetected(sheetsMap);
+        }
+        // Не парсваме автоматично първия лист вече; изборът става в Home.
       } catch (error) {
         console.error("Грешка при четене на файла:", error);
         setError("Fehler beim Verarbeiten der Datei. Bitte überprüfen Sie die Dateistruktur.");

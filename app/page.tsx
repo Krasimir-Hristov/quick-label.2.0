@@ -7,10 +7,16 @@ import LabelPreview from '@/components/LabelPreview';
 import LabelSheetForPrint from '@/components/LabelSheetForPrint';
 import { LabelData } from '@/types';
 import { Carrot, Rabbit } from 'lucide-react';
+import { parseExcelData } from '@/lib/utils';
 
 export default function Home() {
   // State за съхраняване на парсваните данни от Excel файла
   const [labelData, setLabelData] = useState<LabelData[]>([]);
+
+  // Ново: всички листове от качения Excel – sheetName -> raw rows
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [sheetsMap, setSheetsMap] = useState<Record<string, any[]> | null>(null);
+  const [selectedSheet, setSelectedSheet] = useState<string | null>(null);
 
   // State за съхраняване на парсваните данни от Excel файла - с dummy данни за тестване
   // const [labelData, setLabelData] = useState<LabelData[]>([
@@ -42,9 +48,33 @@ export default function Home() {
     setLabelData(data);
   };
 
+  // При откриване на листове от FileUpload
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleSheetsDetected = (map: Record<string, any[]>) => {
+    setSheetsMap(map);
+    setSelectedSheet(null); // изисква избор от потребителя
+    setLabelData([]); // изчистваме евентуално стари етикети до избор
+  };
+
+  // При избор на лист от dropdown – логваме и парсваме избрания лист
+  const handleSheetChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const sheetName = e.target.value;
+    setSelectedSheet(sheetName);
+    console.log('[Sheet selected]:', sheetName);
+    if (sheetsMap && sheetName in sheetsMap) {
+      const rows = sheetsMap[sheetName];
+      // Log entire sheet data
+      console.log('[Sheet data rows]:', rows);
+      const parsed = parseExcelData(rows);
+      setLabelData(parsed);
+    }
+  };
+
   // Функция за изчистване на всички етикети и файла
   const handleClear = () => {
     setLabelData([]);
+    setSheetsMap(null);
+    setSelectedSheet(null);
     // Изчистваме и избрания файл
     fileUploadRef.current?.clearFile();
   };
@@ -79,7 +109,32 @@ export default function Home() {
               ref={fileUploadRef}
               onDataParsed={handleDataParsed}
               hasLabelData={labelData.length > 0}
+              onSheetsDetected={handleSheetsDetected}
             />
+
+            {/* Dropdown за избор на лист, показва се след качване и откриване на листове */}
+            {sheetsMap && (
+              <div className='mt-4'>
+                <label htmlFor='sheet-select' className='block text-black font-semibold mb-2'>
+                  Wählen Sie ein Arbeitsblatt
+                </label>
+                <select
+                  id='sheet-select'
+                  value={selectedSheet ?? ''}
+                  onChange={handleSheetChange}
+                  className='w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a8c706]'
+                >
+                  <option value='' disabled>
+                    Bitte wählen Sie ein Arbeitsblatt
+                  </option>
+                  {Object.keys(sheetsMap).map((name) => (
+                    <option key={name} value={name}>
+                      {name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
 
             {/* Бутони - показват се само ако има данни */}
             {labelData.length > 0 && (
