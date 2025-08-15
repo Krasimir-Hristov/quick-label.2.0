@@ -56,6 +56,13 @@ export default function Home() {
     setLabelData([]); // изчистваме евентуално стари етикети до избор
   };
 
+  // При избор на нов файл – зануляваме current state, за да се активира бутонът за качване
+  const handleNewFileSelected = () => {
+    setSheetsMap(null);
+    setSelectedSheet(null);
+    setLabelData([]);
+  };
+
   // При избор на лист от dropdown – логваме и парсваме избрания лист
   const handleSheetChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const sheetName = e.target.value;
@@ -110,6 +117,8 @@ export default function Home() {
               onDataParsed={handleDataParsed}
               hasLabelData={labelData.length > 0}
               onSheetsDetected={handleSheetsDetected}
+              fileUploaded={!!sheetsMap}
+              onNewFileSelected={handleNewFileSelected}
             />
 
             {/* Dropdown за избор на лист, показва се след качване и откриване на листове */}

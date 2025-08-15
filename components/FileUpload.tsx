@@ -10,13 +10,17 @@ interface FileUploadProps {
   hasLabelData: boolean;
   // New: notify parent about available sheets and their raw JSON rows
   onSheetsDetected?: (sheets: Record<string, any[]>) => void; // eslint-disable-line @typescript-eslint/no-explicit-any
+  // New: parent indicates that a file has been uploaded (sheets detected)
+  fileUploaded?: boolean;
+  // New: notify parent when user selects a new file (so parent can re-enable upload)
+  onNewFileSelected?: () => void;
 }
 
 export interface FileUploadRef {
   clearFile: () => void;
 }
 
-const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(({ onDataParsed, hasLabelData, onSheetsDetected }, ref) => {
+const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(({ onDataParsed, hasLabelData, onSheetsDetected, fileUploaded, onNewFileSelected }, ref) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -44,6 +48,8 @@ const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(({ onDataParsed, h
     const file = event.target.files?.[0];
     if (file) {
       setSelectedFile(file);
+      // Уведомяваме родителя, че има ново избран файл
+      onNewFileSelected?.();
     }
   };
 
@@ -122,7 +128,7 @@ const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(({ onDataParsed, h
       
       <Button 
         onClick={handleUpload}
-        disabled={!selectedFile || isLoading || hasLabelData}
+        disabled={!selectedFile || isLoading || !!fileUploaded}
         className="w-full cursor-pointer text-xl font-bold bg-black text-[#a8c706] hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
