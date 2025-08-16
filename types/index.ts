@@ -7,8 +7,8 @@ export interface LabelData {
 // Финален, обработен продукт, готов за етикетите
 export interface ProcessedProduct {
   artikelbezeichnung: string;
-  originalPrice: number;
-  finalPrice: number;
+  originalPrice: string;
+  finalPrice: string;
 }
 
 // Грешки, открити по време на обработката

@@ -102,11 +102,11 @@ export const processProducts = async (rawProducts: Record<string, any>[]): Promi
       // Определяме региона
       const region = determineRegion(preisschiene);
 
-      // Създаваме обработения продукт
+      // Създаваме обработения продукт с форматирани цени до 2 знака
       const processedProduct: ProcessedProduct = {
         artikelbezeichnung: artikelbezeichnung || 'Неизвестен продукт',
-        originalPrice,
-        finalPrice
+        originalPrice: originalPrice.toFixed(2),
+        finalPrice: finalPrice.toFixed(2)
       };
 
       // Добавяме към правилния масив
