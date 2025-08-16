@@ -4,6 +4,7 @@ import { Loader2 } from "lucide-react";
 import { useState, useImperativeHandle, forwardRef, useRef } from "react";
 import * as XLSX from "xlsx";
 import { LabelData } from "@/types";
+import { isSupportedExcelFile, getSheetsMaps } from "@/lib/excel";
 
 interface FileUploadProps {
   onDataParsed: (data: LabelData[]) => void;
@@ -67,9 +68,8 @@ const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(({ onDataParsed, h
       return;
     }
 
-    // Проверка за типа на файла
-    const fileExtension = selectedFile.name.toLowerCase().split('.').pop();
-    if (fileExtension !== 'xlsx' && fileExtension !== 'xls') {
+    // Проверка за типа на файла (модулна функция)
+    if (!isSupportedExcelFile(selectedFile.name)) {
       setError("Bitte wählen Sie eine gültige Excel-Datei (.xlsx oder .xls).");
       setIsLoading(false);
       return;
@@ -82,14 +82,8 @@ const FileUpload = forwardRef<FileUploadRef, FileUploadProps>(({ onDataParsed, h
         const data = e.target?.result;
         const workbook = XLSX.read(data, { type: "binary" });
         
-        // Събираме всички листове и им генерираме JSON (raw и formatted)
-        const sheetsMapRaw: Record<string, any[]> = {}; // eslint-disable-line @typescript-eslint/no-explicit-any
-        const sheetsMapFmt: Record<string, any[]> = {}; // eslint-disable-line @typescript-eslint/no-explicit-any
-        for (const sheetName of workbook.SheetNames) {
-          const ws = workbook.Sheets[sheetName];
-          sheetsMapRaw[sheetName] = XLSX.utils.sheet_to_json(ws, { raw: true });
-          sheetsMapFmt[sheetName] = XLSX.utils.sheet_to_json(ws, { raw: false });
-        }
+        // Събираме всички листове и им генерираме JSON (raw и formatted) – модулна функция
+        const { raw: sheetsMapRaw, formatted: sheetsMapFmt } = getSheetsMaps(workbook);
         
         // Уведомяваме родителя, че има открити листове (raw)
         onSheetsDetected?.(sheetsMapRaw);
