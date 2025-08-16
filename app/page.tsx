@@ -18,6 +18,9 @@ export default function Home() {
   const [germanyProcessed, setGermanyProcessed] = useState<ProcessedProduct[] | null>(null);
   const [austriaProcessed, setAustriaProcessed] = useState<ProcessedProduct[] | null>(null);
 
+  // Текущ потребител от cookie
+  const [currentUser, setCurrentUser] = useState<string | null>(null);
+
   // Ново: всички листове от качения Excel – sheetName -> raw rows
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [sheetsMap, setSheetsMap] = useState<Record<string, any[]> | null>(null);
@@ -34,6 +37,13 @@ export default function Home() {
 
   // Ref за FileUpload компонента
   const fileUploadRef = useRef<FileUploadRef>(null);
+
+  // Прочитаме 'user' cookie от клиента
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    const match = document.cookie.match(/(?:^|; )user=([^;]+)/);
+    setCurrentUser(match ? decodeURIComponent(match[1]) : null);
+  }, []);
 
   // Функция за обновяване на състоянието с нови данни
   const handleDataParsed = (data: LabelData[]) => {
@@ -80,7 +90,8 @@ export default function Home() {
 
           // изчисляваме LabelData по текущо избран регион
           const source = (selectedRegion === 'Germany' ? result.germanyProducts : result.austriaProducts) ?? [];
-          const mapped: LabelData[] = source.map(p => ({
+          const limitedSource = currentUser === 'ZOO' ? source.slice(0, 10) : source;
+          const mapped: LabelData[] = limitedSource.map(p => ({
             artikelbezeichnung: p.artikelbezeichnung,
             // p.finalPrice e string ("54.99") -> number за Label
             verkaufspreis: parseFloat(p.finalPrice)
@@ -102,12 +113,13 @@ export default function Home() {
   useEffect(() => {
     if (!germanyProcessed && !austriaProcessed) return;
     const source = (selectedRegion === 'Germany' ? germanyProcessed : austriaProcessed) ?? [];
-    const mapped: LabelData[] = source.map(p => ({
+    const limitedSource = currentUser === 'ZOO' ? source.slice(0, 10) : source;
+    const mapped: LabelData[] = limitedSource.map(p => ({
       artikelbezeichnung: p.artikelbezeichnung,
       verkaufspreis: parseFloat(p.finalPrice)
     }));
     setLabelData(mapped);
-  }, [selectedRegion, germanyProcessed, austriaProcessed]);
+  }, [selectedRegion, germanyProcessed, austriaProcessed, currentUser]);
 
   // Функция за изчистване на всички етикети и файла
   const handleClear = () => {

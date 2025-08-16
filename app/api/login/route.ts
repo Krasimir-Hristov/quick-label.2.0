@@ -22,6 +22,14 @@ export async function POST(request: Request) {
       path: '/',
     });
 
+    // Допълнителна бисквитка с потребителското име за клиентска логика (не е httpOnly)
+    cookieStore.set('user', username, {
+      httpOnly: false,
+      secure: process.env.NODE_ENV === 'production',
+      maxAge: 60 * 60 * 24, // 24 часа
+      path: '/',
+    });
+
     return NextResponse.json({ message: 'Success' });
   }
 
