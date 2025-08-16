@@ -7,7 +7,7 @@ import LabelPreview from '@/components/LabelPreview';
 import LabelSheetForPrint from '@/components/LabelSheetForPrint';
 import { LabelData, ProcessedProduct } from '@/types';
 import { Carrot, Rabbit } from 'lucide-react';
-import { parseExcelData } from '@/lib/utils';
+// import { parseExcelData } from '@/lib/utils';
 import { processProducts } from '@/lib/productProcessor';
 
 export default function Home() {
@@ -102,10 +102,10 @@ export default function Home() {
         console.error('Error processing products:', error);
       }
       // Fallback: ако няма форматирани редове (не би трябвало), ползваме стария парсер
-      if (!sheetsMapFormatted || !(sheetName in sheetsMapFormatted)) {
-        const parsed = parseExcelData(rows);
-        setLabelData(parsed);
-      }
+      // if (!sheetsMapFormatted || !(sheetName in sheetsMapFormatted)) {
+      //   const parsed = parseExcelData(rows);
+      //   setLabelData(parsed);
+      // }
     }
   };
 
