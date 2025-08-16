@@ -15,6 +15,7 @@ export interface ProcessedProduct {
 export interface ProcessingError {
   productName: string;
   message: string; // Съобщението за грешка на немски
+  productData?: Record<string, any>; // Пълният продукт за debug // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
 // Финален обект, който основната функция връща

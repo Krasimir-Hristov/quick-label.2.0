@@ -8,6 +8,7 @@ import LabelSheetForPrint from '@/components/LabelSheetForPrint';
 import { LabelData } from '@/types';
 import { Carrot, Rabbit } from 'lucide-react';
 import { parseExcelData } from '@/lib/utils';
+import { processProducts } from '@/lib/productProcessor';
 
 export default function Home() {
   // State за съхраняване на парсваните данни от Excel файла
@@ -73,7 +74,7 @@ export default function Home() {
   };
 
   // При избор на лист от dropdown – логваме и парсваме избрания лист
-  const handleSheetChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleSheetChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
     const sheetName = e.target.value;
     setSelectedSheet(sheetName);
     console.log('[Sheet selected]:', sheetName);
@@ -83,6 +84,28 @@ export default function Home() {
       if (sheetsMapFormatted && sheetName in sheetsMapFormatted) {
         console.log('[Sheet data rows]:', sheetsMapFormatted[sheetName]);
       }
+      
+      // Debug: Log total products being processed
+      console.log('=== PROCESSING', rows.length, 'PRODUCTS ===');
+      
+      // Test processProducts function with formatted Excel data (with % and €)
+      try {
+        if (sheetsMapFormatted && sheetName in sheetsMapFormatted) {
+          const formattedRows = sheetsMapFormatted[sheetName];
+          const result = await processProducts(formattedRows);
+          console.log('=== PROCESSING RESULTS ===');
+          console.log('Germany Products:', result.germanyProducts.length, 'items');
+          console.log('Austria Products:', result.austriaProducts.length, 'items');
+          console.log('Processing Errors:', result.errors.length, 'items');
+          if (result.errors.length > 0) {
+            console.log('Error details:', result.errors);
+          }
+          console.log('=== END PROCESSING RESULTS ===');
+        }
+      } catch (error) {
+        console.error('Error processing products:', error);
+      }
+      
       const parsed = parseExcelData(rows);
       setLabelData(parsed);
     }
