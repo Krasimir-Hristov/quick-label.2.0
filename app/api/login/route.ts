@@ -4,10 +4,15 @@ import { cookies } from 'next/headers';
 export async function POST(request: Request) {
   const { username, password } = await request.json();
 
-  if (
-    username === process.env.DEMO_USER &&
-    password === process.env.DEMO_PASSWORD
-  ) {
+  const demoUser = process.env.DEMO_USER;
+  const demoPass = process.env.DEMO_PASSWORD;
+  const adminUser = process.env.DEMO_ADMIN_USER;
+  const adminPass = process.env.DEMO_ADMIN_PASSWORD;
+
+  const isDemoLogin = username === demoUser && password === demoPass;
+  const isAdminLogin = username === adminUser && password === adminPass;
+
+  if (isDemoLogin || isAdminLogin) {
     // Създаваме бисквитка, която да пази сесията
     const cookieStore = await cookies();
     cookieStore.set('session', 'authenticated', {
