@@ -7,16 +7,38 @@ import { ProcessedProduct, ProcessingError, ProcessingResult } from '@/types';
  * @param keyName - Името на ключа, който търсим
  * @returns Почистената стойност или null ако не е намерена
  */
+// Normalize helpers
+// Keys: be very permissive - lowercase, trim, remove diacritics, and strip all non-alphanumeric chars
+const normalizeKey = (val: unknown): string => {
+  if (val == null) return '';
+  return String(val)
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]+/g, '')
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '');
+};
+// Values: lowercase, trim, remove diacritics, collapse inner spaces
+const normalizeVal = (val: unknown): string => {
+  if (val == null) return '';
+  return String(val)
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]+/g, '')
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, ' ');
+};
+
 export const getSafeValue = (product: Record<string, any>, keyName: string): string | null => { // eslint-disable-line @typescript-eslint/no-explicit-any
-  const normalizedKeyName = keyName.toLowerCase().trim();
-  
+  const normalizedKeyName = normalizeKey(keyName);
+
   for (const key in product) {
-    if (key.toLowerCase().trim() === normalizedKeyName) {
+    if (normalizeKey(key) === normalizedKeyName) {
       const value = product[key];
       return typeof value === 'string' ? value.trim() : value;
     }
   }
-  
+
   return null;
 };
 
@@ -60,7 +82,10 @@ export const calculatePrices = (originalPriceStr: string, aktionStr: string | nu
  * @returns 'Austria' ако съдържа 'österreich', иначе 'Germany'
  */
 export const determineRegion = (preisschiene: string): 'Germany' | 'Austria' => {
-  if (preisschiene.toLowerCase().includes('österreich')) {
+  const norm = normalizeVal(preisschiene)
+    .replace(/[^a-z]+/g, ''); // keep only letters for matching
+  // Match both osterreich and österreich (accents removed by normalizeVal)
+  if (norm.includes('osterreich')) {
     return 'Austria';
   }
   return 'Germany';
