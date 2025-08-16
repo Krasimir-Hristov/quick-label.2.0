@@ -1,11 +1,11 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useReactToPrint } from 'react-to-print';
 import FileUpload, { FileUploadRef } from '@/components/FileUpload';
 import LabelPreview from '@/components/LabelPreview';
 import LabelSheetForPrint from '@/components/LabelSheetForPrint';
-import { LabelData } from '@/types';
+import { LabelData, ProcessedProduct } from '@/types';
 import { Carrot, Rabbit } from 'lucide-react';
 import { parseExcelData } from '@/lib/utils';
 import { processProducts } from '@/lib/productProcessor';
@@ -13,6 +13,10 @@ import { processProducts } from '@/lib/productProcessor';
 export default function Home() {
   // State за съхраняване на парсваните данни от Excel файла
   const [labelData, setLabelData] = useState<LabelData[]>([]);
+  // Регионален избор и резултати от процесинга
+  const [selectedRegion, setSelectedRegion] = useState<'Germany' | 'Austria'>('Germany');
+  const [germanyProcessed, setGermanyProcessed] = useState<ProcessedProduct[] | null>(null);
+  const [austriaProcessed, setAustriaProcessed] = useState<ProcessedProduct[] | null>(null);
 
   // Ново: всички листове от качения Excel – sheetName -> raw rows
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -101,15 +105,45 @@ export default function Home() {
             console.log('Error details:', result.errors);
           }
           console.log('=== END PROCESSING RESULTS ===');
+
+          // съхраняваме масивите от процесинга
+          setGermanyProcessed(result.germanyProducts);
+          setAustriaProcessed(result.austriaProducts);
+
+          // изчисляваме LabelData по текущо избран регион
+          const source = (selectedRegion === 'Germany' ? result.germanyProducts : result.austriaProducts) ?? [];
+          const mapped: LabelData[] = source.map(p => ({
+            artikelbezeichnung: p.artikelbezeichnung,
+            // p.finalPrice e string ("54.99") -> number за Label
+            verkaufspreis: parseFloat(p.finalPrice)
+          }));
+          console.log('[Selected region]', selectedRegion, '| items:', mapped.length);
+          console.log('[Selected array sample]', mapped.slice(0, 5));
+          setLabelData(mapped);
         }
       } catch (error) {
         console.error('Error processing products:', error);
       }
-      
-      const parsed = parseExcelData(rows);
-      setLabelData(parsed);
+      // Fallback: ако няма форматирани редове (не би трябвало), ползваме стария парсер
+      if (!sheetsMapFormatted || !(sheetName in sheetsMapFormatted)) {
+        const parsed = parseExcelData(rows);
+        setLabelData(parsed);
+      }
     }
   };
+
+  // При промяна на регион – прегенерираме LabelData от вече обработените масиви
+  useEffect(() => {
+    if (!germanyProcessed && !austriaProcessed) return;
+    const source = (selectedRegion === 'Germany' ? germanyProcessed : austriaProcessed) ?? [];
+    const mapped: LabelData[] = source.map(p => ({
+      artikelbezeichnung: p.artikelbezeichnung,
+      verkaufspreis: parseFloat(p.finalPrice)
+    }));
+    console.log('[Region change] Selected:', selectedRegion, '| items:', mapped.length);
+    console.log('[Selected array sample]', mapped.slice(0, 5));
+    setLabelData(mapped);
+  }, [selectedRegion, germanyProcessed, austriaProcessed]);
 
   // Функция за изчистване на всички етикети и файла
   const handleClear = () => {
@@ -176,6 +210,24 @@ export default function Home() {
                       {name}
                     </option>
                   ))}
+                </select>
+              </div>
+            )}
+
+            {/* Регионален избор: показва се само след избор на месец (лист) и след процесинг */}
+            {selectedSheet && (germanyProcessed || austriaProcessed) && (
+              <div className='mt-4'>
+                <label htmlFor='region-select' className='block text-black font-semibold mb-2'>
+                  Region auswählen
+                </label>
+                <select
+                  id='region-select'
+                  value={selectedRegion}
+                  onChange={(e) => setSelectedRegion(e.target.value as 'Germany' | 'Austria')}
+                  className='w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a8c706]'
+                >
+                  <option value='Germany'>Deutschland</option>
+                  <option value='Austria'>Österreich</option>
                 </select>
               </div>
             )}
