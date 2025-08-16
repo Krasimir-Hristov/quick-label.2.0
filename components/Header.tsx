@@ -35,7 +35,7 @@ const Header = () => {
   };
 
   return (
-    <header className='bg-black py-8 shadow-lg border-b-5 border-[#a8c706] relative'>
+    <header className='bg-black py-8 shadow-lg border-b-5 border-[#a8c706] sticky top-0 z-50 w-full'>
       {/* Logout бутон в горния десен ъгъл - показва се само ако потребителят е влязъл */}
       {isLoggedIn && (
         <div className='absolute justify-center items-center right-4 z-10'>
