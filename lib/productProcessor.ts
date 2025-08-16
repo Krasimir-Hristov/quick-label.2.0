@@ -118,11 +118,6 @@ export const processProducts = async (rawProducts: Record<string, any>[]): Promi
 
     } catch (error) {
       const productName = getSafeValue(product, 'artikelbezeichnung') || 'Неизвестен продукт';
-      console.log('🚨 ADDING PRODUCT TO ERRORS ARRAY (EXCEPTION):');
-      console.log('Full product object:', JSON.stringify(product, null, 2));
-      console.log('Product name:', productName);
-      console.log('Error details:', error);
-      console.log('Error stack:', error instanceof Error ? error.stack : 'No stack trace');
       errors.push({
         productName: productName,
         message: `Fehler bei der Verarbeitung von "${productName}": ${error instanceof Error ? error.message : 'Unbekannter Fehler'}`,
@@ -130,15 +125,6 @@ export const processProducts = async (rawProducts: Record<string, any>[]): Promi
       });
     }
   }
-
-  // Логове за резултатите
-  console.log('=== PROCESSING RESULTS ===');
-  console.log('Germany Products:', germanyProducts.length, 'items');
-  console.log(germanyProducts);
-  console.log('Austria Products:', austriaProducts.length, 'items');
-  console.log(austriaProducts);
-  console.log('Processing Errors:', errors.length, 'items');
-  console.log(errors);
 
   return {
     germanyProducts,

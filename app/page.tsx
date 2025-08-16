@@ -65,30 +65,14 @@ export default function Home() {
   const handleSheetChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
     const sheetName = e.target.value;
     setSelectedSheet(sheetName);
-    console.log('[Sheet selected]:', sheetName);
     if (sheetsMap && sheetName in sheetsMap) {
       const rows = sheetsMap[sheetName];
-      // Log only formatted rows (with % and €)
-      if (sheetsMapFormatted && sheetName in sheetsMapFormatted) {
-        console.log('[Sheet data rows]:', sheetsMapFormatted[sheetName]);
-      }
-      
-      // Debug: Log total products being processed
-      console.log('=== PROCESSING', rows.length, 'PRODUCTS ===');
       
       // Test processProducts function with formatted Excel data (with % and €)
       try {
         if (sheetsMapFormatted && sheetName in sheetsMapFormatted) {
           const formattedRows = sheetsMapFormatted[sheetName];
           const result = await processProducts(formattedRows);
-          console.log('=== PROCESSING RESULTS ===');
-          console.log('Germany Products:', result.germanyProducts.length, 'items');
-          console.log('Austria Products:', result.austriaProducts.length, 'items');
-          console.log('Processing Errors:', result.errors.length, 'items');
-          if (result.errors.length > 0) {
-            console.log('Error details:', result.errors);
-          }
-          console.log('=== END PROCESSING RESULTS ===');
 
           // съхраняваме масивите от процесинга
           setGermanyProcessed(result.germanyProducts);
@@ -101,8 +85,6 @@ export default function Home() {
             // p.finalPrice e string ("54.99") -> number за Label
             verkaufspreis: parseFloat(p.finalPrice)
           }));
-          console.log('[Selected region]', selectedRegion, '| items:', mapped.length);
-          console.log('[Selected array sample]', mapped.slice(0, 5));
           setLabelData(mapped);
         }
       } catch (error) {
@@ -124,8 +106,6 @@ export default function Home() {
       artikelbezeichnung: p.artikelbezeichnung,
       verkaufspreis: parseFloat(p.finalPrice)
     }));
-    console.log('[Region change] Selected:', selectedRegion, '| items:', mapped.length);
-    console.log('[Selected array sample]', mapped.slice(0, 5));
     setLabelData(mapped);
   }, [selectedRegion, germanyProcessed, austriaProcessed]);
 
