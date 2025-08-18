@@ -119,16 +119,7 @@ export const processProducts = async (rawProducts: Record<string, any>[]): Promi
   const beneluxProducts: ProcessedProduct[] = [];
   const errors: ProcessingError[] = [];
 
-  // Филтрираме само редовете с валидни данни (поне artikelbezeichnung)
-  const validProducts = rawProducts.filter(product => {
-    const artikelbezeichnung = getSafeValue(product, 'artikelbezeichnung');
-    return artikelbezeichnung && artikelbezeichnung.trim() !== '';
-  });
-
-  console.log(`Starting to process ${rawProducts.length} total rows from Excel`);
-  console.log(`Found ${validProducts.length} valid products with artikelbezeichnung`);
-
-  for (const product of validProducts) {
+  for (const product of rawProducts) {
     try {
       // Извличаме необходимите стойности с безопасни функции (реални колони от Excel)
       // Нормализираме търсенето с toLowerCase().trim() за избягване на грешки от работници
@@ -160,11 +151,8 @@ export const processProducts = async (rawProducts: Record<string, any>[]): Promi
       const region = determineRegion(preisschiene);
       // Ако няма нито един от търсените маркери – пропускаме реда без грешка
       if (region === null) {
-        console.log(`Skipping product "${artikelbezeichnung}" - no valid region found`);
         continue;
       }
-
-      console.log(`Processing product "${artikelbezeichnung}" -> Region: ${region}`);
 
       // Създаваме обработения продукт с форматирани цени до 2 знака
       const processedProduct: ProcessedProduct = {
@@ -199,13 +187,6 @@ export const processProducts = async (rawProducts: Record<string, any>[]): Promi
     }
   }
 
-  console.log('Final region distribution:', {
-    germanyD1: germanyD1Products.length,
-    germanyD2: germanyD2Products.length,
-    austria: austriaProducts.length,
-    benelux: beneluxProducts.length,
-    errors: errors.length
-  });
 
   return {
     germanyD1Products,
