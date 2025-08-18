@@ -216,8 +216,8 @@ export default function Home() {
                   onChange={(e) => setSelectedRegion(e.target.value as 'GermanyD1' | 'GermanyD2' | 'Austria' | 'Benelux')}
                   className='w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a8c706]'
                 >
-                  <option value='GermanyD1'>Deutschland D1</option>
-                  <option value='GermanyD2'>Deutschland D2</option>
+                  <option value='GermanyD1'>Deutschland DE1</option>
+                  <option value='GermanyD2'>Deutschland DE2</option>
                   <option value='Austria'>Österreich</option>
                   <option value='Benelux'>Benelux</option>
                 </select>
