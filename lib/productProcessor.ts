@@ -110,6 +110,11 @@ export const processProducts = async (rawProducts: Record<string, any>[]): Promi
       const preisschiene = getSafeValue(product, 'preisschiene');
       const aktion = getSafeValue(product, 'aktion');
 
+      // Ако полето Aktion е празно, пропускаме този запис изцяло (не го обработваме/не го избираме)
+      if (normalizeVal(aktion) === '') {
+        continue;
+      }
+
       // Валидация на задължителни полета
       if (!verkaufspreis || !preisschiene) {
         const productName = artikelbezeichnung || getSafeValue(product, 'artikelnr') || getSafeValue(product, 'ursprungsland') || 'Неизвестен продукт';
