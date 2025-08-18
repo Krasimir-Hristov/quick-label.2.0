@@ -14,9 +14,11 @@ export default function Home() {
   // State за съхраняване на парсваните данни от Excel файла
   const [labelData, setLabelData] = useState<LabelData[]>([]);
   // Регионален избор и резултати от процесинга
-  const [selectedRegion, setSelectedRegion] = useState<'Germany' | 'Austria'>('Germany');
-  const [germanyProcessed, setGermanyProcessed] = useState<ProcessedProduct[] | null>(null);
+  const [selectedRegion, setSelectedRegion] = useState<'GermanyD1' | 'GermanyD2' | 'Austria' | 'Benelux'>('GermanyD1');
+  const [germanyD1Processed, setGermanyD1Processed] = useState<ProcessedProduct[] | null>(null);
+  const [germanyD2Processed, setGermanyD2Processed] = useState<ProcessedProduct[] | null>(null);
   const [austriaProcessed, setAustriaProcessed] = useState<ProcessedProduct[] | null>(null);
+  const [beneluxProcessed, setBeneluxProcessed] = useState<ProcessedProduct[] | null>(null);
 
   // Текущ потребител от cookie
   const [currentUser, setCurrentUser] = useState<string | null>(null);
@@ -85,13 +87,20 @@ export default function Home() {
           const result = await processProducts(formattedRows);
 
           // съхраняваме масивите от процесинга
-          setGermanyProcessed(result.germanyProducts);
+          setGermanyD1Processed(result.germanyD1Products);
+          setGermanyD2Processed(result.germanyD2Products);
           setAustriaProcessed(result.austriaProducts);
+          setBeneluxProcessed(result.beneluxProducts);
 
           // изчисляваме LabelData по текущо избран регион
-          const source = (selectedRegion === 'Germany' ? result.germanyProducts : result.austriaProducts) ?? [];
+          const source: ProcessedProduct[] = (
+            selectedRegion === 'GermanyD1' ? result.germanyD1Products :
+            selectedRegion === 'GermanyD2' ? result.germanyD2Products :
+            selectedRegion === 'Austria' ? result.austriaProducts :
+            result.beneluxProducts
+          ) ?? [];
           const limitedSource = currentUser === 'ZOO' ? source.slice(0, 10) : source;
-          const mapped: LabelData[] = limitedSource.map(p => ({
+          const mapped: LabelData[] = limitedSource.map((p: ProcessedProduct) => ({
             artikelbezeichnung: p.artikelbezeichnung,
             // p.finalPrice e string ("54.99") -> number за Label
             verkaufspreis: parseFloat(p.finalPrice)
@@ -111,15 +120,20 @@ export default function Home() {
 
   // При промяна на регион – прегенерираме LabelData от вече обработените масиви
   useEffect(() => {
-    if (!germanyProcessed && !austriaProcessed) return;
-    const source = (selectedRegion === 'Germany' ? germanyProcessed : austriaProcessed) ?? [];
+    if (!germanyD1Processed && !germanyD2Processed && !austriaProcessed && !beneluxProcessed) return;
+    const source: ProcessedProduct[] = (
+      selectedRegion === 'GermanyD1' ? (germanyD1Processed ?? []) :
+      selectedRegion === 'GermanyD2' ? (germanyD2Processed ?? []) :
+      selectedRegion === 'Austria' ? (austriaProcessed ?? []) :
+      (beneluxProcessed ?? [])
+    );
     const limitedSource = currentUser === 'ZOO' ? source.slice(0, 10) : source;
-    const mapped: LabelData[] = limitedSource.map(p => ({
+    const mapped: LabelData[] = limitedSource.map((p: ProcessedProduct) => ({
       artikelbezeichnung: p.artikelbezeichnung,
       verkaufspreis: parseFloat(p.finalPrice)
     }));
     setLabelData(mapped);
-  }, [selectedRegion, germanyProcessed, austriaProcessed, currentUser]);
+  }, [selectedRegion, germanyD1Processed, germanyD2Processed, austriaProcessed, beneluxProcessed, currentUser]);
 
   // Функция за изчистване на всички етикети и файла
   const handleClear = () => {
@@ -191,7 +205,7 @@ export default function Home() {
             )}
 
             {/* Регионален избор: показва се само след избор на месец (лист) и след процесинг */}
-            {selectedSheet && (germanyProcessed || austriaProcessed) && (
+            {selectedSheet && (germanyD1Processed || germanyD2Processed || austriaProcessed || beneluxProcessed) && (
               <div className='mt-4'>
                 <label htmlFor='region-select' className='block text-black font-semibold mb-2'>
                   Region auswählen
@@ -199,11 +213,13 @@ export default function Home() {
                 <select
                   id='region-select'
                   value={selectedRegion}
-                  onChange={(e) => setSelectedRegion(e.target.value as 'Germany' | 'Austria')}
+                  onChange={(e) => setSelectedRegion(e.target.value as 'GermanyD1' | 'GermanyD2' | 'Austria' | 'Benelux')}
                   className='w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a8c706]'
                 >
-                  <option value='Germany'>Deutschland</option>
+                  <option value='GermanyD1'>Deutschland D1</option>
+                  <option value='GermanyD2'>Deutschland D2</option>
                   <option value='Austria'>Österreich</option>
+                  <option value='Benelux'>Benelux</option>
                 </select>
               </div>
             )}

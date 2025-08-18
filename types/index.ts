@@ -20,7 +20,9 @@ export interface ProcessingError {
 
 // Финален обект, който основната функция връща
 export interface ProcessingResult {
-  germanyProducts: ProcessedProduct[];
+  germanyD1Products: ProcessedProduct[];
+  germanyD2Products: ProcessedProduct[];
   austriaProducts: ProcessedProduct[];
+  beneluxProducts: ProcessedProduct[];
   errors: ProcessingError[];
 }
