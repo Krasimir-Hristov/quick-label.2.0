@@ -1,71 +1,9 @@
 import { ProcessedCheckItem, ProcessingError, CheckListResult } from '@/types';
-
-// Преизползваме normalize функциите от productProcessor
-const normalizeKey = (val: unknown): string => {
-  if (val == null) return '';
-  return String(val)
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]+/g, '')
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9]+/g, '');
-};
-
-const normalizeVal = (val: unknown): string => {
-  if (val == null) return '';
-  return String(val)
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]+/g, '')
-    .toLowerCase()
-    .trim()
-    .replace(/\s+/g, ' ');
-};
-
-/**
- * Безопасно извличане на стойност от продуктов обект
- */
-export const getSafeValue = (
-  product: Record<string, any>, // eslint-disable-line @typescript-eslint/no-explicit-any
-  keyName: string
-): string | null => {
-  const normalizedKeyName = normalizeKey(keyName);
-
-  for (const key in product) {
-    if (normalizeKey(key) === normalizedKeyName) {
-      const value = product[key];
-      return typeof value === 'string' ? value.trim() : String(value);
-    }
-  }
-
-  return null;
-};
-
-/**
- * Определя региона на базата на preisschiene стойността
- */
-export const determineRegion = (
-  preisschiene: string
-): 'GermanyD1' | 'GermanyD2' | 'Austria' | 'Benelux' | null => {
-  const base = normalizeVal(preisschiene);
-  const plain = base
-    .replace(/[^a-z0-9 ]+/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-
-  if (plain.includes('osterreich')) {
-    return 'Austria';
-  }
-  if (plain.includes('benelux')) {
-    return 'Benelux';
-  }
-  if (plain.includes('de2')) {
-    return 'GermanyD2';
-  }
-  if (plain.includes('de1')) {
-    return 'GermanyD1';
-  }
-  return null;
-};
+import {
+  getSafeValue,
+  determineRegion,
+  normalizeVal,
+} from '@/lib/shared/dataProcessing';
 
 /**
  * Главна функция за обработка на check-liste артикули от Excel данни

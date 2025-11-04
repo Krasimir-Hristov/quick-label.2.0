@@ -1,50 +1,9 @@
 import { ProcessedProduct, ProcessingError, ProcessingResult } from '@/types';
-
-/**
- * Безопасно извличане на стойност от продуктов обект
- * Игнорира главни/малки букви и водещи/крайни интервали в ключовете
- * @param product - Продуктовият обект от Excel
- * @param keyName - Името на ключа, който търсим
- * @returns Почистената стойност или null ако не е намерена
- */
-// Normalize helpers
-// Keys: be very permissive - lowercase, trim, remove diacritics, and strip all non-alphanumeric chars
-const normalizeKey = (val: unknown): string => {
-  if (val == null) return '';
-  return String(val)
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]+/g, '')
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9]+/g, '');
-};
-// Values: lowercase, trim, remove diacritics, collapse inner spaces
-const normalizeVal = (val: unknown): string => {
-  if (val == null) return '';
-  return String(val)
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]+/g, '')
-    .toLowerCase()
-    .trim()
-    .replace(/\s+/g, ' ');
-};
-
-export const getSafeValue = (
-  product: Record<string, any>,
-  keyName: string
-): string | null => {
-  // eslint-disable-line @typescript-eslint/no-explicit-any
-  const normalizedKeyName = normalizeKey(keyName);
-
-  for (const key in product) {
-    if (normalizeKey(key) === normalizedKeyName) {
-      const value = product[key];
-      return typeof value === 'string' ? value.trim() : value;
-    }
-  }
-
-  return null;
-};
+import {
+  getSafeValue,
+  determineRegion,
+  normalizeVal,
+} from '@/lib/shared/dataProcessing';
 
 /**
  * Изчислява оригинална и финална цена на базата на цена и отстъпка
@@ -81,40 +40,6 @@ export const calculatePrices = (
     originalPrice: parseFloat(originalPrice.toFixed(2)),
     finalPrice: parseFloat(finalPrice.toFixed(2)),
   };
-};
-
-/**
- * Определя региона на базата на preisschiene стойността
- * @param preisschiene - Стойността от колоната за ценова схема
- * @returns 'Austria' ако съдържа 'österreich', иначе 'Germany'
- */
-export const determineRegion = (
-  preisschiene: string
-): 'GermanyD1' | 'GermanyD2' | 'Austria' | 'Benelux' | null => {
-  // Normalize: lowercase, trim, remove diacritics, keep letters/digits/spaces
-  const base = normalizeVal(preisschiene);
-  const plain = base
-    .replace(/[^a-z0-9 ]+/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-
-  // Austria: match 'osterreich' anywhere
-  if (plain.includes('osterreich')) {
-    return 'Austria';
-  }
-  // Benelux: match 'benelux' anywhere
-  if (plain.includes('benelux')) {
-    return 'Benelux';
-  }
-  // Germany D2 before D1 to avoid 'd1' matching in 'd12'
-  if (plain.includes('de2')) {
-    return 'GermanyD2';
-  }
-  if (plain.includes('de1')) {
-    return 'GermanyD1';
-  }
-  // No match: skip product upstream
-  return null;
 };
 
 /**
