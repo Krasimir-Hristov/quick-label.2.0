@@ -122,7 +122,7 @@ export default function LabelsPage() {
               artikelbezeichnung: p.artikelbezeichnung,
               // p.finalPrice e string ("54.99") -> number за Label
               verkaufspreis: parseFloat(p.finalPrice),
-              gultigkeit: p.gultigkeit,
+              aktionszeitraum: p.aktionszeitraum,
             })
           );
           setLabelData(mapped);
@@ -154,7 +154,7 @@ export default function LabelsPage() {
     const mapped: LabelData[] = limitedSource.map((p: ProcessedProduct) => ({
       artikelbezeichnung: p.artikelbezeichnung,
       verkaufspreis: parseFloat(p.finalPrice),
-      gultigkeit: p.gultigkeit,
+      aktionszeitraum: p.aktionszeitraum,
     }));
     setLabelData(mapped);
   }, [

@@ -342,8 +342,8 @@
   margin-bottom: 0mm;
   padding: 0mm;
 }
-/* Стил за Gültigkeit под цената - използва се в LabelForPrint */
-.pf-gultigkeit {
+/* Стил за Aktionszeitraum под цената - използва се в LabelForPrint */
+.pf-aktionszeitraum {
   font-family: var(--font-din-engschrift-std), sans-serif;
   font-size: 8pt;
   color: black;

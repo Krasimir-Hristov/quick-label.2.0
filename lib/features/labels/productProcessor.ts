@@ -140,7 +140,7 @@ export const processProducts = async (
       const verkaufspreis = getSafeValue(product, 'verkaufspreis kölle-zoo');
       const preisschiene = getSafeValue(product, 'preisschiene');
       const aktion = getSafeValue(product, 'aktion');
-      const gultigkeit = getSafeValue(product, 'gültigkeit');
+      const aktionszeitraum = getSafeValue(product, 'aktionszeitraum');
 
       // Ако полето Aktion е празно, пропускаме този запис изцяло (не го обработваме/не го избираме)
       if (normalizeVal(aktion) === '') {
@@ -180,8 +180,8 @@ export const processProducts = async (
         artikelbezeichnung: artikelbezeichnung || 'Неизвестен продукт',
         originalPrice: originalPrice.toFixed(2),
         finalPrice: finalPrice.toFixed(2),
-        gultigkeit:
-          gultigkeit && gultigkeit.trim() !== '' ? gultigkeit : undefined,
+        aktionszeitraum:
+          aktionszeitraum && aktionszeitraum.trim() !== '' ? aktionszeitraum : undefined,
       };
 
       // Добавяме към правилния масив

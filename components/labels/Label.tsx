@@ -74,20 +74,7 @@ export default function Label({ data, index }: LabelProps) {
           {data.artikelbezeichnung}
         </div>
       </div>
-      {/* Gültigkeit - валидност под цената
-      {data.gultigkeit && (
-        <div className='text-center' style={{ marginTop: '4px' }}>
-          <div
-            className='font-bold text-black'
-            style={{
-              fontSize: '10px',
-              lineHeight: '1',
-            }}
-          >
-            {data.gultigkeit}
-          </div>
-        </div>
-      )} */}
+
       {/* APP VORTEIL бадж - по-голям и по-широк */}
       <div className='flex justify-center' style={{ marginBottom: '10px' }}>
         <div
@@ -142,8 +129,8 @@ export default function Label({ data, index }: LabelProps) {
         </div>
       </div>
 
-      {/* Gültigkeit - валидност под цената */}
-      {data.gultigkeit && (
+      {/* Aktionszeitraum - валидност под цената */}
+      {data.aktionszeitraum && (
         <div className='text-center' style={{ marginTop: '4px' }}>
           <div
             className='font-bold text-black'
@@ -152,7 +139,7 @@ export default function Label({ data, index }: LabelProps) {
               lineHeight: '1',
             }}
           >
-            {data.gultigkeit}
+            {data.aktionszeitraum}
           </div>
         </div>
       )}
