@@ -165,13 +165,9 @@ export default function CheckListePage() {
   };
 
   // Функция за toggle на checkbox
-  const handleToggleItem = (artikelNr: string) => {
+  const handleToggleItem = (index: number) => {
     setCheckListData((prev) =>
-      prev.map((item) =>
-        item.artikelNr === artikelNr
-          ? { ...item, checked: !item.checked }
-          : item
-      )
+      prev.map((item, i) => (i === index ? { ...item, checked: !item.checked } : item))
     );
   };
 

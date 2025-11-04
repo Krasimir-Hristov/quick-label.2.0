@@ -4,7 +4,7 @@ import CheckListItem from './CheckListItem';
 
 interface CheckListPreviewProps {
   checkListData: CheckListData[];
-  onToggleItem: (artikelNr: string) => void;
+  onToggleItem: (index: number) => void;
 }
 
 const CheckListPreview: React.FC<CheckListPreviewProps> = ({
@@ -59,6 +59,7 @@ const CheckListPreview: React.FC<CheckListPreviewProps> = ({
           <CheckListItem
             key={`${item.artikelNr}-${index}`}
             data={item}
+            index={index}
             onToggle={onToggleItem}
           />
         ))}
