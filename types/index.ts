@@ -28,3 +28,31 @@ export interface ProcessingResult {
   beneluxProducts: ProcessedProduct[];
   errors: ProcessingError[];
 }
+
+// ============================================= //
+//          CHECK-LISTE TYPES                    //
+// ============================================= //
+
+// TypeScript interface за данните от check-liste
+export interface CheckListData {
+  artikelNr: string; // Номер на артикула (от колона "ArtikelNr")
+  artikelbezeichnung: string; // Име на продукта (от колона "Artikelbezeichnung")
+  aktionszeitraum?: string; // Валидност на промоцията (от колона "Aktionszeitraum")
+  checked?: boolean; // Дали е checked в UI
+}
+
+// Финален, обработен артикул, готов за check-liste
+export interface ProcessedCheckItem {
+  artikelNr: string;
+  artikelbezeichnung: string;
+  aktionszeitraum?: string;
+}
+
+// Финален обект, който функцията за обработка връща
+export interface CheckListResult {
+  germanyD1Items: ProcessedCheckItem[];
+  germanyD2Items: ProcessedCheckItem[];
+  austriaItems: ProcessedCheckItem[];
+  beneluxItems: ProcessedCheckItem[];
+  errors: ProcessingError[];
+}
