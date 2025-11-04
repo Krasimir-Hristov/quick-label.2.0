@@ -6,7 +6,11 @@ interface CheckListItemProps {
   onToggle: (index: number) => void;
 }
 
-export default function CheckListItem({ data, index, onToggle }: CheckListItemProps) {
+export default function CheckListItem({
+  data,
+  index,
+  onToggle,
+}: CheckListItemProps) {
   return (
     <div className='flex items-center gap-4 p-4 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors'>
       {/* ArtikelNr */}

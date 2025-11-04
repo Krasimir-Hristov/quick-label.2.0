@@ -167,7 +167,9 @@ export default function CheckListePage() {
   // Функция за toggle на checkbox
   const handleToggleItem = (index: number) => {
     setCheckListData((prev) =>
-      prev.map((item, i) => (i === index ? { ...item, checked: !item.checked } : item))
+      prev.map((item, i) =>
+        i === index ? { ...item, checked: !item.checked } : item
+      )
     );
   };
 
