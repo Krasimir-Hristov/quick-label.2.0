@@ -1,8 +1,4 @@
-import {
-  ProcessedCheckItem,
-  ProcessingError,
-  CheckListResult,
-} from '@/types';
+import { ProcessedCheckItem, ProcessingError, CheckListResult } from '@/types';
 
 // Преизползваме normalize функциите от productProcessor
 const normalizeKey = (val: unknown): string => {
