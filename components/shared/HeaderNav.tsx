@@ -35,18 +35,23 @@ export default function HeaderNav() {
   };
 
   return (
-    <header className="bg-black border-b-4 border-[#a8c706] sticky top-0 z-50">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-20">
+    <header className='bg-black border-b-4 border-[#a8c706] sticky top-0 z-50'>
+      <div className='container mx-auto px-4'>
+        <div className='flex items-center justify-between h-20'>
           {/* Logo и навигация */}
-          <div className="flex items-center gap-8">
-            <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-              <Rabbit className="w-8 h-8 text-[#a8c706]" />
-              <div className="text-white font-extrabold text-2xl">KÖLLE ZOO</div>
-              <Dog className="w-8 h-8 text-[#a8c706]" />
+          <div className='flex items-center gap-8'>
+            <Link
+              href='/'
+              className='flex items-center gap-3 hover:opacity-80 transition-opacity'
+            >
+              <Rabbit className='w-8 h-8 text-[#a8c706]' />
+              <div className='text-white font-extrabold text-2xl'>
+                KÖLLE ZOO
+              </div>
+              <Dog className='w-8 h-8 text-[#a8c706]' />
             </Link>
 
-            <nav className="hidden md:flex items-center gap-2">
+            <nav className='hidden md:flex items-center gap-2'>
               {navigationItems.map((item) => (
                 <Link
                   key={item.href}
@@ -67,7 +72,7 @@ export default function HeaderNav() {
           {isLoggedIn && (
             <button
               onClick={handleLogout}
-              className="flex items-center gap-2 bg-[#a8c706] text-black font-semibold py-2 px-4 rounded-lg shadow-sm hover:bg-[#97b305] transition-colors cursor-pointer"
+              className='flex items-center gap-2 bg-[#a8c706] text-black font-semibold py-2 px-4 rounded-lg shadow-sm hover:bg-[#97b305] transition-colors cursor-pointer'
             >
               <LogOut size={18} />
               Abmelden
@@ -76,7 +81,7 @@ export default function HeaderNav() {
         </div>
 
         {/* Mobile навигация */}
-        <div className="md:hidden flex gap-2 pb-3">
+        <div className='md:hidden flex gap-2 pb-3'>
           {navigationItems.map((item) => (
             <Link
               key={item.href}
