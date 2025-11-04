@@ -1,5 +1,12 @@
 import { FeatureCard } from '@/components/shared/FeatureCard';
-import { Tag, FileText, BarChart3, Settings, PawPrint } from 'lucide-react';
+import {
+  Tag,
+  FileText,
+  BarChart3,
+  Settings,
+  PawPrint,
+  ClipboardCheck,
+} from 'lucide-react';
 
 export default function HomePage() {
   return (
@@ -28,27 +35,12 @@ export default function HomePage() {
             />
 
             <FeatureCard
-              title='Rechnungen'
-              description='Erstellen und verwalten Sie Rechnungen. Automatische Berechnung von Summen und Generierung von PDF-Dokumenten.'
-              href='/invoices'
-              icon={FileText}
-              isActive={false}
-            />
-
-            <FeatureCard
-              title='Berichte'
-              description='Überblick über Statistiken und Analysen. Visualisierung von Daten und Export in verschiedene Formate.'
-              href='/reports'
-              icon={BarChart3}
-              isActive={false}
-            />
-
-            <FeatureCard
-              title='Einstellungen'
-              description='Systemkonfiguration. Verwaltung von Benutzern, Vorlagen und Präferenzen.'
-              href='/settings'
-              icon={Settings}
-              isActive={false}
+              title='Check-Liste'
+              description='Erstellen und verwalten Sie Check-Listen für verschiedene Aufgaben und Prozesse.'
+              href='/check-liste'
+              icon={ClipboardCheck}
+              isActive={true}
+              badge='Neu'
             />
           </div>
         </div>

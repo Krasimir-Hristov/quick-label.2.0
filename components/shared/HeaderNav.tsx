@@ -9,6 +9,7 @@ import { Rabbit, Dog, LogOut } from 'lucide-react';
 const navigationItems = [
   { name: 'Startseite', href: '/' },
   { name: 'Etiketten', href: '/labels' },
+  { name: 'Check-Liste', href: '/check-liste' },
 ];
 
 export default function HeaderNav() {
