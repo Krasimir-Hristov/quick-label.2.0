@@ -29,7 +29,11 @@ const normalizeVal = (val: unknown): string => {
     .replace(/\s+/g, ' ');
 };
 
-export const getSafeValue = (product: Record<string, any>, keyName: string): string | null => { // eslint-disable-line @typescript-eslint/no-explicit-any
+export const getSafeValue = (
+  product: Record<string, any>,
+  keyName: string
+): string | null => {
+  // eslint-disable-line @typescript-eslint/no-explicit-any
   const normalizedKeyName = normalizeKey(keyName);
 
   for (const key in product) {
@@ -48,7 +52,10 @@ export const getSafeValue = (product: Record<string, any>, keyName: string): str
  * @param aktionStr - Отстъпката като стринг (с % или €) или null
  * @returns Обект с originalPrice и finalPrice като числа
  */
-export const calculatePrices = (originalPriceStr: string, aktionStr: string | null): { originalPrice: number; finalPrice: number } => {
+export const calculatePrices = (
+  originalPriceStr: string,
+  aktionStr: string | null
+): { originalPrice: number; finalPrice: number } => {
   const originalPrice = parseFloat(originalPriceStr.replace(',', '.'));
 
   if (isNaN(originalPrice)) {
@@ -69,7 +76,7 @@ export const calculatePrices = (originalPriceStr: string, aktionStr: string | nu
       }
     }
   }
-  
+
   return {
     originalPrice: parseFloat(originalPrice.toFixed(2)),
     finalPrice: parseFloat(finalPrice.toFixed(2)),
@@ -86,7 +93,10 @@ export const determineRegion = (
 ): 'GermanyD1' | 'GermanyD2' | 'Austria' | 'Benelux' | null => {
   // Normalize: lowercase, trim, remove diacritics, keep letters/digits/spaces
   const base = normalizeVal(preisschiene);
-  const plain = base.replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ').trim();
+  const plain = base
+    .replace(/[^a-z0-9 ]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
 
   // Austria: match 'osterreich' anywhere
   if (plain.includes('osterreich')) {
@@ -112,7 +122,10 @@ export const determineRegion = (
  * @param rawProducts - Масив от сурови обекти от Excel
  * @returns Promise с обработени продукти, разделени по региони, и грешки
  */
-export const processProducts = async (rawProducts: Record<string, any>[]): Promise<ProcessingResult> => { // eslint-disable-line @typescript-eslint/no-explicit-any
+export const processProducts = async (
+  rawProducts: Record<string, any>[]
+): Promise<ProcessingResult> => {
+  // eslint-disable-line @typescript-eslint/no-explicit-any
   const germanyD1Products: ProcessedProduct[] = [];
   const germanyD2Products: ProcessedProduct[] = [];
   const austriaProducts: ProcessedProduct[] = [];
@@ -127,6 +140,7 @@ export const processProducts = async (rawProducts: Record<string, any>[]): Promi
       const verkaufspreis = getSafeValue(product, 'verkaufspreis kölle-zoo');
       const preisschiene = getSafeValue(product, 'preisschiene');
       const aktion = getSafeValue(product, 'aktion');
+      const gultigkeit = getSafeValue(product, 'gültigkeit');
 
       // Ако полето Aktion е празно, пропускаме този запис изцяло (не го обработваме/не го избираме)
       if (normalizeVal(aktion) === '') {
@@ -135,17 +149,24 @@ export const processProducts = async (rawProducts: Record<string, any>[]): Promi
 
       // Валидация на задължителни полета
       if (!verkaufspreis || !preisschiene) {
-        const productName = artikelbezeichnung || getSafeValue(product, 'artikelnr') || getSafeValue(product, 'ursprungsland') || 'Неизвестен продукт';
+        const productName =
+          artikelbezeichnung ||
+          getSafeValue(product, 'artikelnr') ||
+          getSafeValue(product, 'ursprungsland') ||
+          'Неизвестен продукт';
         errors.push({
           productName: productName,
           message: `Fehlende erforderliche Felder für "${productName}": Verkaufspreis oder Preisschiene`,
-          productData: product
+          productData: product,
         });
         continue;
       }
 
       // Изчисляваме цените
-      const { originalPrice, finalPrice } = calculatePrices(verkaufspreis, aktion);
+      const { originalPrice, finalPrice } = calculatePrices(
+        verkaufspreis,
+        aktion
+      );
 
       // Определяме региона
       const region = determineRegion(preisschiene);
@@ -158,7 +179,9 @@ export const processProducts = async (rawProducts: Record<string, any>[]): Promi
       const processedProduct: ProcessedProduct = {
         artikelbezeichnung: artikelbezeichnung || 'Неизвестен продукт',
         originalPrice: originalPrice.toFixed(2),
-        finalPrice: finalPrice.toFixed(2)
+        finalPrice: finalPrice.toFixed(2),
+        gultigkeit:
+          gultigkeit && gultigkeit.trim() !== '' ? gultigkeit : undefined,
       };
 
       // Добавяме към правилния масив
@@ -176,23 +199,24 @@ export const processProducts = async (rawProducts: Record<string, any>[]): Promi
           germanyD2Products.push(processedProduct);
           break;
       }
-
     } catch (error) {
-      const productName = getSafeValue(product, 'artikelbezeichnung') || 'Неизвестен продукт';
+      const productName =
+        getSafeValue(product, 'artikelbezeichnung') || 'Неизвестен продукт';
       errors.push({
         productName: productName,
-        message: `Fehler bei der Verarbeitung von "${productName}": ${error instanceof Error ? error.message : 'Unbekannter Fehler'}`,
-        productData: product
+        message: `Fehler bei der Verarbeitung von "${productName}": ${
+          error instanceof Error ? error.message : 'Unbekannter Fehler'
+        }`,
+        productData: product,
       });
     }
   }
-
 
   return {
     germanyD1Products,
     germanyD2Products,
     austriaProducts,
     beneluxProducts,
-    errors
+    errors,
   };
 };

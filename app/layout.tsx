@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
-import Header from '../components/Header';
-import { AuthProvider } from '../components/AuthContext';
-import { lexiaStd, dinEngschriftStd } from '../lib/fonts';
+import HeaderNav from '@/components/shared/HeaderNav';
+import { AuthProvider } from '@/components/AuthContext';
+import { lexiaStd, dinEngschriftStd } from '@/lib/features/labels/fonts';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -31,7 +31,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${lexiaStd.variable} ${dinEngschriftStd.variable} antialiased`}
       >
         <AuthProvider>
-          <Header />
+          <HeaderNav />
           <main>{children}</main>
         </AuthProvider>
       </body>

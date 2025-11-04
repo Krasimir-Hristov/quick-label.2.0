@@ -76,6 +76,11 @@ export default function LabelForPrint({ data, index }: LabelForPrintProps) {
 
         {/* Цена */}
         <div className='pf-price'>{formatPrice(data.verkaufspreis)}</div>
+
+        {/* Gültigkeit под цената */}
+        {data.gultigkeit && (
+          <div className='pf-gultigkeit'>{data.gultigkeit}</div>
+        )}
       </div>
     </div>
   );
