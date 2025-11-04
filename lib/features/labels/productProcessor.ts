@@ -181,7 +181,9 @@ export const processProducts = async (
         originalPrice: originalPrice.toFixed(2),
         finalPrice: finalPrice.toFixed(2),
         aktionszeitraum:
-          aktionszeitraum && aktionszeitraum.trim() !== '' ? aktionszeitraum : undefined,
+          aktionszeitraum && aktionszeitraum.trim() !== ''
+            ? aktionszeitraum
+            : undefined,
       };
 
       // Добавяме към правилния масив
