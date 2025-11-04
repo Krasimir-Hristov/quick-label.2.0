@@ -7,8 +7,10 @@ import CheckListUpload, {
   CheckListUploadRef,
 } from '@/components/check-liste/CheckListUpload';
 import CheckListPreview from '@/components/check-liste/CheckListPreview';
+import CheckListSheetForPrint from '@/components/check-liste/CheckListSheetForPrint';
 import { processCheckListItems } from '@/lib/features/check-liste/checkListProcessor';
 import { Button } from '@/components/ui/button';
+import { useReactToPrint } from 'react-to-print';
 
 export default function CheckListePage() {
   // State за съхраняване на парсваните данни от Excel файла
@@ -48,6 +50,9 @@ export default function CheckListePage() {
 
   // Ref за upload компонента
   const uploadRef = useRef<CheckListUploadRef>(null);
+
+  // Ref за print компонента
+  const printComponentRef = useRef<HTMLDivElement>(null);
 
   // Прочитаме 'user' cookie от клиента
   useEffect(() => {
@@ -173,6 +178,12 @@ export default function CheckListePage() {
     );
   };
 
+  // Функция за принтиране на check-liste
+  const handlePrint = useReactToPrint({
+    contentRef: printComponentRef,
+    documentTitle: 'Check-Liste',
+  });
+
   return (
     <main className='min-h-screen bg-black py-8'>
       <div className='container mx-auto px-4'>
@@ -257,6 +268,13 @@ export default function CheckListePage() {
           {checkListData.length > 0 && (
             <div className='mt-6 text-center space-y-3'>
               <Button
+                onClick={handlePrint}
+                className='w-full cursor-pointer text-xl font-bold bg-[#a8c706] text-black hover:bg-[#97b305]'
+              >
+                Drucken
+              </Button>
+
+              <Button
                 onClick={handleClear}
                 className='w-full cursor-pointer text-xl font-bold bg-red-600 text-white hover:bg-red-700'
               >
@@ -271,6 +289,14 @@ export default function CheckListePage() {
           checkListData={checkListData}
           onToggleItem={handleToggleItem}
         />
+
+        {/* Невидим компонент за печат */}
+        <div style={{ display: 'none' }}>
+          <CheckListSheetForPrint
+            ref={printComponentRef}
+            checkListData={checkListData}
+          />
+        </div>
       </div>
     </main>
   );
