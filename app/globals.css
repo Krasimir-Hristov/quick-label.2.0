@@ -485,10 +485,6 @@
   }
 
   /* --- CHECK-LISTE PRINT СТИЛОВЕ --- */
-  .print-root-container:has(.checklist-print-table) {
-    padding-top: 30px !important;
-  }
-
   .checklist-print-table {
     width: 90%;
     max-width: 800px;
@@ -508,6 +504,17 @@
     print-color-adjust: exact;
   }
 
+  /* Добавяме padding отгоре на thead за да има разстояние на всяка страница */
+  .checklist-print-table thead {
+    display: table-header-group;
+  }
+
+  .checklist-print-table thead::before {
+    content: '';
+    display: block;
+    height: 30px;
+  }
+
   .checklist-print-table td {
     border: 1px solid #000;
     padding: 10px 15px;
@@ -523,11 +530,6 @@
 
   .checklist-print-table tbody tr {
     page-break-inside: avoid;
-  }
-
-  /* Повтаряме header-а на всяка страница */
-  .checklist-print-table thead {
-    display: table-header-group;
   }
 
   .checklist-print-table tbody {
